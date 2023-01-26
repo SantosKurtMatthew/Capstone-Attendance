@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		table, th, td, tr{
+			border:1px solid black;
+			text-align: center;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.tablebox{
+			padding-top: 50px;
+			
+		}
+
+	</style>
+</head>
+	<div class="tablebox">
+		<table>
+			<tr>
+				<th style="width:10%"> CN </th>
+				<th style="width:40%"> Email</th>
+				<th style="width:10%"> Grade&Section</th>
+				<th style="width:10%"> Lates </th>
+				<th style="width:10%"> Absents </th>
+			</tr>
+			
+				{% for instance in object_list %}
+					<tr>
+						<td>{{ instance.classnumber }}</td>
+						<td>{{ instance.id }}-{{ instance.email }}</td>
+						<td>{{ instance.grade }} {{ instance.section}}</td>
+						<td>{{ instance.lates }}</td>
+						<td>{{ instance.absents }}</td>
+					</tr>
+				{% endfor %}
+		</table>
+	</div>
+	
+	<p>{{ latestobject }}</p>
+	<p>{{ latestobject.integer }}</p>
+</body>
+</html>

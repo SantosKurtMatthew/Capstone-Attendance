@@ -1,0 +1,22 @@
+<h1>SUBMIT FORM</h1>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+
+
+	</style>
+</head>
+
+<body>
+	<form method='POST'>{% csrf_token %}
+		{{ form.as_p}}
+		<input type="submit" value='save' />
+	
+	</form>
+
+	<p>{{ latestobject.integer }}</p>
+</body>
+
