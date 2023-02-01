@@ -1,16 +1,20 @@
-<h1>SUBMIT FORM</h1>
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
 	<style type="text/css">
-
-
+		h1{
+			margin-top: 0;
+		}
 	</style>
 </head>
 
 <body>
+	{% extends 'navbar.html' %}
+
+	{% block content %}
+	<h1>SUBMIT FORM</h1>
 	<form method='POST'>{% csrf_token %}
 		{{ form.as_p}}
 		<input type="submit" value='save' />
@@ -18,5 +22,16 @@
 	</form>
 
 	<p>{{ latestobject.integer }}</p>
+	<p>time now is {{ timenow }}</p>
+	
+
+	<script type="text/javascript">
+		var submissionpage = document.getElementById('submission');
+		submissionpage.style.backgroundColor = 'darkblue'
+		submissionpage.style.color = 'white'
+	</script>
+	{% endblock %}
+
+
 </body>
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		.flexcontainer{
+			width: 100%;
+			border: 1px solid red;
+			display: flex;
+			float: right;
+
+		}
+		.flexcontainer > a{
+			text-align: center;
+			height: 30px;
+			width: 10%;
+			background-color: lightblue;
+			border: 1px solid black;
+			margin-left: auto;
+			margin-right: 0;
+		}
+		.flexcontainer > a{
+
+		}
+		.lastitem{
+
+		}
+		.leftbox{
+			width: 60%;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="flexcontainer">
+		<div class="leftbox">Left Box</div>
+		<a href="{% url 'attendance_submit' %}" id="submission"><div>Attendance Submission</div></a>	
+		<a href="{% url 'attendance_code' %}" id="integer"><div>Daily Code</div></a>
+		<a href="{% url 'student_database' %}" id="database"><div>Student Database</div></a>
+		<a href="{% url 'new_studentinfo' %}" class='lastitem' id="newstudent"><div>Insert New Student</div></a>
+		
+	</div>
+	{% block content %}
+	{% endblock %}
+	
+		
+
+	
+	
+</body>
+</html>

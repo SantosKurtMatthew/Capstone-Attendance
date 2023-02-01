@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from student_attendance.views import homepage_view, attendancecode_view, attendancesubmit_view, studentdatabase_view, newstudent_view
+from student_attendance.views import homepage_view, attendancecode_view, attendancesubmit_view, studentdatabase_view, newstudent_view, navbar_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage_view, name="homepage"),
@@ -24,4 +24,5 @@ urlpatterns = [
     path('attendance/', attendancecode_view, name='attendance_code'),
     path('database/', studentdatabase_view, name='student_database'),
     path('newstudent/', newstudent_view, name='new_studentinfo'),
+    path('navbar/', navbar_view, name='nav-bar')
 ]

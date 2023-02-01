@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Attendance, Students, DailyInteger
+from .models import Attendance, Students, DailyInteger, StartingTime
 
 
 #ISSUE: Form doesnt change even if page does
@@ -16,8 +16,16 @@ class AttendanceForm(forms.ModelForm):
 			'password',
 		]
 
-	
-	
+	def cleanemail(self, *args, **kwargs):
+		cleanemail = self.cleaned_data.get('email')
+		emailqueryset = Students.objects.filter(email=cleanemail)
+		exists = emailqueryset.exists()
+
+		if exists == True:
+			return cleanemail
+		else:
+			raise forms.ValidationError('wrong code')
+
 	def clean_password(self, *args, **kwargs):
 		dailycode = DailyInteger.objects.latest('id').integer
 		cleanpassword = self.cleaned_data.get('password')
@@ -25,13 +33,6 @@ class AttendanceForm(forms.ModelForm):
 			return cleanpassword
 		else: 
 			raise forms.ValidationError('wrong code')
-
-	#def checkinteger(self, *args, **kwargs):
-		#submittedinteger = self.cleaned_data.get('password')
-		#if submittedinteger == dailycode:
-			#return submittedinteger
-		#else: 
-			#raise forms.ValidationError("wrong code")
 	
 
 class StudentsInfoForm(forms.ModelForm):
@@ -44,6 +45,14 @@ class StudentsInfoForm(forms.ModelForm):
 			'classnumber',
 			'lates',
 			'absents',
+		]
+
+class ChangeStartingTime(forms.ModelForm):
+	class Meta:
+		model = StartingTime
+		fields = [
+			'grade',
+			'starttime',
 		]
 
 	

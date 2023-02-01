@@ -17,3 +17,9 @@ class Students(models.Model):
 class DailyInteger(models.Model):
 	integer = models.IntegerField(default=0)
 	creation_time = models.DateTimeField(auto_now=True)
+
+class StartingTime(models.Model):
+	grade = models.IntegerField(default=0)
+	starttime = models.TimeField(default='7:00')
+
+

@@ -15,15 +15,98 @@
 			padding-top: 50px;
 			
 		}
-
+		select{
+			width: 30%;
+			height: 50px;
+			text-align: center;
+			font-size: 30px;
+			font-family: serif;
+			margin-left: auto;
+			margin-right: auto;
+			border: 1px solid red;
+		}
+		.dropdowncontainer{
+			border:1px solid black;
+			
+			width: 30%;
+			margin-left: auto;
+			margin-right: auto;
+		}
 	</style>
+	<script type="text/javascript">
+		//Obtained from https://www.youtube.com/watch?v=LkVA3AWmkQQ
+		function sortGradeLevel(){
+			var gradeinput = document.getElementById('gradelevel');
+			var gradefilter = gradeinput.value
+
+			var sectioninput = document.getElementById('section');
+			var sectionfilter = sectioninput.value
+
+			var table = document.getElementById('studenttable')
+			var tr = table.getElementsByTagName('tr');
+			
+
+			for(i=0; i < tr.length; i++){
+				var gradecolumn = tr[i].getElementsByTagName('td')[2];
+				var sectioncolumn = tr[i].getElementsByTagName('td')[3];
+
+				if(gradecolumn && sectioncolumn){
+					var gcvalue = gradecolumn.innerText; //it means gradecolumnvalue
+					var scvalue = sectioncolumn.innerText;
+
+					if(gcvalue.indexOf(gradefilter)>-1 && scvalue.indexOf(sectionfilter)>-1){
+						tr[i].style.display='';
+	
+					}
+					else{
+						tr[i].style.display='none';
+					}
+				}
+			}	
+		}
+
+		
+		
+	</script>
 </head>
+
+<body>
+	{% extends 'navbar.html' %}
+
+	{% block content %}
+	<div class ='dropdowncontainer'>
+		<label>Grade and Section</label><br>
+		<select id='gradelevel' onclick='sortGradeLevel()'>
+			<option value='all'>ALL</option>
+			<option value='7'>7</option>
+			<option value='8'>8</option>
+			<option value='9'>9</option>
+			<option value='10'>10</option>
+			<option value='11'>11</option>
+			<option value='12'>12</option>
+		</select>
+		<select id='section' onclick='sortGradeLevel()'>
+			<option value='all'>ALL</option>
+			<option value='Faith'>Faith</option>
+			<option value='Hope'>Hope</option>
+			<option value='Love'>Love</option>
+			<option value='ABM'>ABM</option>
+			<option value='HUMSS'>HUMSS</option>
+			<option value='STEM'>STEM</option>
+		</select>	
+	</div>
+	
+	
+
+	
+
 	<div class="tablebox">
-		<table>
+		<table id='studenttable'>
 			<tr>
 				<th style="width:10%"> CN </th>
 				<th style="width:40%"> Email</th>
-				<th style="width:10%"> Grade&Section</th>
+				<th style="width:10%"> Grade </th>
+				<th style="width:10%"> Section </th>
 				<th style="width:10%"> Lates </th>
 				<th style="width:10%"> Absents </th>
 			</tr>
@@ -32,7 +115,8 @@
 					<tr>
 						<td>{{ instance.classnumber }}</td>
 						<td>{{ instance.id }}-{{ instance.email }}</td>
-						<td>{{ instance.grade }} {{ instance.section}}</td>
+						<td>{{ instance.grade }} </td>
+						<td>{{ instance.section}}</td>
 						<td>{{ instance.lates }}</td>
 						<td>{{ instance.absents }}</td>
 					</tr>
@@ -42,5 +126,18 @@
 	
 	<p>{{ latestobject }}</p>
 	<p>{{ latestobject.integer }}</p>
+
+	<script type="text/javascript">
+		var submissionpage = document.getElementById('database');
+		submissionpage.style.backgroundColor = 'darkblue'
+		submissionpage.style.color = 'white'
+	</script>
+
+	{% endblock %}
 </body>
 </html>
+
+
+<!--<form method='POST'>{% csrf_token %}
+	</form> -->
+
