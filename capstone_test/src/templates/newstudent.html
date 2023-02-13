@@ -5,43 +5,58 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
 	<style type="text/css">
-		#studentformbox{
-			height: 300px;
-			width: 30%;
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			border: 1px solid red;
+		.outsidebox{
 			
+			height: 99%;
+			border: 1px solid blue;
+			background-color: #b3e8cd;
 		}
-		#studentformbox form{
-			width: 50%;
+		#formbox {
+			display: flex;
+		}
+		#formbox form{
+			padding-top: 1%;
+			width: 25%;
 			display: block;
 			margin-left: auto;
 			margin-right: auto;
+			margin-top: 10%;
 			border: 1px solid black;
+			background-color: white;
+
 			text-align: center;
+			background-color: #046433;
+			color: #b3e8cd;
+			
 		}
-		.paddingbox{
-			padding-top: 50px;
-			
-			
+		input{
+			background-color: #b3e8cd;
+			color: #046433;
+			text-align: center;
+			height: 30px;
+			width: 60%;
+
+		}
+		
+		.submitbutton{
+			width: 100px;
 		}
 
 	
 	</style>
 </head>
-<body> 
+<body style="height: 100%;"> 
 	{% extends 'navbar.html' %}
 
 	{% block content %}
 	
 	
-	<div class='paddingbox'>
-		<div id='studentformbox'>
+	<div class='outsidebox'>
+		<div id='formbox'>
 			<form method='POST'>{% csrf_token %}
 				{{ form.as_p }}
-				<input type="submit" value='save' />
+				
+				<input type="submit" value='SAVE' class='submitbutton'>
 			</form>	
 		</div>	
 	</div>

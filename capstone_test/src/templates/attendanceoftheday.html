@@ -5,21 +5,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
 	<style type="text/css">
-		table, th, td, tr{
-			border:1px solid black;
+		table,tr,th,td{
+			border: 1px solid black;
 			text-align: center;
+		}
+		table{
 			margin-left: auto;
 			margin-right: auto;
-		}
-		.tablebox{
-			padding-top: 50px;
-			
 		}
 		select{
 			width: 30%;
 			height: 50px;
 			text-align: center;
-			font-size: 50px;
+			font-size: 30px;
 			font-family: serif;
 			margin-left: auto;
 			margin-right: auto;
@@ -32,7 +30,6 @@
 			margin-left: auto;
 			margin-right: auto;
 		}
-		
 	</style>
 	<script type="text/javascript">
 		//Obtained from https://www.youtube.com/watch?v=LkVA3AWmkQQ
@@ -48,8 +45,8 @@
 			
 
 			for(i=0; i < tr.length; i++){
-				var gradecolumn = tr[i].getElementsByTagName('td')[2];
-				var sectioncolumn = tr[i].getElementsByTagName('td')[3];
+				var gradecolumn = tr[i].getElementsByTagName('td')[4];
+				var sectioncolumn = tr[i].getElementsByTagName('td')[5];
 
 				if(gradecolumn && sectioncolumn){
 					var gcvalue = gradecolumn.innerText; //it means gradecolumnvalue
@@ -65,16 +62,14 @@
 				}
 			}	
 		}
-
-		
-		
 	</script>
 </head>
-
 <body onload="sortGradeLevel()">
 	{% extends 'navbar.html' %}
 
 	{% block content %}
+	<h1 style="margin-top: 0px;">ATTENDANCE OF THE DAY</h1>
+
 	<div class ='dropdowncontainer'>
 		<label>Grade and Section</label><br>
 		<select id='gradelevel' onclick='sortGradeLevel()'>
@@ -96,56 +91,36 @@
 			<option value='STEM'>STEM</option>
 		</select>	
 	</div>
-	
-	
 
-	
-
-	<div class="tablebox">
-		<table id='studenttable'>
+	<table id='studenttable'>
 			<tr>
 				<th style="width:10%"> CN </th>
 				<th style="width:40%"> Email</th>
-				<th style="width:10%" id='notneeded'> Grade </th>
-				<th style="width:10%" id='notneeded'> Section </th>
-				<th style="width:10%"> Lates </th>
-				<th style="width:10%" > Absents </th>
-				<th style="width:5%"> SPR </th>
-				<th style="width:5%"> Sex </th>
+				<th style="width:10%"> Late </th>
+				<th style="width:10%"> Absent </th>
+				<th style="width:10%"> Grade </th>
+				<th style="width:10%"> Section </th>
 			</tr>
 			
 				{% for instance in object_list %}
 					<tr>
 						<td>{{ instance.classnumber }}</td>
 						<td>{{ instance.id }}-{{ instance.email }}</td>
-						<td id='notneeded'>{{ instance.grade }} </td>
-						<td id='notneeded'>{{ instance.section}}</td>
-						<td>{{ instance.lates }}</td>
-						<td>{{ instance.absents }}</td>
-						<td>{{ instance.spr }}</td>
-						<td>{{ instance.sex }}</td>
+						<td>{{ instance.latetoday }} </td>
+						<td>{{ instance.absenttoday}}</td>
+						<td>{{ instance.grade}}</td>
+						<td>{{ instance.section}}</td>
+
 					</tr>
 				{% endfor %}
 		</table>
-	</div>
-	
-	<p>{{ latestobject }}</p>
-	<p>{{ latestobject.integer }}</p>
 
-	<script type="text/javascript">
-		var submissionpage = document.getElementById('database');
-		submissionpage.style.backgroundColor = 'darkblue'
-		submissionpage.style.color = 'white'
-	</script>
-
+		<script type="text/javascript">
+			var submissionpage = document.getElementById('todayattendance');
+			submissionpage.style.backgroundColor = 'darkblue'
+			submissionpage.style.color = 'white'
+			
+		</script>
 	{% endblock %}
 </body>
 </html>
-
-
-<!--<form method='POST'>{% csrf_token %}
-	</form> 
-#notneeded{
-	display: none;
-}-->
-
