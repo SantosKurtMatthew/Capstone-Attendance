@@ -1,4 +1,4 @@
-from .models import Attendance, Students, DailyInteger
+from .models import AttendanceSubmit, Students, DailyInteger
 
 
 

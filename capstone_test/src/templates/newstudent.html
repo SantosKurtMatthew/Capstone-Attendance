@@ -5,43 +5,75 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
 	<style type="text/css">
-		#studentformbox{
-			height: 300px;
-			width: 30%;
+		.outsidebox{
+			
+			height: 90%;
+			
+			background-color: #b3e8cd;
+		}
+		#formbox {
+			display: flex;
+		}
+		#formbox form{
+			padding-top: 10px;
+			padding-bottom: 10px;
+			width: 500px;
 			display: block;
 			margin-left: auto;
 			margin-right: auto;
-			border: 1px solid red;
-			
-		}
-		#studentformbox form{
-			width: 50%;
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			border: 1px solid black;
-			text-align: center;
-		}
-		.paddingbox{
-			padding-top: 50px;
+			margin-top: 10%;
 			
 			
-		}
 
+			text-align: center;
+			background-color: #046433;
+			color: #b3e8cd;
+			
+		}
+		input{
+			background-color: #b3e8cd;
+			color: black;
+			text-align: center;
+			box-shadow: 8px 8px #d2e9d9;
+			border: none;
+			
+			
+
+			height: 50px;
+			width: 60%;
+			font-weight: bold;
+
+		}
+		
+		.submitbutton{
+			width: 100px;
+			box-shadow: none;
+		}
+		.sexselect{
+			background-color: #b3e8cd;
+			border: none;
+			width: 100px;
+			border-radius: 25px;
+
+			color: black;
+			text-align: center;
+
+		}
 	
 	</style>
 </head>
-<body> 
+<body style="height: 100%;"> 
 	{% extends 'navbar.html' %}
 
 	{% block content %}
 	
 	
-	<div class='paddingbox'>
-		<div id='studentformbox'>
+	<div class='outsidebox'>
+		<div id='formbox'>
 			<form method='POST'>{% csrf_token %}
 				{{ form.as_p }}
-				<input type="submit" value='save' />
+				
+				<input type="submit" value='SAVE' class='submitbutton'>
 			</form>	
 		</div>	
 	</div>
@@ -49,6 +81,10 @@
 		
 
 	<script type="text/javascript">
+		var submissionpage = document.getElementById('navbarDropdownstudent');
+		submissionpage.style.backgroundColor = 'darkblue'
+		submissionpage.style.color = 'white'
+
 		var submissionpage = document.getElementById('newstudent');
 		submissionpage.style.backgroundColor = 'darkblue'
 		submissionpage.style.color = 'white'
