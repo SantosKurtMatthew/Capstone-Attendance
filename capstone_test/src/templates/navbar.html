@@ -11,62 +11,16 @@
 			margin-top: 0;
 			margin:0;
 		}
-		.flexcontainer{
-			width: 100%;
-			border: 1px solid #d5ddda;
-			display: flex;
-			float: right;
-			margin-left: 0;
-
-
-		}
-		.flexcontainer > a{
-			text-align: center;
-			width: 15%;
-			border: 1px solid #d5ddda;
-			margin-left: auto;
-			margin-right: 0;
-
-
-			background-color: white;
-			color: black;
-			text-decoration: none;
-			font-family: Arial, sans-serif;
-			padding: 10px;
-			font-size: 20px;
-
-		}
-		#dropdownMenuButton{
-			height: 100%;
-			text-align: center;
-			width: 100%;
-			border: 1px solid #d5ddda;
-			margin-left: auto;
-			margin-right: 0;
-
-
-			background-color: red;
-			color: black;
-			text-decoration: none;
-			font-family: Arial, sans-serif;
-			font-size: 20px;
-			padding: 10px;
-			
-		}
-		.leftbox{
-			width: 60%;
-			background-color: white;
-		}
 
 
 		li{
 			height: 75px;
 			width: 150px;
-			text-align: center;	
+				
 		}
 		
 		.nav-link{
-			border: 1px solid black;
+			border: 1px solid #d5ddda;
 			height: 100%;
 			align-items: center;
     		display: flex;
@@ -77,10 +31,16 @@
     	#studentcreatedelete{
     		z-index: 100;
     	}
-
+    	@media all and (max-width: 20736px) {
+    	  /* put your css styles in here */
+    	  li{
+			height: 75px;
+			width: 100%;
+			}
+    	}
 	</style>
 </head>
-<body>
+<body style="background-color: #b3e8cd;">
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-static">
 
@@ -88,13 +48,16 @@
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
 
-	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	  <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
 	    <ul class="navbar-nav ml-auto">
-	      <li class="nav-item active">
-	        <a class="nav-link" href="{% url 'attendance_submit' %}" id="submission">Attendance Submit <span class="sr-only">(current)</span></a>
-	      </li>
 	      <li class="nav-item">
-	        <a class="nav-link" href="{% url 'attendance_code' %}" id="integer">Daily Code</a>
+	        <a class="nav-link text-muted" href="{% url 'attendance_submit' %}" id="submission">Attendance Submit <span class="sr-only">(current)</span></a>
+	      <li class="nav-item ">
+	        <a class="nav-link " href="{% url 'instructions' %}" id="instructions">Instructions</a>
+	      </li>
+	      </li>
+	      <li class="nav-item ">
+	        <a class="nav-link " href="{% url 'attendance_code' %}" id="integer">Daily Password & Start Times</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="{% url 'today_attendance' %}" id="todayattendance">Daily Attendance</a>

@@ -7,8 +7,8 @@ from .models import AttendanceSubmit, Students, DailyInteger, StartingTime
 #FIND A WAY TO MAKE THE FORM REFRESH AS WELL
 
 class AttendanceForm(forms.ModelForm):
-	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':"Email"}))
-	password = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':"Password"}))
+	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':"Email"}), label='')
+	password = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':" Daily Password"}), label='')
 	class Meta:
 		model = AttendanceSubmit
 		fields = [
@@ -90,7 +90,10 @@ class ChangeStartingTime(forms.ModelForm):
 		]
 
 class DeleteStudent(forms.Form):
-	studentid = forms.IntegerField()
+	studentid = forms.IntegerField(widget=forms.TextInput(attrs={
+		'placeholder':"Student's Database ID",
+		'required':True,
+		}), label='')
 
 
 	

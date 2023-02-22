@@ -1,4 +1,13 @@
-<h1>User Log In</h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+{% extends 'navbar.html' %}
+{% block content %}
 
 <form method='POST'>{% csrf_token %}
 	{{ form.as_p}}
@@ -7,3 +16,9 @@
 	{% endif %}
 	<input type="submit" value='save' />
 </form>
+
+{% endblock %}
+</body>
+</html>
+<h1>User Log In</h1>
+

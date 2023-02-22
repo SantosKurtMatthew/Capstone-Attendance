@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		h1{
+			margin-top: 0;
+		}
+		#outsidebox{
+			padding-top: 30px;
+			padding-bottom: 30px;
+			border: 1px solid red;
+		}
+		#insidebox{
+			padding: 30px;
+			
+			width: 450px;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+			background-color: #046433;
+			color: #b3e8cd;
+
+		}
+		#codebox{
+			width: 300px;
+			height: 150px;
+			background-color: white;
+			margin-left: auto;
+			margin-right: auto;
+			border-radius: 10px;
+			color: black;
+			text-align: center;
+			vertical-align: middle;
+			
+
+		}
+		#tablebox{
+			width: 400px;
+			padding: 10px;
+			background-color: #046433;
+			margin-left: auto;
+			margin-right: auto;
+			
+		}
+		table{
+			width: 100%;
+		}
+		table, tr, th, td{
+			border: 1px solid white;
+			text-align: center;
+			margin-right: auto;
+			margin-left: auto;
+			color: white;
+		}
+		#timeform{
+			margin-right: auto;
+			margin-left: auto;
+			width: 20%;
+			border: 1px solid orange;
+		}
+		#buttonbox{
+			width: 164px;
+			margin-left: auto;
+			margin-right: auto;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	{% extends 'navbar.html' %}
+
+	{% block content %}
+	
+	<div id='outsidebox'>
+		<div id='insidebox'>
+			<h1 class="font-weight-bold" style="padding-bottom: 7px;">Code of the Day</h1>
+			<div id='codebox' class="d-flex align-items-center justify-content-center"><h1 class="display-3 font-weight-normal">{{ dailycode }}</h1></div>
+		</div>
+	</div>
+	
+	
+	<div id=tablebox>
+		<table>
+			<tr>
+				<th>Grade</th>
+				<th>Time</th>
+			</tr>
+			{% for instance in startingtimes %}
+				<tr>
+					<td>{{ instance.grade}}</td>
+					<td>{{instance.starttime}}</td>
+				</tr>
+			{% endfor%}
+		</table>	
+	</div>
+	<div id='buttonbox'>
+		<button id="button" onclick="showform()">Update Starting Time</button>	
+	</div>
+	
+	
+	<div id='timeform' style="display: none;">
+		<form method='POST'>{% csrf_token %}
+			{{ form.as_p}}
+			<input type="submit" value='save' />
+		</form>	
+	</div>
+	
+
+	<script type="text/javascript">
+		var submissionpage = document.getElementById('integer');
+		submissionpage.style.backgroundColor = 'darkblue'
+		submissionpage.style.color = 'white'
+
+		var showformbutton = document.getElementById('button');
+		var timeform = document.getElementById('timeform');
+
+		function showform(){
+			if (timeform.style.display == 'none'){
+				timeform.style.display = 'block'
+			}
+			else{
+				timeform.style.display = 'none'
+			}
+
+		}
+
+	</script>
+
+
+	{% endblock%}
+
+	
+</body>
+</html>
+

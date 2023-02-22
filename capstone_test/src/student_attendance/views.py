@@ -81,14 +81,14 @@ def attendancecode_view(request):
 		
 		return HttpResponseRedirect(reverse("attendance_code"))
 
-	startingtimes = StartingTime.objects.all()
-
+	
+	startingtimes = StartingTime.objects.order_by('grade')
 	context = {
 		'dailycode':dailycode,
 		'form':timeform,
 		'startingtimes':startingtimes
 	}
-	return render(request, "attendancecode.html", context)
+	return render(request, "dailycodeandstarttimes.html", context)
 
 
 def studentdatabase_view(request):
@@ -133,10 +133,12 @@ def deletestudent_view(request):
 
 def attendancetoday_view(request):
 	allstudents = Students.objects.all()
+	datetoday = datetime.today().strftime('%m-%d-%Y')
 	context = {
-		'object_list':allstudents
+		'object_list':allstudents,
+		'datetoday':datetoday,
 	}
-	return render(request, 'attendanceoftheday.html', context)
+	return render(request, 'dailyattendance.html', context)
 
 def navbar_view(request):
 	submitpage = reverse('attendance_submit')
@@ -184,3 +186,6 @@ def logout_view(request):
 	if request.method == "POST":
 		logout(request)
 		return HttpResponseRedirect(reverse("attendance_submit"))
+
+def instructions_view(request):
+	return render(request, 'instructions.html', {})

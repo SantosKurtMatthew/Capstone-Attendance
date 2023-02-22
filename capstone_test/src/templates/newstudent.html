@@ -6,9 +6,7 @@
 	<title></title>
 	<style type="text/css">
 		.outsidebox{
-			
 			height: 90%;
-			
 			background-color: #b3e8cd;
 		}
 		#formbox {
@@ -22,8 +20,6 @@
 			margin-left: auto;
 			margin-right: auto;
 			margin-top: 10%;
-			
-			
 
 			text-align: center;
 			background-color: #046433;
@@ -34,15 +30,12 @@
 			background-color: #b3e8cd;
 			color: black;
 			text-align: center;
-			box-shadow: 8px 8px #d2e9d9;
+			box-shadow: 0px 0px #d2e9d9;
 			border: none;
 			
-			
-
 			height: 50px;
 			width: 60%;
 			font-weight: bold;
-
 		}
 		
 		.submitbutton{
@@ -59,6 +52,10 @@
 			text-align: center;
 
 		}
+		#formlabel{
+			font-size: 30px;
+			font-weight: bold;
+		}
 	
 	</style>
 </head>
@@ -70,7 +67,9 @@
 	
 	<div class='outsidebox'>
 		<div id='formbox'>
+
 			<form method='POST'>{% csrf_token %}
+				<label id='formlabel'>Insert New Student</label>
 				{{ form.as_p }}
 				
 				<input type="submit" value='SAVE' class='submitbutton'>
