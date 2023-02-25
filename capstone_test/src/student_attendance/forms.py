@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
 
 from .models import AttendanceSubmit, Students, DailyInteger, StartingTime
 
@@ -7,8 +9,8 @@ from .models import AttendanceSubmit, Students, DailyInteger, StartingTime
 #FIND A WAY TO MAKE THE FORM REFRESH AS WELL
 
 class AttendanceForm(forms.ModelForm):
-	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':"Email"}))
-	password = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':"Password"}))
+	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':"Email"}), label='')
+	password = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':" Daily Password"}), label='')
 	class Meta:
 		model = AttendanceSubmit
 		fields = [
@@ -82,7 +84,10 @@ class StudentsInfoForm(forms.ModelForm):
 			return cleanemail
 
 class ChangeStartingTime(forms.ModelForm):
+	grade = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':"Grade Level"}), label='')
+	starttime = forms.TimeField(widget=forms.TextInput(attrs={'placeholder':"Start Time"}), label='')
 	class Meta:
+
 		model = StartingTime
 		fields = [
 			'grade',
@@ -90,7 +95,52 @@ class ChangeStartingTime(forms.ModelForm):
 		]
 
 class DeleteStudent(forms.Form):
-	studentid = forms.IntegerField()
+	studentid = forms.IntegerField(widget=forms.TextInput(attrs={
+		'placeholder':"Student's Database ID",
+		'required':True,
+		}), label='')
 
+class CustomUserCreationForm(UserCreationForm):
+
+	class Meta:
+		model = User
+		fields = [
+			'username',
+			'password1',
+			'password2',	
+		]
+
+
+		
+
+	def __init__(self, *args, **kwargs):
+		super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+
+		self.fields['username'].widget.attrs['placeholder'] = 'Username'
+		self.fields['password1'].widget.attrs['placeholder'] = 'Password'
+		self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
+
+		self.fields['username'].label = ''
+		self.fields['password1'].label = ''
+		self.fields['password2'].label = ''
+
+class CustomAuthenticationForm(AuthenticationForm):
+	class Meta:
+		model = User
+		fields =[
+			'username',
+			'password',
+		]
+
+	def __init__(self, *args, **kwargs):
+		super(CustomAuthenticationForm, self).__init__(*args, **kwargs)
+
+		self.fields['username'].widget.attrs['placeholder'] = 'Username'
+		self.fields['password'].widget.attrs['placeholder'] = 'Password'
+		
+
+		self.fields['username'].label = ''
+		self.fields['password'].label = ''
+		
 
 	

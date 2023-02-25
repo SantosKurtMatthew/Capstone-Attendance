@@ -1,9 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		.outsidebox{
+			height: 90%;
+			background-color: #b3e8cd;
+		}
+		#formbox {
+			display: flex;
+		}
+		#formlabel{
+			font-size: 30px;
+			font-weight: bold;
+		}
+		#formbox form{
+			padding-top: 10px;
+			padding-bottom: 10px;
+			width: 500px;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 8%;
+
+			text-align: center;
+			background-color: #046433;
+			color: #b3e8cd;
+			
+		}
+		input{
+			background-color: #b3e8cd;
+			color: black;
+			text-align: center;
+			box-shadow: 0px 0px #d2e9d9;
+			border: none;
+			
+			height: 50px;
+			width: 60%;
+			font-weight: bold;
+		}
+		#submitbutton{
+			width: 100px;
+			
+		}
+	</style>
+</head>
+<body>
+	{% extends 'navbar.html' %}
+	{% block content %}
+	<div id='outsidebox'>
+		<div id='formbox'>
+			<form method='POST'>{% csrf_token %}
+				<label id='formlabel'>Log In</label>
+				{{ form.as_p}}
+				{% if request.GET.next %}
+					<input type="hidden" name="next" value='{{ request.GET.next }}'>
+				{% endif %}
+				<input type="submit" value='Log In' id='submitbutton'>
+			</form>				
+		</div>
+	</div>
+	
+	{% endblock %}
+</body>
+</html>
 <h1>User Log In</h1>
 
-<form method='POST'>{% csrf_token %}
-	{{ form.as_p}}
-	{% if request.GET.next %}
-		<input type="hidden" name="next" value='{{ request.GET.next }}'>
-	{% endif %}
-	<input type="submit" value='save' />
-</form>

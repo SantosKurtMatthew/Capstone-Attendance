@@ -17,6 +17,8 @@ def schedule_api():
 	#Students.objects.all().update(latetoday=False)
 	#AttendanceSubmit.objects.all().delete()
 	#UNCOMMENT WHEN FINALIZED
+
+	print('the function works!')
 	
 
 schedule_api()

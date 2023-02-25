@@ -8,17 +8,74 @@
 		h1{
 			margin-top: 0;
 		}
+		.outsidebox{
+			
+			height: 90%;
+			
+			background-color: #b3e8cd;
+		}
+		#formbox {
+			display: flex;
+		}
+		#formbox form{
+			padding-top: 10px;
+			padding-bottom: 10px;
+			width: 500px;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 10%;
+			
+			
+
+			text-align: center;
+			background-color: #046433;
+			color: #b3e8cd;
+			
+		}
+		input{
+			background-color: #b3e8cd;
+			color: black;
+			text-align: center;
+			box-shadow: 0px 0px #d2e9d9;
+			border: none;
+			
+			
+
+			height: 50px;
+			width: 60%;
+			font-weight: bold;
+
+		}
+		
+		#submitbutton{
+			width: 100px;
+			box-shadow: none;
+			height: 30px;
+			background-color: #b3e8cd;
+			font-weight: bold;
+			border: none;
+		}
+		#formlabel{
+			font-size: 30px;
+			font-weight: bold;
+		}
 	</style>
 </head>
 <body>
-{% extends 'navbar.html' %}
-
-{% block content %}
-<h1>Delete Student</h1>
-<form method='POST' id='deletionform'>{% csrf_token %}
-	{{ form.as_p }}
-	<button id='submitbutton' onclick="confirmation()">Delete</button>
-</form>
+	{% extends 'navbar.html' %}
+	
+	{% block content %}
+	
+	<div class='outsidebox'>
+		<div id='formbox'>
+			<form method='POST' id='deletionform'>{% csrf_token %}
+				<label id='formlabel'>Delete Student</label>
+				{{ form.as_p }}
+				<button id='submitbutton' onclick="confirmation()">DELETE</button>
+			</form>
+		</div>
+	</div>
 
 
 
@@ -38,7 +95,7 @@
 	
 
 	function confirmation(){
-		if (confirm('do you want to submit?') == true){
+		if (confirm('do you want to delete student?') == true){
 			document.getElementById.getElementById('deletionform').submit()
 		}
 		else{

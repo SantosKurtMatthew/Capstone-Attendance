@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		h1{
+			margin-top: 0;
+		}
+		#outsidebox{
+			padding-top: 30px;
+			padding-bottom: 30px;
+			border: 0px solid red;
+		}
+		#insidebox{
+			padding: 30px;
+			
+			width: 450px;
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+			background-color: #046433;
+			color: #b3e8cd;
+
+		}
+		#codebox{
+			width: 80%;
+			height: 20%;
+			background-color: white;
+			margin-left: auto;
+			margin-right: auto;
+			border-radius: 10px;
+			color: black;
+			text-align: center;
+			vertical-align: middle;
+		}
+		#tablebox{
+			width: 400px;
+			padding: 10px;
+			background-color: #046433;
+			margin-left: auto;
+			margin-right: auto;
+			
+		}
+		table{
+			width: 100%;
+		}
+		table, tr, th, td{
+			border: 1px solid white;
+			text-align: center;
+			margin-right: auto;
+			margin-left: auto;
+			color: white;
+		}
+		
+		#hideformbuttonbox{
+			width: 164px;
+			margin-left: auto;
+			margin-right: auto;
+			border: 0px solid red;
+		}
+
+		#gradebox{
+			width: 37%;
+		}
+		#gradebox > input{
+			background-color: #046433;
+			color: white;
+			text-align: center;
+			width: 100%;
+			border: none;
+		}
+		#starttimebox > input{
+			background-color: #046433;
+			color: white;
+			text-align: center;
+			width: 100%;
+			border: none;
+		}
+		#submitbuttonbox{
+			width: 100px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		#submitbuttonbox > input{
+			width: 100%;
+		}
+		
+		
+	</style>
+</head>
+<body>
+	{% extends 'navbar.html' %}
+
+	{% block content %}
+	<div id="divtwo">
+		<div id='divthree'>
+
+	
+			<div id='outsidebox'>
+				<div id='insidebox'>
+					<h1 class="font-weight-bold" style="padding-bottom: 7px;">Code of the Day</h1>
+					<div id='codebox' class="d-flex align-items-center justify-content-center">
+						<h1 class="display-3 font-weight-normal">{{ dailycode }}</h1>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div id='tablebox'>
+				<table>
+					<tr>
+						<th>Grade</th>
+						<th>Start Time</th>
+					</tr>
+					{% for instance in startingtimes %}
+						<tr>
+							<td>{{ instance.grade }}</td>
+							<td>{{ instance.starttime }}</td>	
+						</tr>
+					{% endfor%}
+				</table>	
+			</div>
+			<div id='hideformbuttonbox'>
+				<button id="button" onclick="showform()">Update Starting Time</button>	
+			</div>
+			
+			
+			<div id='timeform' style="display: none;">
+				<div id='tablebox' >
+					<form method='POST'>{% csrf_token %}
+						<label style="color: white;">Time has to be in H:MM format (Ex: 7:00)</label>
+						<table id='formtable'>
+							<tr>
+								<td id='gradebox' >{{ form.grade }}</td>
+								<td id='starttimebox'>{{ form.starttime }}</td><br>
+							</tr>
+						</table>
+						
+						<div id='submitbuttonbox'><input type="submit" value='save'></div>
+					</form>		
+				</div>
+			</div>	
+
+		</div>
+	</div>
+	
+	
+
+	<script type="text/javascript">
+		var submissionpage = document.getElementById('integer');
+		submissionpage.style.backgroundColor = 'darkblue'
+		submissionpage.style.color = 'white'
+
+		var showformbutton = document.getElementById('button');
+		var timeform = document.getElementById('timeform');
+
+		function showform(){
+			if (timeform.style.display == 'none'){
+				timeform.style.display = 'block'
+			}
+			else{
+				timeform.style.display = 'none'
+			}
+
+		}
+
+	</script>
+
+
+	{% endblock%}
+
+	
+</body>
+</html>
+

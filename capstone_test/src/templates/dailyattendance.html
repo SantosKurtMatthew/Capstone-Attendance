@@ -4,20 +4,18 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
-	
 	<style type="text/css">
 		table, th, td, tr{
 			border:1px solid white;
 			text-align: center;
 			margin-left: auto;
 			margin-right: auto;
-			color: black;
 		}
 		th{
 			background-color: #046433;
 			color: white;
 		}
-		#tablebox{
+		.tablebox{
 			width: 70%;
 			padding: 10px;
 			background-color: #046433;
@@ -25,7 +23,7 @@
 			margin-right: auto;
 			
 		}
-		#tablebox > table{
+		.tablebox > table{
 			width: 100%;
 		}
 
@@ -81,8 +79,8 @@
 			
 
 			for(i=0; i < tr.length; i++){
-				var gradecolumn = tr[i].getElementsByTagName('td')[3];
-				var sectioncolumn = tr[i].getElementsByTagName('td')[4];
+				var gradecolumn = tr[i].getElementsByTagName('td')[5];
+				var sectioncolumn = tr[i].getElementsByTagName('td')[6];
 
 				if(gradecolumn && sectioncolumn){
 					var gcvalue = gradecolumn.innerText; //it means gradecolumnvalue
@@ -98,21 +96,19 @@
 				}
 			}
 			jQuery('tr:visible').filter(':odd').css({'background-color': '#b3e8cd'});
-			jQuery('tr:visible').filter(':even').css({'background-color': '#f5fdfa'});
+			jQuery('tr:visible').filter(':even').css({'background-color': '#f5fdfa'});	
 		}
-
-		
-		
 	</script>
 </head>
-
-<body onload="sortGradeLevel()" >
+<body onload="sortGradeLevel()" style="background-color: #b3e8cd;">
 	{% extends 'navbar.html' %}
 
 	{% block content %}
-	<h1>Student Database</h1>
+	<h1 style="margin-top: 0px;">Attendance on {{ datetoday }}</h1>
+
 	<div class ='dropdowncontainer'>
-		<select id='gradelevel' onclick='sortGradeLevel()' class="h3">
+		
+		<select id='gradelevel' onclick='sortGradeLevel()'>
 			<option>Grade</option>
 			<option value='7'>7</option>
 			<option value='8'>8</option>
@@ -121,7 +117,7 @@
 			<option value='11'>11</option>
 			<option value='12'>12</option>
 		</select>
-		<select id='section' onclick='sortGradeLevel()' class="h3">
+		<select id='section' onclick='sortGradeLevel()'>
 			<option>Section</option>
 			<option value='Faith'>Faith</option>
 			<option value='Hope'>Hope</option>
@@ -131,58 +127,48 @@
 			<option value='STEM'>STEM</option>
 		</select>	
 	</div>
-
-	
-
-	
-
-	<div id="tablebox">
+	<div class='tablebox'>
 		<table id='studenttable'>
-			<tr>
-				<th style="width:10%"> DB ID </th>
-				<th style="width:10%"> CN </th>
-				<th style="width:40%"> Email</th>
-				<th style="width:10%" id='notneeded'> Grade </th>
-				<th style="width:10%" id='notneeded'> Section </th>
-				<th style="width:10%"> Lates </th>
-				<th style="width:10%" > Absents </th>
-				<th style="width:5%"> SPR </th>
-				<th style="width:5%"> Sex </th>
-			</tr>
-			
-				{% for instance in object_list %}
-					<tr>
-						<td>{{ instance.id }}</td>
-						<td>{{ instance.classnumber }}</td>
-						<td>{{ instance.email }}</td>
-						<td id='notneeded'>{{ instance.grade }} </td>
-						<td id='notneeded'>{{ instance.section}}</td>
-						<td>{{ instance.lates }}</td>
-						<td>{{ instance.absents }}</td>
-						<td>{{ instance.spr }}</td>
-						<td>{{ instance.sex }}</td>
-					</tr>
-				{% endfor %}
-		</table>
+				<tr>
+					<th style="width:10%"> DB ID </th>
+					<th style="width:10%"> CN </th>
+					<th style="width:40%"> Email</th>
+					<th style="width:10%"> Late </th>
+					<th style="width:10%"> Absent </th>
+					<th style="width:10%" id='notneeded'> Grade </th>
+					<th style="width:10%" id='notneeded'> Section </th>
+				</tr>
+				
+					{% for instance in object_list %}
+						<tr>
+							<td>{{ instance.id }}</td>
+							<td>{{ instance.classnumber }}</td>
+							<td>{{ instance.email }}</td>
+							{% if instance.latetoday == True %}
+								<td>Yes</td>
+							{% else %}
+								<td>No</td>
+							{% endif %}
+							{% if instance.absenttoday == True %}
+								<td>Yes</td>
+							{% else %}
+								<td>No</td>
+							{% endif %}
+							<td id='notneeded'>{{ instance.grade}}</td>
+							<td id='notneeded'>{{ instance.section}}</td>
+
+						</tr>
+					{% endfor %}
+			</table>	
 	</div>
 	
-	<p>{{ latestobject }}</p>
-	<p>{{ latestobject.integer }}</p>
 
-	<script type="text/javascript">
-		var submissionpage = document.getElementById('database');
-		submissionpage.style.backgroundColor = 'darkblue'
-		submissionpage.style.color = 'white'
-	</script>
-
+		<script type="text/javascript">
+			var submissionpage = document.getElementById('todayattendance');
+			submissionpage.style.backgroundColor = 'darkblue'
+			submissionpage.style.color = 'white'
+			
+		</script>
 	{% endblock %}
 </body>
 </html>
-
-
-<!--<form method='POST'>{% csrf_token %}
-	</form> 
-#notneeded{
-	display: none;
-}-->
-

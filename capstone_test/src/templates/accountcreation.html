@@ -1,6 +1,112 @@
-<h1>User Create</h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		.outsidebox{
+			height: 90%;
+			background-color: #b3e8cd;
+		}
+		#formbox {
+			display: flex;
+		}
+		#formlabel{
+			font-size: 30px;
+			font-weight: bold;
+		}
+		#formbox form{
+			padding-top: 10px;
+			padding-bottom: 10px;
+			width: 500px;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 8%;
 
-<form method='POST'>{% csrf_token %}
-	{{ form.as_p}}
-	<input type="submit" value='save' />
-</form>
+			text-align: center;
+			background-color: #046433;
+			color: #b3e8cd;
+		}
+		#forminput{
+			border: 0px solid red;
+		}
+		#forminput>input{
+			background-color: #b3e8cd;
+			color: black;
+			text-align: center;
+			box-shadow: 0px 0px #d2e9d9;
+			border: none;
+			
+			height: 50px;
+			width: 60%;
+			font-weight: bold;
+		}
+		ul{ 
+			list-style-position: inside;
+			text-align: left;
+			border: 0px solid yellow;
+		}
+		#listbox{
+			width: 60%;
+			border: 0px solid blue;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		#submitbutton{
+			width: 200px;
+			background-color: #b3e8cd;
+			color: black;
+			text-align: center;
+			box-shadow: 0px 0px #d2e9d9;
+			border: none;
+			
+			height: 50px;
+			font-weight: bold;
+		}
+
+	</style>
+</head>
+
+<body>
+	{% extends 'navbar.html' %}
+	{% block content %}
+	<div id='outsidebox'>
+		<div id="formbox">
+			<form method='POST'>{% csrf_token %}
+				<label id='formlabel'>Create New Account</label>
+				<div id='forminput'>
+					{{ form.username }}
+					<div id='listbox'>
+						<ul>
+							<li>150 characters or fewer. </li>
+							<li>Letters, digits and @/./+/-/_ only.</li>
+						</ul>
+					</div>
+				</div>
+				<div id='forminput'>
+					{{ form.password1 }}
+					<div id='listbox'>
+						<ul>
+							<li>At least 8 Characters</li>
+							<li>Cannot be only numbers</li>
+							<li>Cannot be similar to username</li>
+						</ul>
+					</div>
+				</div>	
+				<div id='forminput'>
+					{{ form.password2 }}
+					<div id='listbox'><ul><li>Repeat password for confirmation</li></ul></div>
+				</div>	
+				
+				
+				<input type="submit" value='Create Account' id='submitbutton'>
+			</form>		
+		</div>
+	</div>
+	
+	
+	{%endblock%}
+</body>
+</html>

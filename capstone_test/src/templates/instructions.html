@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		#accordion{
+			margin-top: 50px;
+		}
+		
+	</style>
+</head>
+<body>
+	{% extends 'navbar.html' %}
+
+	{% block content %}
+	<div id="accordion">
+	  <div class="card" >
+	    <div class="card-header" id="headingOne">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	          How the Website Works (Simplified)
+	        </button>
+	      </h5>
+	    </div>
+	    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+	      <div class="card-body">
+	        The website requires the teacher to give the 4 digit number listed in the “Daily Password & Start Times” page to the students. The students will then enter their email and the 4 digit number into the “Attendance Submit” page to log their attendance.
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="card">
+	    <div class="card-header" id="headingTwo">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+	          How to Use the Website (Teachers)
+	        </button>
+	      </h5>
+	    </div>
+	    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+	      <div class="card-body">
+	        <div>
+	        	<h4 class='font-weight-bold'>Accounts</h4>
+	        	Firstly, teachers have to make an “account” in the website in order to access the pages. It requires an account to make an account, but you should be able to use the account details given to you.
+	        </div>
+	        <br>
+	        <div>
+	        	<h4 class='font-weight-bold'>Setting up the Emails and Start Times</h4>
+	        	The teacher has to set up the list of email addresses of their class. This can be done in the “Insert New Student” page and accomplishing the form. <br><br>
+
+	        	Entries can also be removed from the database through the “Delete Student” page by typing in the database ID (DB ID) listed in the “Student Database” page. <br><br>
+
+	        	Afterwards, the teacher also has to set the start time for their respective grade level. The start time indicates after what time a student is considered late. In the case of a start time of 7:00 a.m, any submissions after 7:00 will be considered as late.<br><br>
+
+	        	After doing these steps, the set up for the website is done.
+	        </div>
+	        <br>
+	        <div>
+	        	<h4 class='font-weight-bold'>The Daily Password</h4>
+	        	The website generates a 4 digit number daily that the students have to submit alongside their email in order to log their attendance. Ideally, the teacher writes the 4 digit number on the whiteboard or in the classroom, so the students will be required to be in the classroom in order to be able to log their attendance.
+
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="card">
+	    <div class="card-header" id="headingThree">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+	          How to Use the Website (Students)
+	        </button>
+	      </h5>
+	    </div>
+	    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+	      <div class="card-body">
+	        <div>
+	        	<h4 class='font-weight-bold'>Submitting Attendance</h4>
+	        	In the “Attendance Submit” page, there is a form that asks for your email and a daily password. The teacher will provide the daily password in the form of a 4 digit number.
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	    <div class="card">
+	      <div class="card-header" id="headingFour">
+	        <h5 class="mb-0">
+	          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+	            The Pages
+	          </button>
+	        </h5>
+	      </div>
+	      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+	        <div class="card-body">
+	          <div>
+	          	<h4 class='font-weight-bold'>Attendance Submit</h4>
+	          	This is just a form for the students to submit their attendance that will get logged into the database connected to this website.
+	          </div>
+	          <br>
+	          <div>
+	          	<h4 class='font-weight-bold'>Daily Password & Start Times</h4>
+	          	An account is required for this, so only teachers should be able to see it. This is where the website shows the 4 digit number for the day or the daily password. It is also where the teachers can set the time that their classes start in order to make the website accurate in logging lates.
+	          </div>
+	          <br>
+	          <div>
+	          	<h4 class='font-weight-bold'>Daily Attendance</h4>
+	          	This shows a table for who is late and who is absent today. It has a filter for grade and section to make going through the entries easier.
+	          </div>
+	          <br>
+	          <div>
+	          	<h4 class='font-weight-bold'>Student Database</h4>
+	          	Similar to the “Daily Attendance” page, this shows a table of students. It displays their info, such as their total number of lates, absences, and SPRs. It also has a filter for grade level and section.
+	          </div>
+	          <br>
+	          <div>
+	          	<h4 class='font-weight-bold'>Create/Delete Student</h4>
+	          	These pages are to add or delete entries of students in the database.
+	          </div>
+	          <br>
+	          <div>
+	          	<h4 class='font-weight-bold'>Account</h4>
+	          	These pages are to do things related to the teachers’ accounts in this website. It allows you to make a new account and to log in and out.
+
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	  
+
+	<script type="text/javascript">
+		var submissionpage = document.getElementById('instructions');
+		submissionpage.style.backgroundColor = 'darkblue'
+		submissionpage.style.color = 'white'
+		submissionpage.setAttribute('class','nav-link text-white')
+	</script>
+
+	<style type="text/css">
+		.card-body{
+			font-size: 20px;
+			font-family: 'Helvetica', sans-serif;
+		}
+		.btn-link{
+			width: 100%;
+			padding: 30px;
+			text-align: left;
+			background-color: #b3e8cd;
+			color: black;
+			font-size: 30px;
+		}
+		.btn-link:hover{
+			width: 100%;
+			padding: 30px;
+			text-align: left;
+			background-color: #046433;
+			color: white;
+			font-size: 30px;
+		}
+		.card-header{
+			background-color:#046433;
+		}
+
+	</style>
+	{% endblock %}
+</body>
+</html>

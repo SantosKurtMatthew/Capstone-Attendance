@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout 
 from django.contrib.auth.decorators import login_required
 
-from .forms import AttendanceForm, StudentsInfoForm, ChangeStartingTime, DeleteStudent
+from .forms import AttendanceForm, StudentsInfoForm, ChangeStartingTime, DeleteStudent, CustomUserCreationForm, CustomAuthenticationForm
 from .models import AttendanceSubmit, Students, DailyInteger, StartingTime
 
 import schedule, time, random
@@ -81,14 +81,14 @@ def attendancecode_view(request):
 		
 		return HttpResponseRedirect(reverse("attendance_code"))
 
-	startingtimes = StartingTime.objects.all()
-
+	
+	startingtimes = StartingTime.objects.order_by('grade')
 	context = {
 		'dailycode':dailycode,
 		'form':timeform,
 		'startingtimes':startingtimes
 	}
-	return render(request, "attendancecode.html", context)
+	return render(request, "dailycodeandstarttimes.html", context)
 
 
 def studentdatabase_view(request):
@@ -133,10 +133,12 @@ def deletestudent_view(request):
 
 def attendancetoday_view(request):
 	allstudents = Students.objects.all()
+	datetoday = datetime.today().strftime('%m-%d-%Y')
 	context = {
-		'object_list':allstudents
+		'object_list':allstudents,
+		'datetoday':datetoday,
 	}
-	return render(request, 'attendanceoftheday.html', context)
+	return render(request, 'dailyattendance.html', context)
 
 def navbar_view(request):
 	submitpage = reverse('attendance_submit')
@@ -148,14 +150,14 @@ def navbar_view(request):
 @login_required(login_url='/login/')
 def accountcreate_view(request):
 	if request.method == "POST":
-		form = UserCreationForm(request.POST)
+		form = CustomUserCreationForm(request.POST)
 		if form.is_valid():
 			user = form.save()
 
 			login(request, user)
 
 	else:
-		form = UserCreationForm()
+		form = CustomUserCreationForm()
 	context = {
 		'form':form
 	}
@@ -164,7 +166,7 @@ def accountcreate_view(request):
 
 def login_view(request):
 	if request.method == "POST":
-		form = AuthenticationForm(data=request.POST)
+		form = CustomAuthenticationForm(data=request.POST)
 		if form.is_valid():
 			user = form.get_user()
 			login(request, user)
@@ -174,7 +176,7 @@ def login_view(request):
 			else:
 				return HttpResponseRedirect(reverse("attendance_submit"))
 	else:
-		form = AuthenticationForm()
+		form = CustomAuthenticationForm()
 	context = {
 		'form':form
 	}
@@ -184,3 +186,6 @@ def logout_view(request):
 	if request.method == "POST":
 		logout(request)
 		return HttpResponseRedirect(reverse("attendance_submit"))
+
+def instructions_view(request):
+	return render(request, 'instructions.html', {})
