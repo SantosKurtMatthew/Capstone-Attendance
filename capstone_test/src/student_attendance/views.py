@@ -2,30 +2,38 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import F
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, logout 
+
+from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 
-from .forms import AttendanceForm, StudentsInfoForm, ChangeStartingTime, DeleteStudent
-from .models import AttendanceSubmit, Students, DailyInteger, StartingTime
+from .forms import (
+	AttendanceForm, 
+	StudentsInfoForm, 
+	ChangeStartingTime, 
+	DeleteStudent, 
+	CustomUserCreationForm, 
+	CustomAuthenticationForm, 
+	CustomPasswordChangeForm
+	)
 
-import schedule, time, random
+from .models import (
+	AttendanceSubmit, 
+	Students, 
+	DailyInteger, 
+	StartingTime)
+
+import time, random
 from datetime import datetime
 
 
 
 # Create your views here.
-
-
 def attendancesubmit_view(request):
 	form = AttendanceForm(request.POST or None)
-	latestobject = DailyInteger.objects.latest('id')
-	dailycode = latestobject.integer
 
-	datetimenow = datetime.now()
-	timenow = datetimenow.time()
+	timenow = datetime.now().time()
 	
-
 	if form.is_valid():
 		submittedemail = form.cleaned_data['email']
 		currentstudent = Students.objects.get(email=submittedemail)
@@ -36,33 +44,45 @@ def attendancesubmit_view(request):
 
 		if timenow > gradelevelstarttime:
 			currentstudent.lates = currentstudent.lates+1
-			currentstudent.spr = currentstudent.lates/5
-			
 			currentstudent.latetoday = True
 			
-
 		currentstudent.absenttoday = False
 		currentstudent.absents = currentstudent.absents-1 
+		currentstudent.spr = currentstudent.lates/5
 		currentstudent.save()
 		#Students.objects.all().update(absents = F('absents')*0)#Just to reset the absents
 		return HttpResponseRedirect(reverse("attendance_submit"))
-
-	latestobject = DailyInteger.objects.latest('id')#this is to get the latest entry in the field
 	
 	context = {
 		'form':form,
-		'latestobject':latestobject,#context for latest entry in the field
-		'timenow':timenow,
-		#'gradelevelstarttime':gradelevelstarttime,
-		
 	}
 	return render(request, "attendancesubmit.html", context)
 
+def instructions_view(request):
+	return render(request, 'instructions.html', {})
+
 @login_required(login_url='/login/')
-def attendancecode_view(request):
+def dailypassword_view(request):
 	latestobject = DailyInteger.objects.latest('id')
 	dailycode = latestobject.integer
+	creationdate = latestobject.creation_time.date()
 
+	datetoday = datetime.now().date()
+	pressedtoday = False
+
+	if creationdate < datetoday:
+		pressedtoday = False 
+	else:
+		pressedtoday = True
+
+	context = {
+		'dailycode': dailycode,
+		'pressedtoday': pressedtoday
+	}
+	return render(request, "dailypassword.html", context)
+
+@login_required(login_url='/login/')
+def startingtimes_view(request):
 	timeform = ChangeStartingTime(request.POST or None)
 
 	if timeform.is_valid():
@@ -76,27 +96,30 @@ def attendancecode_view(request):
 			existinggradelevel.save()
 		else:
 			timeform.save()	
-		print("Does the record exist? ",checkrecord)
-
 		
-		return HttpResponseRedirect(reverse("attendance_code"))
+		return HttpResponseRedirect(reverse("starttime"))
+	startingtimes = StartingTime.objects.order_by('grade')
 
-	startingtimes = StartingTime.objects.all()
-
-	context = {
-		'dailycode':dailycode,
+	context={
 		'form':timeform,
 		'startingtimes':startingtimes
 	}
-	return render(request, "attendancecode.html", context)
+	return render(request, 'startingtimes.html', context)
 
-
-def studentdatabase_view(request):
-	queryset = Students.objects.all()	
+def attendancetoday_view(request):
+	allstudents = Students.objects.order_by('classnumber')
+	datetoday = datetime.today().strftime('%m-%d-%Y')
 
 	context = {
-		'object_list':queryset,
-		
+		'object_list':allstudents,
+		'datetoday':datetoday,
+	}
+	return render(request, 'dailyattendance.html', context)
+
+def studentdatabase_view(request):
+	allstudents = Students.objects.order_by('classnumber')	
+	context = {
+		'object_list':allstudents,	
 	}
 	return render(request, 'studentdatabase.html', context)
 
@@ -116,71 +139,82 @@ def newstudent_view(request):
 @login_required(login_url='/login/')
 def deletestudent_view(request):
 	form = DeleteStudent(request.POST or None)
-
 	if form.is_valid():
 		submitted_id = form.cleaned_data['studentid']
 		student_to_delete = Students.objects.get(id=submitted_id).delete()
-		
-
 		return HttpResponseRedirect(reverse("delete_studentinfo"))
 
 	context = {
-		'form':form
+		'form':form,
 	}
 	return render(request, 'deletestudent.html', context)
-
-
-
-def attendancetoday_view(request):
-	allstudents = Students.objects.all()
-	context = {
-		'object_list':allstudents
-	}
-	return render(request, 'attendanceoftheday.html', context)
-
-def navbar_view(request):
-	submitpage = reverse('attendance_submit')
-	context = {
-		'submitpage':submitpage,
-	}
-	return render(request, 'navbar.html', context)
 
 @login_required(login_url='/login/')
 def accountcreate_view(request):
 	if request.method == "POST":
-		form = UserCreationForm(request.POST)
+		form = CustomUserCreationForm(request.POST)
 		if form.is_valid():
 			user = form.save()
-
 			login(request, user)
-
 	else:
-		form = UserCreationForm()
+		form = CustomUserCreationForm()
+
 	context = {
 		'form':form
 	}
-	return render(request, 'accountcreation.html', context)
-
+	return render(request, 'account/create.html', context)
 
 def login_view(request):
 	if request.method == "POST":
-		form = AuthenticationForm(data=request.POST)
+		form = CustomAuthenticationForm(data=request.POST)
 		if form.is_valid():
 			user = form.get_user()
 			login(request, user)
-
 			if 'next' in request.POST:
 				return redirect(request.POST.get('next'))
 			else:
 				return HttpResponseRedirect(reverse("attendance_submit"))
 	else:
-		form = AuthenticationForm()
+		form = CustomAuthenticationForm()
+
 	context = {
-		'form':form
+		'form':form,
 	}
-	return render(request, 'accountlogin.html', context)
+	return render(request, 'account/login.html', context)
 
 def logout_view(request):
 	if request.method == "POST":
 		logout(request)
 		return HttpResponseRedirect(reverse("attendance_submit"))
+
+def passwordchange_view(request):
+	if request.method == "POST":
+		form = CustomPasswordChangeForm(data=request.POST, user=request.user)
+		if form.is_valid():
+			form.save()
+			update_session_auth_hash(request, form.user)
+			return HttpResponseRedirect(reverse("attendance_submit"))
+	else:
+		form = CustomPasswordChangeForm(user=request.user)
+	context ={
+		'form':form
+	}
+	return render(request, 'account/change-password.html', context)
+
+
+def dailyfunction_view(request):
+	randomint = random.randint(1000,9999)
+	dailyint = DailyInteger(integer=randomint)
+	dailyint.save()
+	Students.objects.all().update(absents = F('absents')+1)
+	Students.objects.all().update(absenttoday=True)
+	Students.objects.all().update(latetoday=False)
+	AttendanceSubmit.objects.all().delete()
+	return HttpResponseRedirect(reverse("attendance_code"))
+
+def purgedatabase_view(request):
+	AttendanceSubmit.objects.all().delete()
+	Students.objects.all().delete()
+	DailyInteger.objects.all().delete()
+	return HttpResponseRedirect(reverse("delete_studentinfo"))
+

@@ -15,20 +15,40 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
 
-from student_attendance.views import attendancecode_view, attendancesubmit_view, studentdatabase_view, newstudent_view, navbar_view, attendancetoday_view, deletestudent_view, accountcreate_view, login_view, logout_view
+from student_attendance.views import (
+    dailypassword_view, 
+    attendancesubmit_view, 
+    studentdatabase_view, 
+    newstudent_view, 
+    attendancetoday_view, 
+    deletestudent_view, 
+    accountcreate_view, 
+    login_view, 
+    logout_view, 
+    instructions_view, 
+    startingtimes_view, 
+    dailyfunction_view, 
+    purgedatabase_view, 
+    passwordchange_view,
+    )
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', attendancesubmit_view, name='attendance_submit'),
-    #path('submit/', attendancesubmit_view, name='attendance_submit'),
-    path('attendance/', attendancecode_view, name='attendance_code'),
-    path('database/', studentdatabase_view, name='student_database'),
-    path('navbar/', navbar_view, name='nav-bar'),
-    path('today/', attendancetoday_view, name='today_attendance'),
+    path('instructions/', instructions_view, name='instructions'),
+    path('dailyinteger/', dailypassword_view, name='attendance_code'),
+    path('starttime/', startingtimes_view, name='starttime'),
+    path('dailyattendance/', attendancetoday_view, name='today_attendance'),
+    path('studentdatabase/', studentdatabase_view, name='student_database'),
     path('newstudent/', newstudent_view, name='new_studentinfo'),
     path('deletestudent/', deletestudent_view, name='delete_studentinfo'),
     path('newaccount/', accountcreate_view, name='new_account'),
     path('login/', login_view, name='login'),
+    path('changepassword/', passwordchange_view, name='password_change'),
+    #The urls without pages, only buttons
     path('logout/', logout_view, name='logout'),
-
+    path('dailyfunction/', dailyfunction_view, name='dailyfunction'),
+    path('purge/', purgedatabase_view, name='purgedb'),
 ]

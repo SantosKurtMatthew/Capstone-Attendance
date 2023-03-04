@@ -3,91 +3,47 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<title>Insert Student</title>
+	{% extends 'navbar.html' %}
+
+	{% block content %}
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/formformatting.css' %}">
 	<style type="text/css">
-		.outsidebox{
-			
-			height: 90%;
-			
-			background-color: #b3e8cd;
-		}
-		#formbox {
-			display: flex;
-		}
-		#formbox form{
-			padding-top: 10px;
-			padding-bottom: 10px;
-			width: 500px;
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			margin-top: 10%;
-			
-			
-
-			text-align: center;
-			background-color: #046433;
-			color: #b3e8cd;
-			
-		}
-		input{
-			background-color: #b3e8cd;
-			color: black;
-			text-align: center;
-			box-shadow: 8px 8px #d2e9d9;
-			border: none;
-			
-			
-
-			height: 50px;
-			width: 60%;
-			font-weight: bold;
-
-		}
-		
-		.submitbutton{
-			width: 100px;
-			box-shadow: none;
+		body{
+			background: url('{% static "img/newbgwide.png" %}') ;
+			background-size: 100% 100%;
 		}
 		.sexselect{
-			background-color: #b3e8cd;
+			background-color: white;
 			border: none;
 			width: 100px;
 			border-radius: 25px;
 
 			color: black;
 			text-align: center;
-
 		}
-	
 	</style>
 </head>
 <body style="height: 100%;"> 
-	{% extends 'navbar.html' %}
-
-	{% block content %}
-	
-	
-	<div class='outsidebox'>
+	<div id='outsidebox'>
 		<div id='formbox'>
 			<form method='POST'>{% csrf_token %}
+				<label id='formlabel'>Insert New Student</label>
 				{{ form.as_p }}
-				
-				<input type="submit" value='SAVE' class='submitbutton'>
+				<input type="submit" value='SAVE' id='submitbutton'>
 			</form>	
 		</div>	
-	</div>
-	
-		
+	</div>	
 
 	<script type="text/javascript">
-		var submissionpage = document.getElementById('navbarDropdownstudent');
-		submissionpage.style.backgroundColor = 'darkblue'
+		var submissionpage = document.getElementById('newstudent');
+		submissionpage.style.backgroundColor = '#016634'
 		submissionpage.style.color = 'white'
 
-		var submissionpage = document.getElementById('newstudent');
-		submissionpage.style.backgroundColor = 'darkblue'
-		submissionpage.style.color = 'white'
+		var currentpage = document.getElementById('navbarDropdownstudent');
+		currentpage.style.backgroundColor = 'white'
+		currentpage.setAttribute('class',"nav-link dropdown-toggle text-success justify-content-center")
 	</script>
 	{% endblock %}
 </body>

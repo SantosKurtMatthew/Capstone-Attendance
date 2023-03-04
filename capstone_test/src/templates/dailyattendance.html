@@ -3,17 +3,18 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Student Database</title>
 	{% extends 'navbar.html' %}
 
 	{% block content %}
 	{% load static %}
+	<title>Attendance on {{ datetoday }}</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/tableformatting.css' %}">
 	<style type="text/css">
 		body{
 			background: url('{% static "img/newbgwide.png" %}') ;
 			background-size: 100% 100%;
 		}
+	
 	</style>
 	<script type="text/javascript">
 		//Obtained from https://www.youtube.com/watch?v=LkVA3AWmkQQ
@@ -24,13 +25,13 @@
 			var sectioninput = document.getElementById('section');
 			var sectionfilter = sectioninput.value
 
-			var table = document.getElementById('studenttable');
+			var table = document.getElementById('studenttable')
 			var tr = table.getElementsByTagName('tr');
 			
 
 			for(i=0; i < tr.length; i++){
-				var gradecolumn = tr[i].getElementsByTagName('td')[3];
-				var sectioncolumn = tr[i].getElementsByTagName('td')[4];
+				var gradecolumn = tr[i].getElementsByTagName('td')[5];
+				var sectioncolumn = tr[i].getElementsByTagName('td')[6];
 
 				if(gradecolumn && sectioncolumn){
 					var gcvalue = gradecolumn.innerText; //it means gradecolumnvalue
@@ -45,16 +46,16 @@
 					}
 				}
 			}
-		jQuery('tr:visible').filter(':odd').css({'background-color': '#b3e8cd'});
-		jQuery('tr:visible').filter(':even').css({'background-color': '#f5fdfa'});
+			jQuery('tr:visible').filter(':odd').css({'background-color': '#b3e8cd'});
+			jQuery('tr:visible').filter(':even').css({'background-color': '#f5fdfa'});	
 		}
 	</script>
 </head>
+<body onload="sortGradeLevel()" style="background-color: #b3e8cd;">
 
-<body onload="sortGradeLevel()" >
 	<div id='outercontainer'>
 		<div id='container'>
-			<h1>Student Database</h1>
+			<h1>Attendance on {{ datetoday }}</h1>
 
 			<div id ='dropdowncontainer'>
 				<select id='gradelevel' onclick='sortGradeLevel()' class="h3">
@@ -79,57 +80,52 @@
 		</div>
 	</div>
 
-	
 	<div id='tablebox'>
 		<table class="table table-striped" id='studenttable'>
 		  <thead>
 		    <tr>
-				<th style="width:10%"> DB ID </th>
-				<th style="width:10%"> CN </th>
+		    	<th style="width:5%"> DB ID </th>
+				<th style="width:5%"> CN </th>
 				<th style="width:40%"> Email</th>
+				<th style="width:10%"> Late </th>
+				<th style="width:10%"> Absent </th>
 				<th style="width:10%" id='notneeded'> Grade </th>
 				<th style="width:10%" id='notneeded'> Section </th>
-				<th style="width:10%"> Total Late </th>
-				<th style="width:10%" > Total Absent </th>
-				<th style="width:5%"> SPR </th>
-				<th style="width:5%"> Sex </th>
-			</tr>
+		    </tr>
 		  </thead>
 		  <tbody>
 		    {% for instance in object_list %}
-				<tr>
-					<td>{{ instance.id }}</td>
-					<td>{{ instance.classnumber }}</td>
-					<td>{{ instance.email }}</td>
-					<td id='notneeded'>{{ instance.grade }} </td>
-					<td id='notneeded'>{{ instance.section}}</td>
-					<td>{{ instance.lates }}</td>
-					<td>{{ instance.absents }}</td>
-					<td>{{ instance.spr }}</td>
-					<td>{{ instance.sex }}</td>
-				</tr>
-			{% endfor %}
+		    	<tr>
+		    		<td>{{ instance.id }}</td>
+		    		<td>{{ instance.classnumber }}</td>
+		    		<td>{{ instance.email }}</td>
+		    		{% if instance.latetoday == True %}
+		    			<td>Yes</td>
+		    		{% else %}
+		    			<td>No</td>
+		    		{% endif %}
+		    		{% if instance.absenttoday == True %}
+		    			<td>Yes</td>
+		    		{% else %}
+		    			<td>No</td>
+		    		{% endif %}
+		    		<td id='notneeded'>{{ instance.grade}}</td>
+		    		<td id='notneeded'>{{ instance.section}}</td>
+		    	</tr>
+		    {% endfor %}
 		  </tbody>
 		</table>
 	</div>
 	
 	<div id='tenbox'></div>
+	
 
-	<script type="text/javascript">
-		var currentpage = document.getElementById('database');
+	<script type="text/javascript">	
+		var currentpage = document.getElementById('todayattendance');
 		currentpage.style.backgroundColor = 'white'
 		currentpage.setAttribute('class',"nav-link text-success justify-content-center ")
 	</script>
 
-	
 	{% endblock %}
 </body>
 </html>
-
-
-<!--<form method='POST'>{% csrf_token %}
-	</form> 
-#notneeded{
-	display: none;
-}-->
-

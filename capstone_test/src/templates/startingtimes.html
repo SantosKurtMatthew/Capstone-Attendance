@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% extends 'navbar.html' %}
+
+	{% block content %}
+	{% load static %}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Class Start Times</title>
+	<style type="text/css">
+	body{
+		background: url('{% static "img/newbgwide.png" %}') ;
+		background-size: 100% 100%;
+	}
+	#tablebox{
+		width: 400px;
+		padding: 10px;
+		background-color: #016634;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 30px;
+		margin-bottom: 10px;
+	}
+	table{
+		width: 100%;
+	}
+	table, tr, th, td{
+		border: 1px solid white;
+		text-align: center;
+		color: white;
+	}
+	#hideformbutton{
+		width: 170px;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: #016634;
+	}
+	.card-body{
+		width: 400px;
+		margin-right: auto;
+		margin-left: auto;
+		background-color: #016634;
+	}
+	#gradebox{
+		width: 35%;
+	}
+	#forminputs>td> input{
+		background-color: #016634;
+		color: white;
+		text-align: center;
+		width: 100%;
+		border: none;
+	}
+	#submitbuttonbox{
+		width: 100px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	#submitbuttonbox > input{
+		width: 100%;
+	}
+	</style>
+</head>
+<body>
+		<div id='tablebox'>
+			<table>
+				<tr>
+					<th>Grade</th>
+					<th>Start Time</th>
+				</tr>
+				{% for instance in startingtimes %}
+					<tr>
+						<td>{{ instance.grade }}</td>
+						<td>{{ instance.starttime }}</td>	
+					</tr>
+				{% endfor%}
+			</table>	
+		</div>
+
+		<p>
+			 <a class="btn btn-primary d-flex align-items-center justify-content-center" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" id='hideformbutton'>
+			   Change Starting Time
+			 </a>
+		</p>
+		<div class="collapse" id="collapseExample">
+			 <div class="card card-body">
+			   <form method='POST'>{% csrf_token %}
+			    <label style="color: white;">Time has to be in H:MM format (Ex: 7:00)</label>
+			    <table id='formtable'>
+			    	<tr id='forminputs'>
+			    		<td id='gradebox'>{{ form.grade }}</td>
+			    		<td>{{ form.starttime }}</td><br>
+			    	</tr>
+			    </table>			    						
+			    <div id='submitbuttonbox'><input type="submit" value='save'></div>
+			   </form>	
+			 </div>
+		</div>
+	
+	<script type="text/javascript">
+		var currentpage = document.getElementById('starttime');
+		currentpage.style.backgroundColor = 'white'
+		currentpage.setAttribute('class',"nav-link text-success justify-content-center")
+
+		var showformbutton = document.getElementById('button');
+		var timeform = document.getElementById('timeform');
+
+		function showform(){
+			if (timeform.style.display == 'none'){
+				timeform.style.display = 'block'
+			}
+			else{
+				timeform.style.display = 'none'
+			}
+		}
+	</script>
+	{% endblock %}
+</body>
+</html>

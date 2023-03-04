@@ -1,67 +1,112 @@
-
+<!DOCTYPE html>
+<html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
-	<style type="text/css">
-		.outsidebox{
-			
-			height: 99%;
-			border: 1px solid blue;
-			background-color: #b3e8cd;
-		}
-		#formbox form{
-			width: 25%;
-			display: block;
-			margin-left: auto;
-			margin-right: auto;
-			margin-top: 10%;
-			border: 1px solid black;
-			background-color: white;
-
-			text-align: center;
-			background-color: #046433;
-			color: #b3e8cd;
-
-			
-			
-		}
-		form input{
-			-webkit-user-select: none; /* Safari */
-			-ms-user-select: none; /* IE 10 and IE 11 */
-			user-select: none; /* Standard syntax */
-		}
-	</style>
-</head>
-
-<body>
+	<title>Attendance Submit</title>
 	{% extends 'navbar.html' %}
 
 	{% block content %}
-	
-	<div class="outsidebox">
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/formformatting.css' %}">
+	<style type="text/css">
+		body{
+			background: url('{% static "img/newbgwide.png" %}') ;
+			background-size: 100% 100%;
+		}
+		#outercontainer{
+			width: 250px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 1%;
+			padding: 10px;
+			background-color: #016634;
+		}
+		#container{
+			width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+			border: 3px solid white;
+
+			color: white;
+			font-size: 20px;
+			text-align: center;
+		}
+		label{
+			margin:0;
+			font-weight: bold;
+		}
+		#timebox{
+			font-size: 25px;
+		}
+		#datebox{
+			font-size: 20px;
+		}
+
+		
+	</style>
+</head>
+<body onload="showDate()">
+
+	<div id="outsidebox">
 		<div id="formbox">
 			<form method='POST' >{% csrf_token %}
 				<!--Put in form above onpaste="return false"-->
+				<label id='formlabel'>Submit Attendance</label>
 				{{ form.as_p}}
-				<input type="submit" value='save' />
+				<input type="submit" value='SUBMIT' id='submitbutton'/>
 			</form>	
 		</div>	
-	</div>
-	
-	
 
-	<!--<p>{{ latestobject.integer }}</p>
-	<p>time now is {{ timenow }}</p>-->
-	
+		<div id='outercontainer'>
+			<div id='container'>
+				<label>Current Time & Date</label>
+				<div id='timebox'>time</div>
+				<div id='datebox'>date</div>
+			</div>
+		</div>
+		
+	</div>	
 
 	<script type="text/javascript">
-		var submissionpage = document.getElementById('submission');
-		submissionpage.style.backgroundColor = 'darkblue'
-		submissionpage.style.color = 'white'
+		var currentpage = document.getElementById('submission');
+		currentpage.style.backgroundColor = 'white'
+		currentpage.setAttribute('class',"nav-link text-success justify-content-center ")
+		
+
+		setInterval(showTime, 1000)
+		function showTime(){
+			var datenow = new Date()
+			var currenthour = datenow.getHours()
+			var currentmin = datenow.getMinutes()
+			var currentsec = datenow.getSeconds()
+
+			var timearray = [currenthour, currentmin, currentsec]
+			var timenow = timearray.join(':')	
+
+			var timebox = document.getElementById('timebox');
+			timebox.innerHTML = timenow
+		}
+
+		setInterval(showDate, 28800000)
+		function showDate(){
+			var datenow = new Date()
+			var year = datenow.getFullYear()
+			var month = datenow.getMonth()+1
+			var day = datenow.getDate()
+
+			var dayarray = [month, day, year]
+			var daytoday = dayarray.join('/')
+
+			var datebox = document.getElementById('datebox');
+			datebox.innerHTML = daytoday
+			
+		}
+		
 	</script>
 	{% endblock %}
-
-
 </body>
+</html>
+
+
 
