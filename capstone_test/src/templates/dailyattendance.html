@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% extends 'navbar.html' %}
+
+	{% block content %}
+	{% load static %}
+	<title>Attendance on {{ datetoday }}</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/tableformatting.css' %}">
+	<style type="text/css">
+		body{
+			background: url('{% static "img/newbgwide.png" %}') ;
+			background-size: 100% 100%;
+		}
+	
+	</style>
+	<script type="text/javascript">
+		//Obtained from https://www.youtube.com/watch?v=LkVA3AWmkQQ
+		function sortGradeLevel(){
+			var gradeinput = document.getElementById('gradelevel');
+			var gradefilter = gradeinput.value
+
+			var sectioninput = document.getElementById('section');
+			var sectionfilter = sectioninput.value
+
+			var table = document.getElementById('studenttable')
+			var tr = table.getElementsByTagName('tr');
+			
+
+			for(i=0; i < tr.length; i++){
+				var gradecolumn = tr[i].getElementsByTagName('td')[5];
+				var sectioncolumn = tr[i].getElementsByTagName('td')[6];
+
+				if(gradecolumn && sectioncolumn){
+					var gcvalue = gradecolumn.innerText; //it means gradecolumnvalue
+					var scvalue = sectioncolumn.innerText;
+
+					if(gcvalue.indexOf(gradefilter)>-1 && scvalue.indexOf(sectionfilter)>-1){
+						tr[i].style.display='';
+	
+					}
+					else{
+						tr[i].style.display='none';
+					}
+				}
+			}
+			jQuery('tr:visible').filter(':odd').css({'background-color': '#b3e8cd'});
+			jQuery('tr:visible').filter(':even').css({'background-color': '#f5fdfa'});	
+		}
+	</script>
+</head>
+<body onload="sortGradeLevel()" style="background-color: #b3e8cd;">
+
+	<div id='outercontainer'>
+		<div id='container'>
+			<h1>Attendance on <br>{{ datetoday }}</h1>
+
+			<div id ='dropdowncontainer'>
+				<select id='gradelevel' onclick='sortGradeLevel()' class="h3">
+					<option>Grade</option>
+					<option value='7'>7</option>
+					<option value='8'>8</option>
+					<option value='9'>9</option>
+					<option value='10'>10</option>
+					<option value='11'>11</option>
+					<option value='12'>12</option>
+				</select>
+				<select id='section' onclick='sortGradeLevel()' class="h3">
+					<option>Section</option>
+					<option value='Faith'>Faith</option>
+					<option value='Hope'>Hope</option>
+					<option value='Love'>Love</option>
+					<option value='ABM'>ABM</option>
+					<option value='HUMSS'>HUMSS</option>
+					<option value='STEM'>STEM</option>
+				</select>	
+			</div>
+		</div>
+	</div>
+
+	<div id='tablebox'>
+		<table class="table table-striped" id='studenttable'>
+		  <thead>
+		    <tr>
+		    	<th style="width:5%"> DB ID </th>
+				<th style="width:5%"> CN </th>
+				<th style="width:40%"> Email</th>
+				<th style="width:10%"> Late </th>
+				<th style="width:10%"> Absent </th>
+				<th style="width:10%" id='notneeded'> Grade </th>
+				<th style="width:10%" id='notneeded'> Section </th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    {% for instance in object_list %}
+		    	<tr>
+		    		<td>{{ instance.id }}</td>
+		    		<td>{{ instance.classnumber }}</td>
+		    		<td>{{ instance.email }}</td>
+		    		{% if instance.latetoday == True %}
+		    			<td>Yes</td>
+		    		{% else %}
+		    			<td>No</td>
+		    		{% endif %}
+		    		{% if instance.absenttoday == True %}
+		    			<td>Yes</td>
+		    		{% else %}
+		    			<td>No</td>
+		    		{% endif %}
+		    		<td id='notneeded'>{{ instance.grade}}</td>
+		    		<td id='notneeded'>{{ instance.section}}</td>
+		    	</tr>
+		    {% endfor %}
+		  </tbody>
+		</table>
+	</div>
+	
+	<div id='tenbox'></div>
+	
+
+	<script type="text/javascript">	
+		var currentpage = document.getElementById('todayattendance');
+		currentpage.style.backgroundColor = 'white'
+		currentpage.setAttribute('class',"nav-link text-success justify-content-center ")
+	</script>
+
+	{% endblock %}
+</body>
+</html>

@@ -3,54 +3,74 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+	<title>Student Database</title>
+	{% extends 'navbar.html' %}
+
+	{% block content %}
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/tableformatting.css' %}">
 	<style type="text/css">
-		table, th, td, tr{
-			border:1px solid white;
-			text-align: center;
+		body{
+			background: url('{% static "img/newbgwide.png" %}') ;
+			background-size: 100% 100%;
+		}
+		#headerbox{
+			width: 70%;
+			height: 175px;
 			margin-left: auto;
 			margin-right: auto;
-		}
-		table tr:nth-child(odd){
-			background-color: #b3e8cd;
-			color: black;
-		}
-		table tr:nth-child(even){
-			background-color: #046433;
-			color: white;
-		}
-		table tr:nth-child(even){
-			background-color: #b3e8cd;
-			color: black;
-		}
-		.tablebox{
-			width: 75%;
-			padding: 50px;
-			background-color: #046433;
-			margin-left: auto;
-			margin-right: auto;
-		}
-		.tablebox > table{
-			width: 100%;
-		}
-		select{
-			width: 30%;
-			height: 50px;
-			text-align: center;
-			font-size: 50px;
-			font-family: serif;
-			margin-left: auto;
-			margin-right: auto;
-			border: 1px solid red;
-		}
-		.dropdowncontainer{
-			border:1px solid black;
 			
-			width: 30%;
+
+			display: grid;
+			grid-template-columns: repeat(10, 1fr);
+			grid-template-rows: repeat(4, 1fr);
+		}
+		#buttonbox{
+			height: 50px;
+			width: 200px;
+			
+			
+			grid-column: 9 /span 2;
+			grid-row: 4/span 1;
+			margin-left: auto;
+			margin-bottom: 20px;
+		}
+		#generatepdf{
+			background-color: #016634;
+			width: 100%;
+			height: 100%;
+			color: white;
+			font-weight: bold;
+		}
+		#outercontainer{
+			width: 400px;
+			background-color: #016634;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			padding: 10px;
 			margin-left: auto;
 			margin-right: auto;
+			grid-column: 4/span 4;
+			grid-row: 1/ span 4;
+		}
+		#formtest{
+			display: none;
 		}
 		
+		@media all and (max-width: 1080px) {
+		    	/* put your css styles in here */
+		    #headerbox{
+		    	width: 100%;
+		    }
+		    #outercontainer{
+				grid-column: 2/span 8;
+			}
+			#buttonbox{
+				width: 125px;
+				margin-left: 20px;
+			}
+
+		}
 	</style>
 	<script type="text/javascript">
 		//Obtained from https://www.youtube.com/watch?v=LkVA3AWmkQQ
@@ -61,13 +81,13 @@
 			var sectioninput = document.getElementById('section');
 			var sectionfilter = sectioninput.value
 
-			var table = document.getElementById('studenttable')
+			var table = document.getElementById('studenttable');
 			var tr = table.getElementsByTagName('tr');
 			
 
 			for(i=0; i < tr.length; i++){
-				var gradecolumn = tr[i].getElementsByTagName('td')[2];
-				var sectioncolumn = tr[i].getElementsByTagName('td')[3];
+				var gradecolumn = tr[i].getElementsByTagName('td')[3];
+				var sectioncolumn = tr[i].getElementsByTagName('td')[4];
 
 				if(gradecolumn && sectioncolumn){
 					var gcvalue = gradecolumn.innerText; //it means gradecolumnvalue
@@ -81,81 +101,110 @@
 						tr[i].style.display='none';
 					}
 				}
-			}	
-		}
+			}
+		jQuery('tr:visible').filter(':odd').css({'background-color': '#b3e8cd'});
+		jQuery('tr:visible').filter(':even').css({'background-color': '#f5fdfa'});
 
-		
-		
+		document.getElementById('pdfinputgrade').value = gradefilter
+		document.getElementById('pdfinputsection').value = sectionfilter
+		}
 	</script>
 </head>
 
-<body onload="sortGradeLevel()" style="background-color: #b3e8cd;">
-	{% extends 'navbar.html' %}
+<body onload="sortGradeLevel()" >
+	<form method="post" id='formtest'>{% csrf_token %}
+		<input type="text" name="gradeselect" id='pdfinputgrade'>
+		<input type="text" name="section" id='pdfinputsection'>
+		<input type="submit" name="btnsubmit">
+	</form>
 
-	{% block content %}
-	<div class ='dropdowncontainer'>
-		<label>Grade and Section</label><br>
-		<select id='gradelevel' onclick='sortGradeLevel()'>
-			<option>Grade</option>
-			<option value='7'>7</option>
-			<option value='8'>8</option>
-			<option value='9'>9</option>
-			<option value='10'>10</option>
-			<option value='11'>11</option>
-			<option value='12'>12</option>
-		</select>
-		<select id='section' onclick='sortGradeLevel()'>
-			<option>Section</option>
-			<option value='Faith'>Faith</option>
-			<option value='Hope'>Hope</option>
-			<option value='Love'>Love</option>
-			<option value='ABM'>ABM</option>
-			<option value='HUMSS'>HUMSS</option>
-			<option value='STEM'>STEM</option>
-		</select>	
+	<div id='headerbox'>
+		<div id='outercontainer'>
+			<div id='container'>
+				<h1>Student Database</h1>
+
+				<div id ='dropdowncontainer'>
+					
+						<select id='gradelevel' onclick='sortGradeLevel()' class="h3">
+							<option>Grade</option>
+							<option value='7'>7</option>
+							<option value='8'>8</option>
+							<option value='9'>9</option>
+							<option value='10'>10</option>
+							<option value='11'>11</option>
+							<option value='12'>12</option>
+						</select>
+					
+					
+					<select id='section' onclick='sortGradeLevel()' class="h3">
+						<option>Section</option>
+						{% for instance in sections %}
+							<option>{{ instance.section }}</option>
+						{% endfor %}
+					</select>	
+				</div>
+			</div>
+		</div>
+		<div id='buttonbox' >
+			<button id='generatepdf' class="d-flex align-items-center justify-content-center">
+				Export as PDF
+			</button>
+			
+		</div>
+		
+		
 	</div>
 	
-	
 
 	
-
-	<div class="tablebox">
-		<table id='studenttable'>
-			<tr>
+	<div id='tablebox'>
+		<table class="table table-striped" id='studenttable'>
+		  <thead>
+		    <tr>
+				<th style="width:10%"> DB ID </th>
 				<th style="width:10%"> CN </th>
 				<th style="width:40%"> Email</th>
 				<th style="width:10%" id='notneeded'> Grade </th>
 				<th style="width:10%" id='notneeded'> Section </th>
-				<th style="width:10%"> Lates </th>
-				<th style="width:10%" > Absents </th>
+				<th style="width:10%"> Total Late </th>
+				<th style="width:10%" > Total Absent </th>
 				<th style="width:5%"> SPR </th>
 				<th style="width:5%"> Sex </th>
 			</tr>
-			
-				{% for instance in object_list %}
-					<tr>
-						<td>{{ instance.classnumber }}</td>
-						<td>{{ instance.id }}-{{ instance.email }}</td>
-						<td id='notneeded'>{{ instance.grade }} </td>
-						<td id='notneeded'>{{ instance.section}}</td>
-						<td>{{ instance.lates }}</td>
-						<td>{{ instance.absents }}</td>
-						<td>{{ instance.spr }}</td>
-						<td>{{ instance.sex }}</td>
-					</tr>
-				{% endfor %}
+		  </thead>
+		  <tbody>
+		    {% for instance in object_list %}
+				<tr>
+					<td>{{ instance.id }}</td>
+					<td>{{ instance.classnumber }}</td>
+					<td>{{ instance.email }}</td>
+					<td id='notneeded'>{{ instance.grade }} </td>
+					<td id='notneeded'>{{ instance.section}}</td>
+					<td>{{ instance.lates }}</td>
+					<td>{{ instance.absents }}</td>
+					<td>{{ instance.spr }}</td>
+					<td>{{ instance.sex }}</td>
+				</tr>
+			{% endfor %}
+		  </tbody>
 		</table>
 	</div>
 	
-	<p>{{ latestobject }}</p>
-	<p>{{ latestobject.integer }}</p>
+	<div id='tenbox'></div>
 
 	<script type="text/javascript">
-		var submissionpage = document.getElementById('database');
-		submissionpage.style.backgroundColor = 'darkblue'
-		submissionpage.style.color = 'white'
+		var currentpage = document.getElementById('database');
+		currentpage.style.backgroundColor = 'white'
+		currentpage.setAttribute('class',"nav-link text-success justify-content-center ")
 	</script>
 
+	<script type="text/javascript">
+		generatepdf = document.getElementById('generatepdf')
+		generatepdf.onclick = function submitget(){
+			document.getElementById('formtest').submit()
+			
+		}
+	</script>
 	{% endblock %}
 </body>
 </html>
