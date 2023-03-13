@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% extends 'navbar.html' %}
+	
+	{% block content %}
+	{% load static %}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Delete Student </title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/formformatting.css' %}">
+	<style type="text/css">
+		body{
+			background: url('{% static "img/newbgwide.png" %}') ;
+			background-size: 100% 100%;
+		}
+		#buttonbox{
+			width: 200px;
+			background-color: #016634;
+			padding: 20px;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 20px;
+		}
+		#purgebutton{
+			width: 100%;
+			height: 50px;
+			background-color: #e63d3d;
+			border: none;
+		}
+	</style>
+</head>
+<body>
+	<div id='outsidebox' class="align-items-center justify-content-center">
+		<div id='formbox'>
+			<form method='POST' id='deletionform'>{% csrf_token %}
+				<label id='formlabel'>Delete Student</label>
+				{{ form.as_p }}
+				<button id='submitbutton'>Delete</button>
+			</form>
+		</div>
+
+		<div id='buttonbox'>
+			<form method="post" action='{% url "purgedb" %}' id='purgefunction'>{% csrf_token %}
+				<div id='purgebox'>
+					<button id='purgebutton'>Clear All Databases</button>	
+				</div>
+			</form>	
+		</div>	
+	</div>
+
+<script type="text/javascript">
+	var submissionpage = document.getElementById('deletestudent');
+	submissionpage.style.backgroundColor = '#016634'
+	submissionpage.style.color = 'white'
+
+	var currentpage = document.getElementById('navbarDropdownstudent');
+	currentpage.style.backgroundColor = 'white'
+	currentpage.setAttribute('class',"nav-link dropdown-toggle text-success justify-content-center")
+</script>
+
+<script type="text/javascript">
+	var submitbutton = document.getElementById('submitbutton')
+	submitbutton.onclick = function confirmation(){
+		if (confirm('do you want to delete {{ submitted_id }}?') == true){
+			document.getElementById('deletionform').submit()
+			
+		}
+		else{
+			return false;
+		}
+	}
+</script>
+<script type="text/javascript">
+	var purgebutton = document.getElementById('purgebutton');
+	purgebutton.onclick = function confirmationconfirmation(){
+		if (confirm('This will delete all students and daily passwords. Are you sure?') == true){
+			if (confirm('Are you sure again?') == true){
+				document.getElementById('purgefunction').submit()
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
+	}
+</script>
+{% endblock %}
+</body>
+</html>

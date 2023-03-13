@@ -1,0 +1,40 @@
+body{
+	height: 100%;
+}
+#outsidebox{
+	display: flex;
+	flex-direction: column;
+	height: 80%;
+}
+#formlabel{
+	font-size: 30px;
+	font-weight: bold;
+	color: white;
+}
+#formbox form{
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	
+
+	padding-top: 10px;
+	padding-bottom: 10px;
+	
+	text-align: center;
+	background-color: #016634;
+	color: white;
+}
+input{
+	background-color: white;
+	color: black;
+	text-align: center;
+	border: none;
+
+	height: 50px;
+	width: 60%;
+	font-weight: bold;
+}
+#submitbutton{
+	width: 100px;
+}
+
