@@ -30,7 +30,7 @@
 		text-align: center;
 		color: white;
 	}
-	#hideformbutton{
+	#formbuttonbox>a{
 		width: 170px;
 		margin-left: auto;
 		margin-right: auto;
@@ -87,6 +87,9 @@
 		padding: 2px;
 		color: white;
 	}
+	#spacebox{
+		height: 9%;
+	}
 	</style>
 </head>
 <body>
@@ -105,8 +108,8 @@
 			</table>	
 		</div>
 
-		<p>
-			 <a class="btn btn-primary d-flex align-items-center justify-content-center" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" id='hideformbutton'>
+		<p id='formbuttonbox'>
+			 <a class="btn btn-primary d-flex align-items-center justify-content-center" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" id='hideformbuttontime'>
 			   Change Starting Time
 			 </a>
 		</p>
@@ -143,8 +146,8 @@
 			</table>	
 		</div>
 
-			<p>
-				 <a class="btn btn-primary d-flex align-items-center justify-content-center" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2" id='hideformbutton'>
+			<p id='formbuttonbox'>
+				 <a class="btn btn-primary d-flex align-items-center justify-content-center" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2" id='hideformbuttonsection'>
 				   Add/Delete Sections
 				 </a>
 			</p>
@@ -160,6 +163,8 @@
 			    </div>
 			  </div>
 			</div>
+
+			<div id='spacebox'></div>
 			
 	
 	<script type="text/javascript">
@@ -179,6 +184,7 @@
 			}
 		}
 	</script>
+
 	{% endblock %}
 </body>
 </html>

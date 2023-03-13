@@ -140,10 +140,11 @@ def startingtimes_view(request):
 def dailyattendance_view(request):
 	allstudents = Students.objects.order_by('classnumber')
 	datetoday = datetime.today().strftime('%m-%d-%Y')
-
+	sections = SectionList.objects.order_by('highschool')
 	context = {
 		'object_list':allstudents,
 		'datetoday':datetoday,
+		'sections':sections,
 	}
 	return render(request, 'dailyattendance.html', context)
 
@@ -164,8 +165,6 @@ def studentdatabase_view(request):
 		'sections':sections,
 	}
 		
-
-	
 	return render(request, 'studentdatabase.html', context)
 
 @login_required(login_url='/login/')

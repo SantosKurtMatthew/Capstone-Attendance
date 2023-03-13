@@ -1,3 +1,13 @@
+#headerbox{
+	width: 70%;
+	height: 175px;
+	margin-left: auto;
+	margin-right: auto;
+	
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+}
 #outercontainer{
 	width: 400px;
 	background-color: #016634;
@@ -6,6 +16,9 @@
 	padding: 10px;
 	margin-left: auto;
 	margin-right: auto;
+	grid-column: 4/span 4;
+	grid-row: 1/ span 4;
+
 }
 #container{
 	width: 100%;
@@ -78,4 +91,18 @@ tr{
 		margin-left: auto;
 		margin-right: auto;
 	}
+}
+@media all and (max-width: 1080px) {
+    	/* put your css styles in here */
+    #headerbox{
+    	width: 100%;
+    }
+    #outercontainer{
+		grid-column: 2/span 8;
+	}
+	#buttonbox{
+		width: 125px;
+		margin-left: 20px;
+	}
+
 }
