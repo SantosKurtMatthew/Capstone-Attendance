@@ -1,0 +1,1135 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"get",
+				"getElementById"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
+				"tabl",
+				"tablestyles"
+			],
+			[
+				"tbal",
+				"table"
+			],
+			[
+				"getelem",
+				"getElementsByTagName"
+			],
+			[
+				"sec",
+				"sectionfilter"
+			],
+			[
+				"grad",
+				"gradefilter"
+			],
+			[
+				"f",
+				"function"
+			],
+			[
+				"Sect",
+				"SectionList"
+			],
+			[
+				"start",
+				"starttime"
+			],
+			[
+				"sectio",
+				"sectionform"
+			],
+			[
+				"gridro",
+				"grid-row"
+			],
+			[
+				"gridr",
+				"grid-row"
+			],
+			[
+				"mar",
+				"margin-left"
+			],
+			[
+				"gridc",
+				"grid-column"
+			],
+			[
+				"gro",
+				"grid-template-columns"
+			],
+			[
+				"gridtempl",
+				"grid-template-rows"
+			],
+			[
+				"outer",
+				"outercontainer"
+			],
+			[
+				"ma",
+				"margin-left"
+			],
+			[
+				"marg",
+				"margin-top"
+			],
+			[
+				"curr",
+				"currentstudentexists"
+			],
+			[
+				"daily",
+				"dailyattendance_view"
+			],
+			[
+				"stu",
+				"studenttable"
+			],
+			[
+				"line",
+				"line-height"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"over",
+				"overflow-y"
+			],
+			[
+				"overf",
+				"overflow"
+			],
+			[
+				"card",
+				"card-body"
+			],
+			[
+				"textdec",
+				"text-decoration"
+			],
+			[
+				"backgroud",
+				"background"
+			],
+			[
+				"background",
+				"background"
+			],
+			[
+				"border",
+				"border-radius"
+			],
+			[
+				"curre",
+				"currentuser"
+			],
+			[
+				"c",
+				"currentuser"
+			],
+			[
+				"cu",
+				"currentuser"
+			],
+			[
+				"Pas",
+				"PasswordChangeView"
+			],
+			[
+				"new",
+				"new_password2"
+			],
+			[
+				"Change",
+				"PasswordChangeForm"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"attendance",
+				"AttendanceSubmit"
+			],
+			[
+				"nav",
+				"nav-link"
+			],
+			[
+				"cur",
+				"currenthour"
+			],
+			[
+				"s",
+				"style"
+			],
+			[
+				"pass",
+				"password1"
+			],
+			[
+				"__",
+				"__init__"
+			],
+			[
+				"grade",
+				"gradebox"
+			],
+			[
+				"margi",
+				"margin-bottom"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"padd",
+				"padding-bottom"
+			],
+			[
+				"ST",
+				"StartingTime"
+			],
+			[
+				"padding",
+				"padding-bottom"
+			],
+			[
+				"h",
+				"html"
+			],
+			[
+				"borderrad",
+				"border-bottom-left-radius"
+			],
+			[
+				"tab",
+				"table"
+			],
+			[
+				"log",
+				"login_required"
+			],
+			[
+				"sub",
+				"submitbutton"
+			],
+			[
+				"al",
+				"align-items"
+			],
+			[
+				"ex",
+				"existsAtttendanceSubmit"
+			],
+			[
+				"cle",
+				"cleanemail"
+			],
+			[
+				"exists",
+				"existsAtttendanceSubmit"
+			],
+			[
+				"te",
+				"text-bottom"
+			],
+			[
+				"marign",
+				"margin-bottom"
+			],
+			[
+				"if",
+				"ifbox"
+			],
+			[
+				"su",
+				"submittednewtime"
+			],
+			[
+				"ema",
+				"emailqueryset"
+			],
+			[
+				"ce",
+				"cleanemail"
+			],
+			[
+				"date",
+				"datetimenow"
+			],
+			[
+				"align",
+				"align-items"
+			],
+			[
+				"atte",
+				"attendance_submit"
+			],
+			[
+				"gra",
+				"gradefilter"
+			],
+			[
+				"cho",
+				"choicenumber"
+			],
+			[
+				"drowp",
+				"dropdownnumber"
+			],
+			[
+				"opt",
+				"option"
+			],
+			[
+				"clean",
+				"clean_password"
+			],
+			[
+				"inte",
+				"integer"
+			],
+			[
+				"da",
+				"dailycode"
+			],
+			[
+				"dai",
+				"dailycode"
+			],
+			[
+				"lates",
+				"latestobject"
+			],
+			[
+				"marig",
+				"margin-left"
+			],
+			[
+				"paddin",
+				"padding-top"
+			],
+			[
+				"student",
+				"studentdatabase_view"
+			],
+			[
+				"backgr",
+				"background-color"
+			],
+			[
+				"num",
+				"numberrecord"
+			],
+			[
+				"rand",
+				"randomint"
+			],
+			[
+				"sch",
+				"schedule_api"
+			],
+			[
+				"def",
+				"definevariable"
+			],
+			[
+				"Atte",
+				"Attendance"
+			],
+			[
+				"article",
+				"article_list_view"
+			],
+			[
+				"art",
+				"article_detail_view"
+			],
+			[
+				"product",
+				"product_list_view"
+			],
+			[
+				"pro",
+				"product_create_view"
+			],
+			[
+				"fiel",
+				"fields"
+			],
+			[
+				"con",
+				"context"
+			],
+			[
+				"prod",
+				"product_detail_view"
+			],
+			[
+				"u",
+				"ul"
+			],
+			[
+				"backgrou",
+				"background-color"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"red",
+				"darkred"
+			],
+			[
+				"border-bo",
+				"border-bottom"
+			],
+			[
+				"b",
+				"background-color"
+			],
+			[
+				"Margin",
+				"margin-top"
+			],
+			[
+				"test",
+				"text-align-last"
+			],
+			[
+				"backg",
+				"background-color"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "templates/dailyattendance.html",
+			"settings":
+			{
+				"buffer_size": 3737,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					5,
+					1,
+					"insert",
+					{
+						"characters": "onchange"
+					},
+					"CQAAADcHAAAAAAAAOAcAAAAAAAAAAAAAOAcAAAAAAAA4BwAAAAAAAAcAAABvbmNsaWNrOAcAAAAAAAA5BwAAAAAAAAAAAAA5BwAAAAAAADoHAAAAAAAAAAAAADoHAAAAAAAAOwcAAAAAAAAAAAAAOwcAAAAAAAA8BwAAAAAAAAAAAAA8BwAAAAAAAD0HAAAAAAAAAAAAAD0HAAAAAAAAPgcAAAAAAAAAAAAAPgcAAAAAAAA/BwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAANwcAAAAAAAA+BwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					15,
+					1,
+					"paste",
+					null,
+					"AgAAAH0IAAAAAAAAhQgAAAAAAAAAAAAAhQgAAAAAAACFCAAAAAAAAAcAAABvbmNsaWNr",
+					"AQAAAAAAAAABAAAAfQgAAAAAAACECAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "templates/studentdatabase.html",
+			"settings":
+			{
+				"buffer_size": 4705,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					5,
+					1,
+					"paste",
+					null,
+					"AgAAAHQJAAAAAAAAfAkAAAAAAAAAAAAAfAkAAAAAAAB8CQAAAAAAAAcAAABvbmNsaWNr",
+					"AQAAAAAAAAABAAAAdAkAAAAAAAB7CQAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					10,
+					1,
+					"paste",
+					null,
+					"AgAAAM4KAAAAAAAA1goAAAAAAAAAAAAA1goAAAAAAADWCgAAAAAAAAcAAABvbmNsaWNr",
+					"AQAAAAAAAAABAAAAzgoAAAAAAADVCgAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "static/css/tableformatting.css",
+			"settings":
+			{
+				"buffer_size": 1640,
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+			]
+		},
+		{
+			"file": "templates/attendancesubmit.html",
+			"settings":
+			{
+				"buffer_size": 2688,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+			]
+		},
+		{
+			"file": "static/css/formformatting.css",
+			"redo_stack":
+			[
+				[
+					65,
+					1,
+					"cut",
+					null,
+					"AQAAAAECAAAAAAAApAIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAQIAAAAAAAABAgAAAAAAAAAAAAAAAPC/"
+				]
+			],
+			"settings":
+			{
+				"buffer_size": 676,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+				[
+					9,
+					1,
+					"paste_and_indent",
+					null,
+					"AQAAAAECAAAAAAAAxwIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAAQIAAAAAAAABAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					15,
+					1,
+					"insert",
+					{
+						"characters": "450"
+					},
+					"BAAAABwCAAAAAAAAHQIAAAAAAAAAAAAAHQIAAAAAAAAdAgAAAAAAAAQAAAAxMDI0HQIAAAAAAAAeAgAAAAAAAAAAAAAeAgAAAAAAAB8CAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAHAIAAAAAAAAgAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					22,
+					1,
+					"paste_and_indent",
+					null,
+					"AgAAAFACAAAAAAAANAMAAAAAAAAAAAAANAMAAAAAAAA0AwAAAAAAAHQAAAAjdGFibGVib3h7CgkJd2lkdGg6IDk1JTsKCQlwYWRkaW5nOiAxMHB4OwoJCWJhY2tncm91bmQtY29sb3I6ICMwMTY2MzQ7CgkJbWFyZ2luLWxlZnQ6IGF1dG87CgkJbWFyZ2luLXJpZ2h0OiBhdXRvOwoJfQ",
+					"AQAAAAAAAAABAAAAxAIAAAAAAABQAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					26,
+					1,
+					"left_delete",
+					null,
+					"AQAAAHcCAAAAAAAAdwIAAAAAAAC3AAAAbWFyZ2luLWxlZnQ6IGF1dG87CiAgICAJbWFyZ2luLXJpZ2h0OiBhdXRvOwogICAgCQoKICAgIAlwYWRkaW5nLXRvcDogMTBweDsKICAgIAlwYWRkaW5nLWJvdHRvbTogMTBweDsKICAgIAkKICAgIAl0ZXh0LWFsaWduOiBjZW50ZXI7CiAgICAJYmFja2dyb3VuZC1jb2xvcjogIzAxNjYzNDsKICAgIAljb2xvcjogd2hpdGU7",
+					"AQAAAAAAAAABAAAAdwIAAAAAAAAuAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					31,
+					1,
+					"insert",
+					{
+						"characters": "100%"
+					},
+					"BQAAAGsCAAAAAAAAbAIAAAAAAAAAAAAAbAIAAAAAAABsAgAAAAAAAAUAAAA1MDBweGwCAAAAAAAAbQIAAAAAAAAAAAAAbQIAAAAAAABuAgAAAAAAAAAAAABuAgAAAAAAAG8CAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAawIAAAAAAABwAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					38,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AgAAAEsCAAAAAAAATAIAAAAAAAAAAAAATAIAAAAAAABRAgAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAASwIAAAAAAABLAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					39,
+					1,
+					"left_delete",
+					null,
+					"AQAAAFACAAAAAAAAUAIAAAAAAAABAAAACQ",
+					"AQAAAAAAAAABAAAAUQIAAAAAAABRAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					40,
+					1,
+					"insert",
+					{
+						"characters": "#formbox"
+					},
+					"CAAAAFACAAAAAAAAUQIAAAAAAAAAAAAAUQIAAAAAAABSAgAAAAAAAAAAAABSAgAAAAAAAFMCAAAAAAAAAAAAAFMCAAAAAAAAVAIAAAAAAAAAAAAAVAIAAAAAAABVAgAAAAAAAAAAAABVAgAAAAAAAFYCAAAAAAAAAAAAAFYCAAAAAAAAVwIAAAAAAAAAAAAAVwIAAAAAAABYAgAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAUAIAAAAAAABQAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					41,
+					1,
+					"insert_snippet",
+					{
+						"contents": "{$0}"
+					},
+					"AQAAAFgCAAAAAAAAWgIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAWAIAAAAAAABYAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					42,
+					1,
+					"run_macro_file",
+					{
+						"file": "res://Packages/Default/Add Line in Braces.sublime-macro"
+					},
+					"BgAAAFkCAAAAAAAAWgIAAAAAAAAAAAAAWgIAAAAAAABeAgAAAAAAAAAAAABeAgAAAAAAAF8CAAAAAAAAAAAAAF8CAAAAAAAAYwIAAAAAAAAAAAAAWgIAAAAAAABaAgAAAAAAAAQAAAAgICAgWgIAAAAAAABfAgAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAWQIAAAAAAABZAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					43,
+					1,
+					"insert",
+					{
+						"characters": "back"
+					},
+					"BAAAAF8CAAAAAAAAYAIAAAAAAAAAAAAAYAIAAAAAAABhAgAAAAAAAAAAAABhAgAAAAAAAGICAAAAAAAAAAAAAGICAAAAAAAAYwIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAXwIAAAAAAABfAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					44,
+					1,
+					"insert_completion",
+					{
+						"completion": "background-color: $0;",
+						"format": "snippet",
+						"keep_prefix": false,
+						"must_insert": false,
+						"trigger": "background-color"
+					},
+					"AgAAAF8CAAAAAAAAXwIAAAAAAAAEAAAAYmFja18CAAAAAAAAcgIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAYwIAAAAAAABjAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					45,
+					1,
+					"insert",
+					{
+						"characters": "red"
+					},
+					"AwAAAHECAAAAAAAAcgIAAAAAAAAAAAAAcgIAAAAAAABzAgAAAAAAAAAAAABzAgAAAAAAAHQCAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAcQIAAAAAAABxAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					50,
+					1,
+					"insert",
+					{
+						"characters": "outsi"
+					},
+					"BgAAAFECAAAAAAAAUgIAAAAAAAAAAAAAUgIAAAAAAABSAgAAAAAAAAcAAABmb3JtYm94UgIAAAAAAABTAgAAAAAAAAAAAABTAgAAAAAAAFQCAAAAAAAAAAAAAFQCAAAAAAAAVQIAAAAAAAAAAAAAVQIAAAAAAABWAgAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAUQIAAAAAAABYAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					51,
+					1,
+					"insert_completion",
+					{
+						"completion": "outsidebox",
+						"format": "text",
+						"keep_prefix": false,
+						"must_insert": false,
+						"trigger": "outsidebox"
+					},
+					"AgAAAFECAAAAAAAAUQIAAAAAAAAFAAAAb3V0c2lRAgAAAAAAAFsCAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAVgIAAAAAAABWAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					56,
+					1,
+					"insert",
+					{
+						"characters": "formbox"
+					},
+					"CAAAAFECAAAAAAAAUgIAAAAAAAAAAAAAUgIAAAAAAABSAgAAAAAAAAoAAABvdXRzaWRlYm94UgIAAAAAAABTAgAAAAAAAAAAAABTAgAAAAAAAFQCAAAAAAAAAAAAAFQCAAAAAAAAVQIAAAAAAAAAAAAAVQIAAAAAAABWAgAAAAAAAAAAAABWAgAAAAAAAFcCAAAAAAAAAAAAAFcCAAAAAAAAWAIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAUQIAAAAAAABbAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					60,
+					1,
+					"insert",
+					{
+						"characters": "widt"
+					},
+					"BQAAAF8CAAAAAAAAYAIAAAAAAAAAAAAAYAIAAAAAAABgAgAAAAAAABYAAABiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7YAIAAAAAAABhAgAAAAAAAAAAAABhAgAAAAAAAGICAAAAAAAAAAAAAGICAAAAAAAAYwIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAXwIAAAAAAAB1AgAAAAAAAP///////+9/"
+				],
+				[
+					61,
+					1,
+					"insert_completion",
+					{
+						"completion": "width: $0;",
+						"format": "snippet",
+						"keep_prefix": false,
+						"must_insert": false,
+						"trigger": "width"
+					},
+					"AgAAAF8CAAAAAAAAXwIAAAAAAAAEAAAAd2lkdF8CAAAAAAAAZwIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAYwIAAAAAAABjAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					62,
+					1,
+					"insert",
+					{
+						"characters": "100%"
+					},
+					"BAAAAGYCAAAAAAAAZwIAAAAAAAAAAAAAZwIAAAAAAABoAgAAAAAAAAAAAABoAgAAAAAAAGkCAAAAAAAAAAAAAGkCAAAAAAAAagIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAZgIAAAAAAABmAgAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_hosting",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_hosting/static",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_hosting/static/css",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_hosting/student_attendance",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_hosting/templates"
+	],
+	"file_history":
+	[
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_hosting/student_attendance/admin.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/dailyattendance.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/studentdatabase.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/static/css/tableformatting.css",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/navbar.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/student_attendance/views.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/instructions.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/dailypassword.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/startingtimes.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/account/change-password.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/account/create.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/static/css/formformatting.css",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/account/login.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/newstudent.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/attendancesubmit.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/deletestudent.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/static/css/spacebox.css",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/student_attendance/forms.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/student_attendance/admin.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/student_attendance/models.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/capstone_test/urls.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/HTML/gridtesting.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/HTML/confirmtesting.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/student_attendance/apps.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/accountlogin.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/accountcreation.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/change-password.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/dailycode.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/jobsfolder/jobs.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/HTML/formtemplatetest.css",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/HTML/instructions_rkimgabby.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/HTML/bootstrap.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/HTML/backgroundimage.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/capstone_test/settings.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/dailycodeandstarttimes.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/jobsfolder/updater.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/HTML/hideform.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/functioninfunction.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/attendanceoftheday.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/TestSite2.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/attendancecode.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/confirmtesting.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/javascript_testing.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/student_attendance/variables.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/dropdown list.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/hideform.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/input_validation.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/capstone_test/__init__.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/schedule_code_original.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/utils/__init__.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/utils/createinteger.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/capstone_test/celery.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/student_attendance/tasks.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/student_attendance/cron.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/global_variables.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Backups/studentdatabase.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/templates/homepage.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Folder2/function2.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Folder1/function1.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/student_attendance/schedule_code_original.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/jobs/jobs.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/capstone_test/src/student_attendance/schedule_code.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/Capstone Python Testing/schedule_code.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/random_number.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/blog/urls.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/products/templates/products/product_detail.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/trydjango/settings.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/blog/forms.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/trydjango/urls.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/blog/templates/article_detail.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/blog/templates/article_list.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/products/views.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/products/models.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/products/templates/products/product_list.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/products/urls.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/products/forms.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/products/templates/products/product_create.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/templates/base.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/templates/product/detail.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/templates/about.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/pages/views.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/products/admin.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/templates/navbar.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/templates/home.html",
+		"/C/Users/Owner/Downloads/Kurt_Files/django_testing/trydjango/src/templates/contact.html",
+		"/C/Users/Owner/Downloads/Kurt Files/Django Testing/django_testing/django_testing/settings.py",
+		"/C/Users/Owner/Downloads/Kurt_Files/Code/TestSite.html",
+		"/C/Users/Owner/Downloads/Kurt Files/Code/Coding Club Sample.html",
+		"/C/Users/Owner/Downloads/Kurt Files/Code/TestSite2.html",
+		"/C/Users/Owner/Downloads/Kurt Files/Code/Replit/index.html",
+		"/C/Users/Owner/Downloads/Kurt Files/Code/variables.js"
+	],
+	"find":
+	{
+		"height": 29.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "templates/dailyattendance.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3737,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2181,
+								2181
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 720.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "templates/studentdatabase.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4705,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2774,
+								2774
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "static/css/tableformatting.css",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1640,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1419,
+								1221
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1260.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "templates/attendancesubmit.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2688,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								576,
+								576
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 600.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "static/css/formformatting.css",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 676,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								676,
+								513
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 120.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.0
+	},
+	"input":
+	{
+		"height": 43.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "capstone_hosting_project.sublime-project",
+	"replace":
+	{
+		"height": 54.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 250.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

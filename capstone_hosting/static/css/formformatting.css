@@ -38,3 +38,13 @@ input{
 	width: 100px;
 }
 
+@media all and (max-width: 450px) {
+    	/* put your css styles in here */
+    #formbox{
+    	width: 100%;
+    }
+    #formbox form{
+    	width: 100%;
+    	
+    }
+}

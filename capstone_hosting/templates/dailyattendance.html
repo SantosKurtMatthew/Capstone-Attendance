@@ -60,7 +60,7 @@
 				<h1>Attendance on <br>{{ datetoday }}</h1>
 
 				<div id ='dropdowncontainer'>
-					<select id='gradelevel' onclick='sortGradeLevel()' class="h3">
+					<select id='gradelevel' onchange='sortGradeLevel()' class="h3">
 						<option>Grade</option>
 						<option value='7'>7</option>
 						<option value='8'>8</option>
@@ -69,7 +69,7 @@
 						<option value='11'>11</option>
 						<option value='12'>12</option>
 					</select>
-					<select id='section' onclick='sortGradeLevel()' class="h3">
+					<select id='section' onchange='sortGradeLevel()' class="h3">
 						<option>Section</option>
 						{% for instance in sections %}
 							<option>{{ instance.section }}</option>

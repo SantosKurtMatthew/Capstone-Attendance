@@ -33,7 +33,25 @@
 		#formtest{
 			display: none;
 		}
-		
+		@media all and (max-width: 512px) {
+		    	/* put your css styles in here */
+		    #headerbox{
+		    	height: 225px;
+		    	grid-template-columns: repeat(10, 1fr);
+		    	grid-template-rows: repeat(5, 1fr);
+		    }
+		    #outercontainer{
+		    	height: 135px;
+		    	grid-column: 1 /span 10;
+		    	grid-row: 1/ span 4;
+		    }
+		    #buttonbox{
+		    	grid-column: 1/span 10;
+		    	grid-row: 5;
+		    	margin-left: auto;
+		    	margin-right: auto;
+		    }
+		}
 		
 	</style>
 	<script type="text/javascript">
@@ -89,7 +107,7 @@
 
 				<div id ='dropdowncontainer'>
 					
-						<select id='gradelevel' onclick='sortGradeLevel()' class="h3">
+						<select id='gradelevel' onchange='sortGradeLevel()' class="h3">
 							<option>Grade</option>
 							<option value='7'>7</option>
 							<option value='8'>8</option>
@@ -100,7 +118,7 @@
 						</select>
 					
 					
-					<select id='section' onclick='sortGradeLevel()' class="h3">
+					<select id='section' onchange='sortGradeLevel()' class="h3">
 						<option>Section</option>
 						{% for instance in sections %}
 							<option>{{ instance.section }}</option>

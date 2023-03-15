@@ -82,16 +82,8 @@ tr{
 #tenbox{
 	height: 10%;
 }
-@media all and (max-width: 1024px) {
-    	/* put your css styles in here */
-    #tablebox{
-		width: 95%;
-		padding: 10px;
-		background-color: #016634;
-		margin-left: auto;
-		margin-right: auto;
-	}
-}
+
+
 @media all and (max-width: 1080px) {
     	/* put your css styles in here */
     #headerbox{
@@ -104,5 +96,21 @@ tr{
 		width: 125px;
 		margin-left: 20px;
 	}
+	#tablebox{
+		width: 95%;
+		padding: 10px;
+		background-color: #016634;
+		margin-left: auto;
+		margin-right: auto;
+	}
 
+}
+@media all and (max-width: 512px) {
+    	/* put your css styles in here */
+    #outercontainer{
+    	grid-column: 1 /span 10;
+    }
+    #tablebox{
+    	background: none;
+    }
 }

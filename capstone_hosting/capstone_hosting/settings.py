@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@g0u5^7pe!u##%(a)0kg-8*6s%hva&nx$fi*_o0#m6k6dggohb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['KurtSantos924.pythonanywhere.com']
 
 
 # Application definition
@@ -123,6 +123,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+#Uncomment STATIC_ROOT and delete STATICFILES_DIRS when hosting
+#STATIC_ROOT = '/home/KurtSantos924/Capstone-Attendance/capstone_hosting/static/static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

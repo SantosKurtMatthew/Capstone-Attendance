@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.db.models import F
 
 from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 
@@ -79,6 +80,12 @@ def instructions_view(request):
 
 @login_required(login_url='/login/')
 def dailypassword_view(request):
+	latestobjectexists = DailyInteger.objects.filter().exists()
+	if latestobjectexists == False:
+		dailyint = DailyInteger(integer=999)
+		dailyint.save()
+		print("latestobjectexists",latestobjectexists)
+
 	latestobject = DailyInteger.objects.latest('id')
 	dailycode = latestobject.integer
 	creationdate = latestobject.creation_time.date()
@@ -87,9 +94,13 @@ def dailypassword_view(request):
 	pressedtoday = False
 
 	if creationdate < datetoday:
-		pressedtoday = False 
+		pressedtoday = False
+	elif dailycode == 999: 
+		pressedtoday = False
 	else:
 		pressedtoday = True
+
+	
 
 	context = {
 		'dailycode': dailycode,
@@ -277,6 +288,9 @@ def purgedatabase_view(request):
 	AttendanceSubmit.objects.all().delete()
 	Students.objects.all().delete()
 	DailyInteger.objects.all().delete()
+	StartingTime.objects.all().delete()
+	SectionList.objects.all().delete()
+	User.objects.filter(is_superuser=False).delete()
 	return HttpResponseRedirect(reverse("delete_studentinfo"))
 
 def exportpdf_view(request):
