@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import F
+from django.contrib import messages
 
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.models import User
@@ -25,7 +26,8 @@ from .forms import (
 	CustomAuthenticationForm, 
 	CustomPasswordChangeForm,
 	AddSection,
-	PdfFilterForm
+	PdfFilterForm,
+	ExcelForm
 	)
 
 from .models import (
@@ -39,6 +41,10 @@ from .models import (
 import time, random
 from datetime import datetime
 from functools import partial
+
+import tablib
+from tablib import Dataset
+from .resources import StudentResource
 
 
 # Create your views here.
@@ -68,6 +74,8 @@ def attendancesubmit_view(request):
 		currentstudent.spr = currentstudent.lates/5
 		currentstudent.save()
 		#Students.objects.all().update(absents = F('absents')*0)#Just to reset the absents
+		print(submittedemail)
+		messages.success(request, 'Attendance Submitted!')
 		return HttpResponseRedirect(reverse("attendance_submit"))
 	
 	context = {
@@ -106,7 +114,7 @@ def dailypassword_view(request):
 		'dailycode': dailycode,
 		'pressedtoday': pressedtoday
 	}
-	return render(request, "dailypassword.html", context)
+	return render(request, "dailyreset.html", context)
 
 @login_required(login_url='/login/')
 def startingtimes_view(request):
@@ -179,13 +187,12 @@ def studentdatabase_view(request):
 	return render(request, 'studentdatabase.html', context)
 
 @login_required(login_url='/login/')
-def newstudent_view(request):
+def newstudentform_view(request):
 	submitbutton = request.POST.get('submit')
 	sectionchoices = SectionList.objects.order_by('highschool').values_list('section', 'section')	
 	form = StudentsInfoForm(request.POST or None)
-	form.fields['section'].choices = sectionchoices  
+	form.fields['section'].choices = sectionchoices
 	
-
 	if form.is_valid():
 		submittedemail = form.cleaned_data['email']
 		studentexists = Students.objects.filter(email=submittedemail)
@@ -200,13 +207,41 @@ def newstudent_view(request):
 			print(form.cleaned_data['grade'], form.cleaned_data['section'], form.cleaned_data['classnumber'])
 		else:
 			form.save()
-		return HttpResponseRedirect(reverse("new_studentinfo"))
-	
-	print(sectionchoices)
+		messages.success(request, 'Student Inserted!')
+		return HttpResponseRedirect(reverse("new_studentform"))
+
 	context = {
 		'form':form,
 	}
-	return render(request, 'newstudent.html', context)
+	return render(request, 'newstudentviaform.html', context)
+
+def newstudentexcel_view(request):
+	submitbutton = request.POST.get('submit')
+	excelform = ExcelForm(request.POST, request.FILES)
+	
+	if request.method == "POST":
+		if excelform.is_valid():
+			student_resource = StudentResource()
+			excelfile = request.FILES['student_excel']
+			filedata = tablib.Dataset().load(excelfile.read(), format='xlsx')
+			for data in filedata:
+				value = Students(
+						data[0],
+						data[1],
+						data[2],
+						data[3],
+						data[4],
+						data[5],
+					)
+				value.save()
+			messages.success(request, 'Students Inserted!')
+		return HttpResponseRedirect(reverse("new_studentexcel"))
+
+	context = {
+		'excelform':excelform
+	}
+	
+	return render(request, 'newstudentviaexcel.html', context)
 
 @login_required(login_url='/login/')
 def deletestudent_view(request):

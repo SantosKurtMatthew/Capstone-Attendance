@@ -28,7 +28,7 @@ class AttendanceForm(forms.ModelForm):
 
 		if existsStudents == False:
 			raise forms.ValidationError('student does not exist')
-		if existsAtttendanceSubmit == True and cleanhalfday == False:
+		if existsAtttendanceSubmit == True: #and cleanhalfday == False:
 			raise forms.ValidationError('you submitted today already')
 		else:
 			return cleanemail
@@ -42,6 +42,10 @@ class AttendanceForm(forms.ModelForm):
 		else: 
 			raise forms.ValidationError('wrong code')
 	
+class ExcelForm(forms.Form):
+	student_excel = forms.FileField(widget=forms.FileInput(attrs={
+		'id':'fileupload'
+		}),required=False, label='')
 
 class StudentsInfoForm(forms.ModelForm):
 	email = forms.EmailField(widget=forms.TextInput(attrs={

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Insert Student</title>
+	{% extends 'navbar.html' %}
+
+	{% block content %}
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/formformatting.css' %}">
+	<style type="text/css">
+		body{
+			background: url('{% static "img/newbgwide.png" %}') ;
+			background-size: 100% 100%;
+		}
+		.sexselect{
+			background-color: white;
+			border: none;
+			width: 100px;
+			border-radius: 25px;
+
+			color: black;
+			text-align: center;
+		}
+		#messages{
+			width: 500px;
+			height: 100px;
+			border: 5px solid black;
+			background: #b3e8cd;
+			display: flex;
+			font-size: 30px;
+			font-weight: bold;
+		}
+		#messages > div{
+			margin-right: auto;
+			margin-left: auto;
+
+			font-size: 30px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body> 
+	<div id='outsidebox' class="align-items-center justify-content-center">
+		<div id='formbox'>
+			{% if messages %}
+			<div id='messages' class="align-items-center">
+			    {% for message in messages %}
+			    <div  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </div>
+			    {% endfor %}
+			</div>
+			{% endif %}
+			<form method='POST'>{% csrf_token %}
+				<label id='formlabel'>Insert New Student</label>
+				{{ form.as_p }}
+				<input type="submit" value='SAVE' id='submitbutton'>
+			</form>
+		</div>	
+	</div>	
+
+	<script type="text/javascript">
+		var submissionpage = document.getElementById('newstudentform');
+		submissionpage.style.backgroundColor = '#016634'
+		submissionpage.style.color = 'white'
+
+		var currentpage = document.getElementById('navbarDropdownstudent');
+		currentpage.style.backgroundColor = 'white'
+		currentpage.setAttribute('class',"nav-link dropdown-toggle text-success justify-content-center")
+	</script>
+	{% endblock %}
+</body>
+</html>

@@ -11,10 +11,10 @@ class Students(models.Model):
 	grade = models.IntegerField(default=0)
 	section = models.CharField(max_length=10, default='')
 	classnumber = models.IntegerField(default=0)
+	sex = models.CharField(max_length=1, default='M')
 	lates = models.IntegerField(default=0)
 	absents = models.FloatField(default=0)
 	spr = models.IntegerField(default=0)
-	sex = models.CharField(max_length=1, blank=True, null=True)
 	latetoday = models.BooleanField(default=False)
 	absenttoday = models.BooleanField(default=True)
 

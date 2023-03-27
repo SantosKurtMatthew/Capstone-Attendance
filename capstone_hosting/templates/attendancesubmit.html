@@ -48,13 +48,23 @@
 			width: 50px;
 			border: none;
 		}
-		
-		
+		#messages{
+			
+		}
 	</style>
 </head>
 <body onload="showDate()">
 
 	<div id="outsidebox" class="align-items-center justify-content-center">
+
+		{% if messages %}
+		<div id='messages' class="align-items-center">
+		    {% for message in messages %}
+		    <div  {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </div>
+		    {% endfor %}
+		</div>
+		{% endif %}
+
 		<div id="formbox">
 			<form method='POST' >{% csrf_token %}
 				<!--Put in form above onpaste="return false"-->
@@ -72,6 +82,7 @@
 			</div>
 		</div>
 
+		
 		
 	</div>
 

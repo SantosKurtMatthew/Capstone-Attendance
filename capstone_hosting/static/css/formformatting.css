@@ -37,7 +37,22 @@ input{
 #submitbutton{
 	width: 100px;
 }
+#messages{
+	width: 500px;
+	height: 100px;
+	border: 5px solid black;
+	background: #b3e8cd;
+	display: flex;
+	font-size: 30px;
+	font-weight: bold;
+}
+#messages > div{
+	margin-right: auto;
+	margin-left: auto;
 
+	font-size: 30px;
+	font-weight: bold;
+}
 @media all and (max-width: 450px) {
     	/* put your css styles in here */
     #formbox{
@@ -47,4 +62,8 @@ input{
     	width: 100%;
     	
     }
+    #messages{
+    	width: 100%;
+    	text-align: center;
+    	
 }

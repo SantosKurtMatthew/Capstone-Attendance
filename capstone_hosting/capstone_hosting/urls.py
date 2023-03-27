@@ -14,14 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
 
 from student_attendance.views import (
     dailypassword_view, 
     attendancesubmit_view, 
     studentdatabase_view, 
-    newstudent_view, 
+    newstudentform_view, 
+    newstudentexcel_view, 
     dailyattendance_view, 
     deletestudent_view, 
     accountcreate_view, 
@@ -43,7 +44,8 @@ urlpatterns = [
     path('starttime/', startingtimes_view, name='starttime'),
     path('dailyattendance/', dailyattendance_view, name='today_attendance'),
     path('studentdatabase/', studentdatabase_view, name='student_database'),
-    path('newstudent/', newstudent_view, name='new_studentinfo'),
+    path('newstudentform/', newstudentform_view, name='new_studentform'),
+    path('newstudentexcel/', newstudentexcel_view, name='new_studentexcel'),
     path('deletestudent/', deletestudent_view, name='delete_studentinfo'),
     path('newaccount/', accountcreate_view, name='new_account'),
     path('login/', login_view, name='login'),
@@ -53,4 +55,6 @@ urlpatterns = [
     path('dailyfunction/', dailyfunction_view, name='dailyfunction'),
     path('purge/', purgedatabase_view, name='purgedb'),
     path('pdf/', exportpdf_view, name='exportpdf'),
+    path('iprestrict/', include('iprestrict.urls', namespace='iprestrict')),
+    #re_path(r'^iprestrict/', include('iprestrict.urls', namespace='iprestrict')),
 ]

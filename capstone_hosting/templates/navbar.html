@@ -92,7 +92,7 @@
 	       <a class="nav-link text-light justify-content-center" href="{% url 'instructions' %}" id="instructions">Instructions</a>
 	    </li>	      
 	    <li class="nav-item ">
-	       <a class="nav-link text-light justify-content-center" href="{% url 'attendance_code' %}" id="integer">Daily Password</a>
+	       <a class="nav-link text-light justify-content-center" href="{% url 'attendance_code' %}" id="integer">Daily Reset</a>
 	    </li>
 	    <li class="nav-item ">
 	       <a class="nav-link text-light justify-content-center" href="{% url 'starttime' %}" id="starttime">Start Times & Sections</a>
@@ -106,9 +106,10 @@
 
 	    <li class="nav-item dropdown" id='studentcreatedelete'>
 	        <a class="nav-link dropdown-toggle text-light justify-content-center" href="foo" id="navbarDropdownstudent" role="button" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false">
-	         Create/Delete Student</a>
+	         Insert/Delete Student</a>
 	       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	         <a href="{% url 'new_studentinfo' %}" id="newstudent" class="dropdown-item"><div>Insert New Student</div></a>
+	         <a href="{% url 'new_studentform' %}" id="newstudentform" class="dropdown-item"><div>Insert Student via Form</div></a>
+	         <a href="{% url 'new_studentexcel' %}" id="newstudentexcel" class="dropdown-item"><div>Insert Student via Excel</div></a>
 	         <a href="{% url 'delete_studentinfo' %}" id="deletestudent" class="dropdown-item"><div>Delete Student</div></a>
 	       </div>
 	     </li>

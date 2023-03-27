@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@g0u5^7pe!u##%(a)0kg-8*6s%hva&nx$fi*_o0#m6k6dggohb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['KurtSantos924.pythonanywhere.com']
+ALLOWED_HOSTS = []#'KurtSantos924.pythonanywhere.com']
 
 
 # Application definition
@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'student_attendance',
+    'import_export',
+    'iprestrict',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +132,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+IPRESTRICT_GEOIP_ENABLED = False
