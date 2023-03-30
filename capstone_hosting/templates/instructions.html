@@ -17,6 +17,32 @@
 			background-size: 100% 100%;
 		}
 	</style>
+	<style type="text/css">
+		.card-body{
+			font-size: 20px;
+			font-family: 'Roboto', sans-serif;
+			background-color: #F8F9FA ;
+
+		}
+		.card{
+			width: 100%;
+		}
+		.btn-link{
+			width: 100%;
+			padding: 30px;
+			text-align: left;
+			background-color: #ffffb5;
+			color: black;
+			font-size: 30px;
+		}
+		.btn-link:hover{
+			background-color: #016634;
+			color: white;
+		}
+		.card-header{
+			background-color: #016634;
+		}
+	</style>
 </head>
 <body>
 	
@@ -39,7 +65,7 @@
 	  <div class="card">
 	    <div class="card-header" id="headingTwo">
 	      <h5 class="mb-0">
-	        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+	        <button class="btn btn-link collapsed " data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 	          (Teachers) How to Use the Website 
 	        </button>
 	      </h5>
@@ -146,30 +172,7 @@
 		currentpage.setAttribute('class',"nav-link text-success justify-content-center ")
 	</script>
 
-	<style type="text/css">
-		.card-body{
-			font-size: 20px;
-			font-family: 'Roboto', sans-serif;
-			background-color: #F8F9FA ;
-
-		}
-		.btn-link{
-			width: 100%;
-			padding: 30px;
-			text-align: left;
-			background-color: #ffffb5;
-			color: black;
-			font-size: 30px;
-			
-		}
-		.btn-link:hover{
-			background-color: #016634;
-			color: white;
-		}
-		.card-header{
-			background-color: #016634;
-		}
-	</style>
+	
 	{% endblock %}
 </body>
 </html>

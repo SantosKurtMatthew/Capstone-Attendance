@@ -33,7 +33,8 @@ from student_attendance.views import (
     dailyfunction_view, 
     purgedatabase_view, 
     passwordchange_view,
-    exportpdf_view
+    exportpdf_view,
+    ip_view,
     )
 
 urlpatterns = [
@@ -56,5 +57,6 @@ urlpatterns = [
     path('purge/', purgedatabase_view, name='purgedb'),
     path('pdf/', exportpdf_view, name='exportpdf'),
     path('iprestrict/', include('iprestrict.urls', namespace='iprestrict')),
+    path('ipadd/', ip_view, name='ipadd'),
     #re_path(r'^iprestrict/', include('iprestrict.urls', namespace='iprestrict')),
 ]

@@ -23,13 +23,15 @@ class AttendanceForm(forms.ModelForm):
 	def clean_email(self, *args, **kwargs):
 		cleanemail = self.cleaned_data.get('email')
 		existsStudents = Students.objects.filter(email=cleanemail).exists()
-		existsAtttendanceSubmit = AttendanceSubmit.objects.filter(email=cleanemail).exists()
+		studentgrade = Students.objects.get(email=cleanemail).grade
+		existsStartingTime = StartingTime.objects.filter(grade=studentgrade).exists()
+		#existsAtttendanceSubmit = AttendanceSubmit.objects.filter(email=cleanemail).exists()
 		cleanhalfday = self.cleaned_data.get('halfday')
 
 		if existsStudents == False:
 			raise forms.ValidationError('student does not exist')
-		if existsAtttendanceSubmit == True: #and cleanhalfday == False:
-			raise forms.ValidationError('you submitted today already')
+		if existsStartingTime == False: #and cleanhalfday == False:
+			raise forms.ValidationError('no time set for this grade level')
 		else:
 			return cleanemail
 

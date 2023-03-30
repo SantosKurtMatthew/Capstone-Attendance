@@ -4,6 +4,7 @@ from django.db import models
 class AttendanceSubmit(models.Model):
 	email = models.EmailField(blank=True, null=True)
 	password = models.IntegerField(default=0000)
+	sessionkey = models.CharField(max_length=50, default='')
 	submit_time = models.DateTimeField(auto_now=True)
 
 class Students(models.Model):

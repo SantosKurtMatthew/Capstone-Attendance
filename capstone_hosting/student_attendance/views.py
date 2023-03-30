@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.db.models import F
 from django.contrib import messages
@@ -46,40 +46,72 @@ import tablib
 from tablib import Dataset
 from .resources import StudentResource
 
-
+def ip_view(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    print(ip)
+    return HttpResponse("Welcome Home<br>You are visiting from: {}".format(ip))
 # Create your views here.
 def attendancesubmit_view(request):
-	form = AttendanceForm(request.POST or None)
-
-	timenow = datetime.now().time()
 	
+	form = AttendanceForm(request.POST or None)
+	timenow = datetime.now().time()
+	successmessage  = True
+	
+	if not request.session.exists(request.session.session_key):
+		request.session.create()
+	currentsession = request.session.session_key
+	print('this is session key',currentsession)
 	if form.is_valid():
 		submittedemail = form.cleaned_data['email']
 		currentstudent = Students.objects.get(email=submittedemail)
 		currentgradelevel = currentstudent.grade
 		gradelevelstarttime = StartingTime.objects.get(grade=currentgradelevel).starttime
-		form.save()
 
+		#Two validation conditions
+		sessionfilter = AttendanceSubmit.objects.filter(sessionkey=currentsession).exists()
+		attendanceSubmitExists = AttendanceSubmit.objects.filter(email=submittedemail).exists()
 		ishalfday = form.cleaned_data['halfday']
-		if ishalfday == True:
-			currentstudent.absents = currentstudent.absents+0.5
 		
-		if ishalfday == False:
-			currentstudent.absents = currentstudent.absents-1
-			if timenow > gradelevelstarttime:
-				currentstudent.lates = currentstudent.lates+1
-				currentstudent.latetoday = True
+		
+		if sessionfilter == True:
+			messages.success(request, 'One Attendance per Device!', extra_tags='repeat')
+		else:
+			if attendanceSubmitExists == True:
+				if ishalfday == True:
+					currentstudent.absents = currentstudent.absents+0.5
+					messages.success(request, 'Halfday Successful')
+				elif ishalfday == False:
+					messages.success(request, 'You already submitted!!', extra_tags='repeat')
 
-		currentstudent.absenttoday = False 
+			elif attendanceSubmitExists == False:
+					if ishalfday == False:
+						currentstudent.absents = currentstudent.absents-1
+						currentstudent.absenttoday = False 
+						if timenow > gradelevelstarttime:
+							currentstudent.lates = currentstudent.lates+1
+							currentstudent.latetoday = True
+						
+						form.save()
+						attendancesubmitstudent = AttendanceSubmit.objects.get(email=submittedemail)
+						attendancesubmitstudent.sessionkey = currentsession
+						attendancesubmitstudent.save()
+						
+						messages.success(request, 'Attendance Submitted!')
+					else:
+						currentstudent.absents = currentstudent.absents-0.5
+						messages.success(request, 'idk what youre doing')
+	
 		currentstudent.spr = currentstudent.lates/5
 		currentstudent.save()
-		#Students.objects.all().update(absents = F('absents')*0)#Just to reset the absents
-		print(submittedemail)
-		messages.success(request, 'Attendance Submitted!')
 		return HttpResponseRedirect(reverse("attendance_submit"))
 	
 	context = {
 		'form':form,
+		'successmessage':successmessage,
 	}
 	return render(request, "attendancesubmit.html", context)
 
@@ -215,6 +247,7 @@ def newstudentform_view(request):
 	}
 	return render(request, 'newstudentviaform.html', context)
 
+@login_required(login_url='/login/')
 def newstudentexcel_view(request):
 	submitbutton = request.POST.get('submit')
 	excelform = ExcelForm(request.POST, request.FILES)
@@ -233,7 +266,14 @@ def newstudentexcel_view(request):
 						data[4],
 						data[5],
 					)
-				value.save()
+				if str(data[0]).isdigit():
+					print(Students(data[1]))
+					value.save()
+				else:
+					pass
+					
+					
+				
 			messages.success(request, 'Students Inserted!')
 		return HttpResponseRedirect(reverse("new_studentexcel"))
 
@@ -263,6 +303,8 @@ def accountcreate_view(request):
 		if form.is_valid():
 			user = form.save()
 			login(request, user)
+			messages.success(request, 'Account Created!')
+			return HttpResponseRedirect(reverse("attendance_submit"))
 	else:
 		form = CustomUserCreationForm()
 
@@ -300,6 +342,7 @@ def passwordchange_view(request):
 		if form.is_valid():
 			form.save()
 			update_session_auth_hash(request, form.user)
+			messages.success(request, 'Password Changed!')
 			return HttpResponseRedirect(reverse("attendance_submit"))
 	else:
 		form = CustomPasswordChangeForm(user=request.user)

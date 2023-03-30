@@ -8,74 +8,116 @@
 
 	{% block content %}
 	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/formformatting.css' %}">
-	<style type="text/css">
-		body{
-			background: url('{% static "img/newbgwide.png" %}') ;
-			background-size: 100% 100%;
-		}
-		#forminput>input{
-			background-color: white;
-			height: 50px;
-			width: 60%;
-			border: none;
-			
-			color: black;
-			text-align: center;
-			font-weight: bold;
-		}
-		#listbox{
-			width: 60%;
-			margin-left: auto;
-			margin-right: auto;
-		}
-		#listbox>ul{ 
-			text-align: left;
-			color: white;
-		}
-		#submitbutton{
-			width: 200px;
-			border: none;
-			height: 50px;
-			background-color: white;
-			
-			color: black;
-			text-align: center;
-			font-weight: bold;
-		}
-	</style>
+	
+		<style type="text/css">
+			body{
+				background: url('{% static "img/newbgwide.png" %}') ;
+				background-size: 100% 100%;
+			}
+			.helptext{
+				display: block;
+			}
+			body{
+				height: 100%;
+			}
+			#outsidebox{
+				display: flex;
+				flex-direction: column;
+				height: 80%;
+			}
+			#formlabel{
+				font-size: 30px;
+				font-weight: bold;
+				color: white;
+			}
+			#formbox form{
+				width: 500px;
+				margin-left: auto;
+				margin-right: auto;
+				
+
+				padding-top: 10px;
+				padding-bottom: 10px;
+				
+				text-align: center;
+				background-color: #016634;
+				color: white;
+			}
+			input{
+				background-color: white;
+				color: black;
+				text-align: center;
+				border: none;
+
+				height: 50px;
+				width: 60%;
+				font-weight: bold;
+			}
+			#submitbutton{
+				width: 250px;
+			}
+			#messages{
+				width: 500px;
+				height: 100px;
+				border: 5px solid black;
+				background: #b3e8cd;
+				display: flex;
+				font-size: 30px;
+				font-weight: bold;
+			}
+			#messages > div{
+				margin-right: auto;
+				margin-left: auto;
+
+				font-size: 30px;
+				font-weight: bold;
+			}
+			.errorlist{
+				background-color: #e63d3d;
+				border: 3px solid white;
+				
+			}
+			.errorlist>li{
+				color: black;
+				font-weight: bold;
+				text-transform: uppercase;
+				
+			}
+			ul{
+				text-align: left;
+				justify-content: center;
+			}
+			@media all and (max-width: 450px) {
+			    	/* put your css styles in here */
+			    #formbox{
+			    	width: 100%;
+			    }
+			    #formbox form{
+			    	width: 100%;
+			    	
+			    }
+			    #messages{
+			    	width: 100%;
+			    	text-align: center;
+			    	
+			}
+		</style>
 </head>
 
 <body>
+	{% if messages %}
+			<div id='messages' class=" align-items-center">
+				{% for message in messages %}
+
+	    		<div id='messagebox' {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </div>
+	    		{% endfor %}
+			</div>
+	{% endif %}
 	<div id='outsidebox' class="align-items-center justify-content-center">
 		<div id="formbox">
 			<form method='POST'>{% csrf_token %}
 				<label id='formlabel'>Create New Account</label>
-				<div id='forminput'>
-					{{ form.username }}
-					<div id='listbox'>
-						<ul>
-							<li>150 characters or fewer. </li>
-							<li>Letters, digits and @/./+/-/_ only.</li>
-						</ul>
-					</div>
-				</div>
-				<div id='forminput'>
-					{{ form.password1 }}
-					<div id='listbox'>
-						<ul>
-							<li>At least 8 Characters</li>
-							<li>Cannot be only numbers</li>
-							<li>Cannot be similar to username</li>
-						</ul>
-					</div>
-				</div>	
-				<div id='forminput'>
-					{{ form.password2 }}
-					<div id='listbox'><ul><li>Repeat password for confirmation</li></ul></div>
-				</div>	
-				
-				
+				{{ form.as_p }}
 				<input type="submit" value='Create Account' id='submitbutton'>
 			</form>		
 		</div>
@@ -93,3 +135,4 @@
 	{%endblock%}
 </body>
 </html>
+
