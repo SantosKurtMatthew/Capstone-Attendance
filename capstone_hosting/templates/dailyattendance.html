@@ -85,7 +85,7 @@
 		<table class="table table-striped" id='studenttable'>
 		  <thead>
 		    <tr>
-		    	<th style="width:5%"> DB ID </th>
+		    	<th style="width:5%"> LRN </th>
 				<th style="width:5%"> CN </th>
 				<th style="width:40%"> Email</th>
 				<th style="width:10%"> Late </th>
@@ -97,7 +97,7 @@
 		  <tbody>
 		    {% for instance in object_list %}
 		    	<tr>
-		    		<td>{{ instance.id }}</td>
+		    		<td>{{ instance.lrn }}</td>
 		    		<td>{{ instance.classnumber }}</td>
 		    		<td>{{ instance.email }}</td>
 		    		{% if instance.latetoday == True %}

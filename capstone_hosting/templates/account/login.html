@@ -7,31 +7,111 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Log In to Account</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/formformatting.css' %}">
 	<style type="text/css">
 		body{
 			background: url('{% static "img/newbgwide.png" %}') ;
 			background-size: 100% 100%;
 		}
-		#forminput>input{
-			background-color: white;
-			height: 50px;
-			width: 60%;
-			border: none;
+		.helptext{
+			display: block;
+		}
+		body{
+			height: 100%;
+		}
+		#outsidebox{
+			display: flex;
+			flex-direction: column;
+			height: 80%;
+		}
+		#formlabel{
+			font-size: 30px;
+			font-weight: bold;
+			color: white;
+		}
+		#formbox form{
+			width: 500px;
+			margin-left: auto;
+			margin-right: auto;
 			
+
+			padding-top: 10px;
+			padding-bottom: 10px;
+			
+			text-align: center;
+			background-color: #016634;
+			color: white;
+		}
+		input{
+			background-color: white;
 			color: black;
 			text-align: center;
+			border: none;
+
+			height: 50px;
+			width: 60%;
 			font-weight: bold;
 		}
 		#submitbutton{
-			width: 200px;
-			border: none;
-			height: 50px;
-			background-color: white;
-			
-			color: black;
-			text-align: center;
+			width: 250px;
+		}
+		#messages{
+			width: 500px;
+			height: 100px;
+			border: 5px solid black;
+			background: #b3e8cd;
+			display: flex;
+			font-size: 30px;
 			font-weight: bold;
+		}
+		#messages > div{
+			margin-right: auto;
+			margin-left: auto;
+
+			font-size: 30px;
+			font-weight: bold;
+		}
+		.errorlist{
+			background-color: #e63d3d;
+			border: 3px solid white;
+			
+		}
+		.errorlist>li{
+			color: black;
+			font-weight: bold;
+			text-transform: uppercase;
+		}
+		ul:not(.navbar-nav){
+			text-align: left;
+			justify-content: center;
+		}
+		#viewpassword{
+			height: 20px;
+			width: 20px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+		
+		#checkboxcontainer{
+			width: 150px;
+			display: flex;
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 10px;
+		}
+
+		@media all and (max-width: 450px) {
+		    	/* put your css styles in here */
+		    #formbox{
+		    	width: 100%;
+		    }
+		    #formbox form{
+		    	width: 100%;
+		    	
+		    }
+		    #messages{
+		    	width: 100%;
+		    	text-align: center;
+		    	
 		}
 	</style>
 </head>
@@ -45,6 +125,12 @@
 				{% if request.GET.next %}
 					<input type="hidden" name="next" value='{{ request.GET.next }}'>
 				{% endif %}
+
+				<div id="checkboxcontainer">
+					<label for="viewpassword" id="viewlabel">View Password?</label>
+					<input type="checkbox" name="viewpassword" id='viewpassword'>	
+				</div>
+
 				<input type="submit" value='Log In' id='submitbutton'>
 			</form>				
 		</div>
@@ -59,8 +145,19 @@
 		currentpage.style.backgroundColor = 'white'
 		currentpage.setAttribute('class',"nav-link dropdown-toggle text-success justify-content-center")
 	</script>
+	<script>
+		var checkbox = document.getElementById('viewpassword');
+		var password1 = document.getElementById('id_password')
+		checkbox.onclick = function showpassword(){
+			if (checkbox.checked){
+				password1.type = 'text'
+			}
+			else{
+				password1.type = 'password'
+			}
+		}
+	</script>
 	{% endblock %}
 </body>
 </html>
-<h1>User Log In</h1>
 

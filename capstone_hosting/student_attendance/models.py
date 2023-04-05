@@ -8,6 +8,7 @@ class AttendanceSubmit(models.Model):
 	submit_time = models.DateTimeField(auto_now=True)
 
 class Students(models.Model):
+	lrn = models.IntegerField(primary_key=True, default=0)
 	email = models.EmailField(default='')
 	grade = models.IntegerField(default=0)
 	section = models.CharField(max_length=10, default='')

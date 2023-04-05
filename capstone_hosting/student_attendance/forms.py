@@ -50,6 +50,10 @@ class ExcelForm(forms.Form):
 		}),required=False, label='')
 
 class StudentsInfoForm(forms.ModelForm):
+	lrn = forms.IntegerField(widget=forms.TextInput(attrs={
+		'placeholder':"LRN",
+		'required':True,
+		}), label='')
 	email = forms.EmailField(widget=forms.TextInput(attrs={
 		'placeholder':"Email",
 		}), label='')
@@ -76,6 +80,7 @@ class StudentsInfoForm(forms.ModelForm):
 	class Meta:
 		model = Students
 		fields = [
+			'lrn',
 			'email',
 			'grade',
 			'section',
@@ -114,10 +119,19 @@ class AddSection(forms.ModelForm):
 		]
 
 class DeleteStudent(forms.Form):
-	studentid = forms.IntegerField(widget=forms.TextInput(attrs={
-		'placeholder':"Student's Database ID",
+	email = forms.CharField(widget=forms.TextInput(attrs={
+		'placeholder':"Student's email",
 		'required':True,
 		}), label='')
+
+	def clean_email(self, *args, **kwargs):
+		cleanemail = self.cleaned_data.get('email')
+		existsStudents = Students.objects.filter(email=cleanemail).exists()
+
+		if existsStudents == False:
+			raise forms.ValidationError('student does not exist')
+		else:
+			return cleanemail
 
 class PdfFilterForm(forms.Form):
 	grade = forms.IntegerField(widget=forms.TextInput(attrs={

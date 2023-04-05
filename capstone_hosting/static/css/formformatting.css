@@ -43,8 +43,7 @@ input{
 	border: 5px solid black;
 	background: #b3e8cd;
 	display: flex;
-	font-size: 30px;
-	font-weight: bold;
+	
 }
 #messages > div{
 	margin-right: auto;

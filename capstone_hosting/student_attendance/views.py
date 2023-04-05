@@ -71,41 +71,40 @@ def attendancesubmit_view(request):
 		currentgradelevel = currentstudent.grade
 		gradelevelstarttime = StartingTime.objects.get(grade=currentgradelevel).starttime
 
-		#Two validation conditions
+		#Three validation conditions
 		sessionfilter = AttendanceSubmit.objects.filter(sessionkey=currentsession).exists()
 		attendanceSubmitExists = AttendanceSubmit.objects.filter(email=submittedemail).exists()
 		ishalfday = form.cleaned_data['halfday']
-		
-		
-		if sessionfilter == True:
-			messages.success(request, 'One Attendance per Device!', extra_tags='repeat')
+
+		if ishalfday == False:
+			if sessionfilter == False:#basic submit
+				if attendanceSubmitExists == False:
+					currentstudent.absents = currentstudent.absents-1
+					currentstudent.absenttoday = False 
+					if timenow > gradelevelstarttime:
+						currentstudent.lates = currentstudent.lates+1
+						currentstudent.latetoday = True
+					
+					form.save()
+					attendancesubmitstudent = AttendanceSubmit.objects.get(email=submittedemail)
+					attendancesubmitstudent.sessionkey = currentsession
+					attendancesubmitstudent.save()
+					messages.success(request, 'Attendance Submitted!')
+					
+				else:
+					messages.success(request, 'You already submitted!!', extra_tags='repeat')
+			else:
+				messages.success(request, 'One Attendance per Device!', extra_tags='repeat')
+
 		else:
 			if attendanceSubmitExists == True:
-				if ishalfday == True:
-					currentstudent.absents = currentstudent.absents+0.5
-					messages.success(request, 'Halfday Successful')
-				elif ishalfday == False:
-					messages.success(request, 'You already submitted!!', extra_tags='repeat')
-
-			elif attendanceSubmitExists == False:
-					if ishalfday == False:
-						currentstudent.absents = currentstudent.absents-1
-						currentstudent.absenttoday = False 
-						if timenow > gradelevelstarttime:
-							currentstudent.lates = currentstudent.lates+1
-							currentstudent.latetoday = True
-						
-						form.save()
-						attendancesubmitstudent = AttendanceSubmit.objects.get(email=submittedemail)
-						attendancesubmitstudent.sessionkey = currentsession
-						attendancesubmitstudent.save()
-						
-						messages.success(request, 'Attendance Submitted!')
-					else:
-						currentstudent.absents = currentstudent.absents-0.5
-						messages.success(request, 'idk what youre doing')
+				currentstudent.absents = currentstudent.absents+0.5
+				messages.success(request, 'Halfday Successful')
+			else:
+				currentstudent.absents = currentstudent.absents-0.5
+				messages.success(request, 'idk what youre doing')
 	
-		currentstudent.spr = currentstudent.lates/5
+		currentstudent.spr = currentstudent.lates/3
 		currentstudent.save()
 		return HttpResponseRedirect(reverse("attendance_submit"))
 	
@@ -199,7 +198,7 @@ def dailyattendance_view(request):
 	}
 	return render(request, 'dailyattendance.html', context)
 
-def studentdatabase_view(request):
+def totalattendance_view(request):
 	form = PdfFilterForm(request.POST or None)
 	allstudents = Students.objects.order_by('classnumber')
 	sections = SectionList.objects.order_by('highschool')
@@ -210,13 +209,12 @@ def studentdatabase_view(request):
 		section = request.POST.get('section')
 		return exportpdf_view(request)
 
-		
 	context = {
-		'object_list':allstudents,	
+		'object_list':allstudents,
 		'sections':sections,
 	}
 		
-	return render(request, 'studentdatabase.html', context)
+	return render(request, 'totalattendance.html', context)
 
 @login_required(login_url='/login/')
 def newstudentform_view(request):
@@ -287,8 +285,13 @@ def newstudentexcel_view(request):
 def deletestudent_view(request):
 	form = DeleteStudent(request.POST or None)
 	if form.is_valid():
-		submitted_id = form.cleaned_data['studentid']
-		student_to_delete = Students.objects.get(id=submitted_id).delete()
+		email = form.cleaned_data['email']
+		student_to_delete = Students.objects.get(email=email)
+		student_to_delete.delete()
+		submitted_email = student_to_delete.email
+		submission = {'submitted_email':submitted_email}
+		
+		messages.success(request, f'{submitted_email} Deleted!')
 		return HttpResponseRedirect(reverse("delete_studentinfo"))
 
 	context = {

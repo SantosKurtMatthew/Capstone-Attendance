@@ -20,7 +20,7 @@ from django.contrib.auth import views as auth_views
 from student_attendance.views import (
     dailypassword_view, 
     attendancesubmit_view, 
-    studentdatabase_view, 
+    totalattendance_view, 
     newstudentform_view, 
     newstudentexcel_view, 
     dailyattendance_view, 
@@ -44,7 +44,7 @@ urlpatterns = [
     path('dailyinteger/', dailypassword_view, name='attendance_code'),
     path('starttime/', startingtimes_view, name='starttime'),
     path('dailyattendance/', dailyattendance_view, name='today_attendance'),
-    path('studentdatabase/', studentdatabase_view, name='student_database'),
+    path('studentdatabase/', totalattendance_view, name='student_database'),
     path('newstudentform/', newstudentform_view, name='new_studentform'),
     path('newstudentexcel/', newstudentexcel_view, name='new_studentexcel'),
     path('deletestudent/', deletestudent_view, name='delete_studentinfo'),
