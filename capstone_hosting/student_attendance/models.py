@@ -32,5 +32,7 @@ class SectionList(models.Model):
 	section = models.CharField(max_length=20)
 	highschool = models.CharField(max_length=3, default='shs')
 
-
+class AbsentList(models.Model):
+	student = models.ForeignKey(Students, on_delete=models.CASCADE)
+	absentdate = models.DateField()
 

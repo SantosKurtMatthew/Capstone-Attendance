@@ -39,6 +39,9 @@
     		font-family: Arial, sans-serif;
 			font-size: 20px;
     	}
+    	#attendance{
+    		z-index: 120;
+    	}
     	#studentcreatedelete{
     		z-index: 100;
     	}
@@ -94,15 +97,19 @@
 	    		<li class="nav-item ">
 	       			<a class="nav-link text-light justify-content-center" href="{% url 'attendance_code' %}" id="integer">Daily Reset</a>
 	    		</li>
-	    		<li class="nav-item">
-	       			<a class="nav-link text-light justify-content-center" href="{% url 'today_attendance' %}" id="todayattendance">Daily Attendance</a>
-	    		</li>
-	    		<li class="nav-item">
-	       			<a class="nav-link text-light justify-content-center" href="{% url 'student_database' %}" id="database">Total Attendance</a>
-	    		</li>
+	    		<li class="nav-item dropdown" id='attendance'>
+	        		<a class="nav-link dropdown-toggle text-light justify-content-center" href="foo" id="navbarDropdownAttendance" role="button" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false">
+	         		Attendance Records</a>
+	       			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	         			<a href="{% url 'today_attendance' %}" id="todayattendance" class="dropdown-item" >Daily Attendance</a>
+	         			<a href="{% url 'student_database' %}" id="database"class="dropdown-item" >Total Attendance</a>
+	         			<a href="{% url 'absent_history' %}" id="absenthistory"class="dropdown-item" >Absent History</a>
+	       			</div>
+	     		</li>
 	    		<li class="nav-item ">
 	       			<a class="nav-link text-light justify-content-center" href="{% url 'starttime' %}" id="starttime">Start Times & Sections</a>
 	    		</li>
+	    		
 	    		<li class="nav-item dropdown" id='studentcreatedelete'>
 	        		<a class="nav-link dropdown-toggle text-light justify-content-center" href="foo" id="navbarDropdownstudent" role="button" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false">
 	         		Insert/Delete Student</a>
@@ -128,16 +135,19 @@
 	    {% else %}
 	    	<ul class="navbar-nav ml-auto">
 	    		<li class="nav-item">
-	        		<a class="nav-link text-light justify-content-center" href="{% url 'attendance_submit' %}" id="submission">Attendance Submit <span class="sr-only">current)</span></a></li>
+	        		<a class="nav-link text-light justify-content-center" href="{% url 'attendance_submit' %}" id="submission">Attendance Submit <span class="sr-only"></span></a></li>
 	    		<li class="nav-item">
 	       			<a class="nav-link text-light justify-content-center" href="{% url 'instructions' %}" id="instructions">Instructions</a>
 	    		</li>	      
-	    		<li class="nav-item">
-	       			<a class="nav-link text-light justify-content-center" href="{% url 'today_attendance' %}" id="todayattendance">Daily Attendance</a>
-	    		</li>
-	    		<li class="nav-item">
-	       			<a class="nav-link text-light justify-content-center" href="{% url 'student_database' %}" id="database">Student Database</a>
-	    		</li>
+	    		<li class="nav-item dropdown" id='attendance'>
+	        		<a class="nav-link dropdown-toggle text-light justify-content-center" href="foo" id="navbarDropdownAttendance" role="button" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false">
+	         		Attendance Records</a>
+	       			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	         			<a href="{% url 'today_attendance' %}" id="todayattendance" class="dropdown-item" >Daily Attendance</a>
+	         			<a href="{% url 'student_database' %}" id="database"class="dropdown-item" >Total Attendance</a>
+	         			<a href="{% url 'absent_history' %}" id="absenthistory"class="dropdown-item" >Absent History</a>
+	       			</div>
+	     		</li>
 	      		<li class="nav-item dropdown" id='account'>
 	        		<a class="nav-link dropdown-toggle text-light justify-content-center" href="foo" id="navbarDropdownaccount" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          		Account: {{user.username}}

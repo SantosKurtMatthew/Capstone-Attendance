@@ -35,11 +35,12 @@ from .models import (
 	Students, 
 	DailyInteger, 
 	StartingTime,
-	SectionList
+	SectionList,
+	AbsentList
 	)
 
 import time, random
-from datetime import datetime
+from datetime import datetime, timedelta
 from functools import partial
 
 import tablib
@@ -118,7 +119,7 @@ def instructions_view(request):
 	return render(request, 'instructions.html', {})
 
 @login_required(login_url='/login/')
-def dailypassword_view(request):
+def dailyreset_view(request):
 	latestobjectexists = DailyInteger.objects.filter().exists()
 	if latestobjectexists == False:
 		dailyint = DailyInteger(integer=999)
@@ -354,11 +355,42 @@ def passwordchange_view(request):
 	}
 	return render(request, 'account/change-password.html', context)
 
+def absenthistory_view(request):
+	if request.method == "POST":
+		searchedstudent = request.POST.get('searchedstudent')
+		results = AbsentList.objects.filter(student__email__contains=searchedstudent)
+
+		context = {
+			'searchedstudent':searchedstudent,
+			'results':results
+			}
+		print(context)
+		return render(request, 'absenthistory.html', context)
+	return render(request, 'absenthistory.html', {})
+
+	
 
 def dailyfunction_view(request):
+	dailypassword = DailyInteger.objects.latest('id')
+	print(dailypassword.integer)
+	print(not(dailypassword.integer==999))
+	if not (dailypassword.integer == 999):
+		absentees = Students.objects.filter(absenttoday=True)
+		dateyesterday = datetime.now().date()-timedelta(1)
+		for i in absentees:
+			a = AbsentList(student=i, absentdate=dateyesterday)
+			a.save()
+			print(i, i.email)
+	else:
+		print('daily pass is 999')
+		pass
+
+	#Generating the Daily Password
 	randomint = random.randint(1000,9999)
 	dailyint = DailyInteger(integer=randomint)
 	dailyint.save()
+
+	#Resetting the Students' Attendance 
 	Students.objects.all().update(absents = F('absents')+1)
 	Students.objects.all().update(absenttoday=True)
 	Students.objects.all().update(latetoday=False)

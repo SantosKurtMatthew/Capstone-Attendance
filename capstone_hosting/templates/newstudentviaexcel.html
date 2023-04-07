@@ -71,10 +71,11 @@
 		}
 		#downloadlink{
 			color: black;
-			text-decoration: underline;
+			font-family: 'Roboto', sans-serif;
 			width: 45%;
 			margin-right: auto;
 			margin-left: auto;
+			
 		}
 		#downloadbox{
 			margin-top: 10px;
@@ -84,6 +85,13 @@
 		}
 		#formbox form{
 			padding-bottom: 30px;
+		}
+		@media all and (max-width: 512px) {
+			#downloadbox{
+				height: 75px;
+				display: flex;
+				align-items: center;
+			}
 		}
 	</style>
 </head>
@@ -105,7 +113,7 @@
 				<input type="submit" value='SAVE' id='submitbutton'>
 
 				<div id='linkbox'>
-					<a href='{% static "excel/studenttemplate.xlsx" %}' download id='downloadlink'><div id='downloadbox'>Download the template here</div></a>
+					<a href='{% static "excel/studenttemplate.xlsx" %}' download id='downloadlink'><div id='downloadbox'>Download the excel template here</div></a>
 					<a href='{% static "excel/12STEM.xlsx" %}' download id='downloadlink'><div id='downloadbox'>Here's an example sheet using the template</div></a>
 				</div>
 				

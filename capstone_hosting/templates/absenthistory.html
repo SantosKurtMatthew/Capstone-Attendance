@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Student Database</title>
+	{% extends 'navbar.html' %}
+
+	{% block content %}
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/tableformatting.css' %}">
+	<style type="text/css">
+		body{
+			background: url('{% static "img/newbgwide.png" %}') ;
+			background-size: 100% 100%;
+		}
+
+		#absentreminder{
+			color: white;
+			background-color: #016634;
+			text-align: justify;
+			display: inline-block;
+			margin-top: 10px;
+		}
+		#outercontainer{
+		  	grid-column: 3 /span 6;
+		    grid-row: 1/ span 4;
+		}
+		@media all and (max-width: 1280px) {
+		    	/* put your css styles in here */
+		    #outercontainer{
+		  		grid-column: 2 /span 8;
+		    	grid-row: 1/ span 4;
+			}
+		    
+		}
+		@media all and (max-width: 512px) {
+		    	/* put your css styles in here */
+		    #headerbox{
+		    	height: 150px;
+		    	grid-template-columns: repeat(10, 1fr);
+		    	grid-template-rows: repeat(5, 1fr);
+		    }
+		    #outercontainer{
+		    	height: 135px;
+		    	grid-column: 1 /span 10;
+		    	grid-row: 1/ span 4;
+		    }
+		    #absentreminder{
+		    	padding: 5px;
+		    }
+		}
+		
+		
+	</style>
+	<script type="text/javascript">
+		//Obtained from https://www.youtube.com/watch?v=LkVA3AWmkQQ
+		function tablecolors() {
+			jQuery('tr:visible').filter(':odd').css({'background-color': '#b3e8cd'});
+			jQuery('tr:visible').filter(':even').css({'background-color': '#f5fdfa'});
+		}
+		
+	</script>
+</head>
+
+<body onload="tablecolors()" >
+
+	<div id='headerbox'>
+		<div id='outercontainer'>
+			<div id='container'>
+				<form method="POST" action="{% url 'absent_history' %}">{% csrf_token %}
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Student's surname or email" aria-label="Recipient's username"aria-describedby="basic-addon2" name='searchedstudent'>
+						<div class="input-group-append">
+							<button type="submit" class="btn btn-secondary">Search</button>
+						</div>
+					</div>	
+				</form>
+
+				<div>
+					{% if searchedstudent %}
+						{% if searchedstudent|length < 15 %}
+							<h1> Results for '{{ searchedstudent }}'</h1>
+						{% else %}
+							<h4>{{ searchedstudent }}</h4>
+						{% endif %}
+						
+					{% else %}
+					 	<h4>Search nothing to see all results</h4>
+					{% endif%}
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id='tablebox'>
+		<label id='absentreminder'>*If a student's total absents do not match with number of dates, they most likely have not submitted their attendance today</label>
+		<table class="table table-striped" id='studenttable'>
+		  <thead>
+		    <tr>
+				
+				<th style="width:10%"> CN </th>
+				<th style="width:40%"> Email</th>
+				<th style="width:10%"> Grade </th>
+				<th style="width:10%"> Section </th>
+				<th style="width:10%"> Absent Dates </th>
+				<th style="width:10%" > Total Absent </th>
+				<!--<th style="width:10%"> Total Late </th>
+				
+				<th style="width:5%"> SPR </th>
+				<th style="width:5%"> Sex </th>-->
+			</tr>
+		  </thead>
+		  <tbody>
+		  {% for result in results %}
+				<tr>
+					<td>{{ result.student.classnumber }}</td>
+					<td>{{ result.student.email }}</td>
+					<td>{{ result.student.grade }} </td>
+					<td>{{ result.student.section}}</td>
+					<td>{{ result.absentdate }}</td>
+					<td>{{ result.student.absents }}</td>
+					<!--
+					<td>{{ instance.lates }}</td>
+					<td>{{ instance.absents }}</td>
+					<td>{{ instance.spr }}</td>
+					<td>{{ instance.sex }}</td>-->
+				</tr>
+			{% endfor %}
+		  </tbody>
+		</table>
+	</div>
+	
+	<div id='tenbox'></div>
+
+	<script type="text/javascript">
+		var submissionpage = document.getElementById('absenthistory');
+		submissionpage.style.backgroundColor = '#016634'
+		submissionpage.style.color = 'white'
+
+		var currentpage = document.getElementById('navbarDropdownAttendance');
+		currentpage.style.backgroundColor = 'white'
+		currentpage.setAttribute('class',"nav-link dropdown-toggle text-success justify-content-center")
+	</script>
+	{% endblock %}
+</body>
+</html>

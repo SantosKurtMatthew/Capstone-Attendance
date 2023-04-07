@@ -18,7 +18,7 @@ from django.urls import path, include, re_path
 from django.contrib.auth import views as auth_views
 
 from student_attendance.views import (
-    dailypassword_view, 
+    dailyreset_view, 
     attendancesubmit_view, 
     totalattendance_view, 
     newstudentform_view, 
@@ -35,13 +35,14 @@ from student_attendance.views import (
     passwordchange_view,
     exportpdf_view,
     ip_view,
+    absenthistory_view,
     )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', attendancesubmit_view, name='attendance_submit'),
     path('instructions/', instructions_view, name='instructions'),
-    path('dailyinteger/', dailypassword_view, name='attendance_code'),
+    path('dailyinteger/', dailyreset_view, name='attendance_code'),
     path('starttime/', startingtimes_view, name='starttime'),
     path('dailyattendance/', dailyattendance_view, name='today_attendance'),
     path('studentdatabase/', totalattendance_view, name='student_database'),
@@ -58,5 +59,6 @@ urlpatterns = [
     path('pdf/', exportpdf_view, name='exportpdf'),
     path('iprestrict/', include('iprestrict.urls', namespace='iprestrict')),
     path('ipadd/', ip_view, name='ipadd'),
+    path('absenthistory/', absenthistory_view, name='absent_history'),
     #re_path(r'^iprestrict/', include('iprestrict.urls', namespace='iprestrict')),
 ]

@@ -120,13 +120,15 @@
 	
 	<div id='tenbox'></div>
 	
+	<script type="text/javascript">
+		var submissionpage = document.getElementById('todayattendance');
+		submissionpage.style.backgroundColor = '#016634'
+		submissionpage.style.color = 'white'
 
-	<script type="text/javascript">	
-		var currentpage = document.getElementById('todayattendance');
+		var currentpage = document.getElementById('navbarDropdownAttendance');
 		currentpage.style.backgroundColor = 'white'
-		currentpage.setAttribute('class',"nav-link text-success justify-content-center ")
+		currentpage.setAttribute('class',"nav-link dropdown-toggle text-success justify-content-center")
 	</script>
-
 	{% endblock %}
 </body>
 </html>
