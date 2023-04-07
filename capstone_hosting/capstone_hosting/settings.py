@@ -40,12 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'student_attendance',
     'import_export',
-    'iprestrict',
 ]
 
 MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
-    'iprestrict.middleware.IPRestrictMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

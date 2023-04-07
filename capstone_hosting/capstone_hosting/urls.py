@@ -57,7 +57,6 @@ urlpatterns = [
     path('dailyfunction/', dailyfunction_view, name='dailyfunction'),
     path('purge/', purgedatabase_view, name='purgedb'),
     path('pdf/', exportpdf_view, name='exportpdf'),
-    path('iprestrict/', include('iprestrict.urls', namespace='iprestrict')),
     path('ipadd/', ip_view, name='ipadd'),
     path('absenthistory/', absenthistory_view, name='absent_history'),
     #re_path(r'^iprestrict/', include('iprestrict.urls', namespace='iprestrict')),
