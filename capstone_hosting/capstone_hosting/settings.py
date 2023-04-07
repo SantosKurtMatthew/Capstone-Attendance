@@ -88,6 +88,15 @@ DATABASES = {
         'HOST':'localhost',
         'PORT':'3306',
     }
+    #For pythonanywhere
+    #'default': { 
+        #'ENGINE': 'django.db.backends.mysql',
+        #'NAME': 'KurtSantos924$capstone_attendance_database',
+        #'USER': 'KurtSantos924',
+        #'PASSWORD': 'p@cerattendance',
+        #'HOST':'KurtSantos924.mysql.pythonanywhere-services.com',
+        #'PORT':'3306',
+    #}
 }
 
 
