@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import AttendanceSubmit, Students, DailyInteger, StartingTime, SectionList, AbsentList
+from .models import AttendanceSubmit, Students, DailyInteger, StartingTime, SectionList, AbsentList, LateList
 from .resources import StudentResource
 from import_export.admin import ImportExportModelAdmin
 
@@ -15,5 +15,6 @@ admin.site.register(DailyInteger)
 admin.site.register(StartingTime)
 admin.site.register(SectionList)
 admin.site.register(AbsentList)
+admin.site.register(LateList)
 
 

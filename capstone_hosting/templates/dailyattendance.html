@@ -90,6 +90,7 @@
 				<th style="width:40%"> Email</th>
 				<th style="width:10%"> Late </th>
 				<th style="width:10%"> Absent </th>
+				<th style="width:10%"> Time Submitted</th>
 				<th style="width:10%" id='notneeded'> Grade </th>
 				<th style="width:10%" id='notneeded'> Section </th>
 		    </tr>
@@ -112,6 +113,7 @@
 		    		{% endif %}
 		    		<td id='notneeded'>{{ instance.grade}}</td>
 		    		<td id='notneeded'>{{ instance.section}}</td>
+		    		<td>{{ instance.attendancesubmit.submit_time }}</td>
 		    	</tr>
 		    {% endfor %}
 		  </tbody>

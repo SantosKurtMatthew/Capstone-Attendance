@@ -9,7 +9,7 @@ from .models import AttendanceSubmit, Students, DailyInteger, StartingTime, Sect
 #FIND A WAY TO MAKE THE FORM REFRESH AS WELL
 
 class AttendanceForm(forms.ModelForm):
-	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':"Email"}), label='')
+	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':"Email",'id':'emailinput'}), label='')
 	password = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':" Daily Password"}), label='')
 	halfday = forms.BooleanField(widget=forms.CheckboxInput(attrs={'id':'halfday',}), required=False)
 	class Meta:
@@ -52,7 +52,7 @@ class ExcelForm(forms.Form):
 class StudentsInfoForm(forms.ModelForm):
 	lrn = forms.IntegerField(widget=forms.TextInput(attrs={
 		'placeholder':"LRN",
-		'required':True,
+		'required':False,
 		}), label='')
 	email = forms.EmailField(widget=forms.TextInput(attrs={
 		'placeholder':"Email",
@@ -89,6 +89,9 @@ class StudentsInfoForm(forms.ModelForm):
 		]
 
 
+	
+
+
 class ChangeStartingTime(forms.ModelForm):
 	grade = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':"Grade Level"}), label='')
 	starttime = forms.TimeField(widget=forms.TextInput(attrs={'placeholder':"Start Time"}), label='')
@@ -101,7 +104,7 @@ class ChangeStartingTime(forms.ModelForm):
 		]
 
 class AddSection(forms.ModelForm):
-	section = forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Section"}), label='')
+	section = forms.CharField(widget=forms.TextInput(attrs={'placeholder':"Section",'id':'sectioninput'}), label='')
 	highschoolchoices = (
 		('JHS','JHS'),
 		('SHS','SHS')

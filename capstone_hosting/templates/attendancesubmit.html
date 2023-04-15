@@ -71,6 +71,15 @@
 			align-items: center;
 			justify-content: center;
 		}
+		#emailinput{
+			text-transform: lowercase;
+		}
+		{% if user.is_authenticated == False %}
+			#halfday{
+				display: none;
+			}
+		{% endif %}
+
 		@media all and (max-width: 450px) {
 			#messagessuccess{
 		    	width: 100%;
@@ -101,8 +110,9 @@
 			<form method='POST' >{% csrf_token %}
 				<!--Put in form above onpaste="return false"-->
 				<label id='formlabel'>Submit Attendance</label>
-				{{ form.as_p}}
+				{{ form.as_p }}
 				<input type="submit" value='SUBMIT' id='submitbutton'/>
+				<div>*Only teachers can edit the halfday field</div>
 			</form>	
 		</div>	
 

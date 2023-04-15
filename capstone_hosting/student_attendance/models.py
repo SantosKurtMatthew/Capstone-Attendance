@@ -8,7 +8,7 @@ class AttendanceSubmit(models.Model):
 	submit_time = models.DateTimeField(auto_now=True)
 
 class Students(models.Model):
-	lrn = models.IntegerField(primary_key=True, default=0)
+	lrn = models.CharField(primary_key=True, default=0, max_length=20)
 	email = models.EmailField(default='')
 	grade = models.IntegerField(default=0)
 	section = models.CharField(max_length=10, default='')
@@ -19,6 +19,7 @@ class Students(models.Model):
 	spr = models.IntegerField(default=0)
 	latetoday = models.BooleanField(default=False)
 	absenttoday = models.BooleanField(default=True)
+	attendancesubmit = models.ForeignKey(AttendanceSubmit, on_delete=models.SET_NULL, blank=True, null=True)
 
 class DailyInteger(models.Model):
 	integer = models.IntegerField(default=0)
@@ -36,3 +37,7 @@ class AbsentList(models.Model):
 	student = models.ForeignKey(Students, on_delete=models.CASCADE)
 	absentdate = models.DateField()
 
+class LateList(models.Model):
+	student = models.ForeignKey(Students, on_delete=models.CASCADE)
+	submittime = models.TimeField(blank=True, null=True)
+	latedate = models.DateField()

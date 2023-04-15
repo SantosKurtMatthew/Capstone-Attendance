@@ -36,7 +36,8 @@ from .models import (
 	DailyInteger, 
 	StartingTime,
 	SectionList,
-	AbsentList
+	AbsentList,
+	LateList
 	)
 
 import time, random
@@ -65,7 +66,7 @@ def attendancesubmit_view(request):
 	if not request.session.exists(request.session.session_key):
 		request.session.create()
 	currentsession = request.session.session_key
-	print('this is session key',currentsession)
+
 	if form.is_valid():
 		submittedemail = form.cleaned_data['email']
 		currentstudent = Students.objects.get(email=submittedemail)
@@ -90,6 +91,7 @@ def attendancesubmit_view(request):
 					attendancesubmitstudent = AttendanceSubmit.objects.get(email=submittedemail)
 					attendancesubmitstudent.sessionkey = currentsession
 					attendancesubmitstudent.save()
+					currentstudent.attendancesubmit = attendancesubmitstudent
 					messages.success(request, 'Attendance Submitted!')
 					
 				else:
@@ -102,8 +104,8 @@ def attendancesubmit_view(request):
 				currentstudent.absents = currentstudent.absents+0.5
 				messages.success(request, 'Halfday Successful')
 			else:
-				currentstudent.absents = currentstudent.absents-0.5
-				messages.success(request, 'idk what youre doing')
+				#currentstudent.absents = currentstudent.absents-0.5
+				messages.success(request, "Can't submit halfday without submitting beforehand")
 	
 		currentstudent.spr = currentstudent.lates/3
 		currentstudent.save()
@@ -128,18 +130,18 @@ def dailyreset_view(request):
 
 	latestobject = DailyInteger.objects.latest('id')
 	dailycode = latestobject.integer
-	creationdate = latestobject.creation_time.date()
-
+	newtime = latestobject.creation_time+timedelta(hours=8)
+	
+	fixeddate = newtime.date()
 	datetoday = datetime.now().date()
 	pressedtoday = False
 
-	if creationdate < datetoday:
+	if fixeddate < datetoday:
 		pressedtoday = False
 	elif dailycode == 999: 
 		pressedtoday = False
 	else:
 		pressedtoday = True
-
 	
 
 	context = {
@@ -208,7 +210,7 @@ def totalattendance_view(request):
 		grade = request.POST.get('gradeselect')
 		global section
 		section = request.POST.get('section')
-		return exportpdf_view(request)
+		return exportpdftotalattendance_view(request)
 
 	context = {
 		'object_list':allstudents,
@@ -234,7 +236,7 @@ def newstudentform_view(request):
 			currentstudent.grade = form.cleaned_data['grade']
 			currentstudent.section = form.cleaned_data['section']
 			currentstudent.classnumber = form.cleaned_data['classnumber']
-			currentstudent.save()
+			currentstudent.save() 
 			print(form.cleaned_data['grade'], form.cleaned_data['section'], form.cleaned_data['classnumber'])
 		else:
 			form.save()
@@ -356,7 +358,8 @@ def passwordchange_view(request):
 	return render(request, 'account/change-password.html', context)
 
 def absenthistory_view(request):
-	if request.method == "POST":
+	if 'search' in request.POST:
+		global searchedstudent
 		searchedstudent = request.POST.get('searchedstudent')
 		results = AbsentList.objects.filter(student__email__contains=searchedstudent)
 
@@ -364,25 +367,50 @@ def absenthistory_view(request):
 			'searchedstudent':searchedstudent,
 			'results':results
 			}
-		print(context)
 		return render(request, 'absenthistory.html', context)
+	elif 'exportpdfabsents' in request.POST:
+		return exportpdfhistory_view(request)
+
+		
 	return render(request, 'absenthistory.html', {})
+
+def latehistory_view(request):
+	if 'search' in request.POST:
+		global searchedstudent
+		searchedstudent = request.POST.get('searchedstudent')
+		results = LateList.objects.filter(student__email__contains=searchedstudent)
+
+		context = {
+			'searchedstudent':searchedstudent,
+			'results':results
+			}
+		print(context)
+		return render(request, 'latehistory.html', context)
+	elif 'exportpdflates' in request.POST:
+		return exportpdfhistory_view(request)
+	return render(request, 'latehistory.html', {})
 
 	
 
 def dailyfunction_view(request):
 	dailypassword = DailyInteger.objects.latest('id')
-	print(dailypassword.integer)
-	print(not(dailypassword.integer==999))
+
 	if not (dailypassword.integer == 999):
 		absentees = Students.objects.filter(absenttoday=True)
+		lates = Students.objects.filter(latetoday=True)
 		dateyesterday = datetime.now().date()-timedelta(1)
 		for i in absentees:
 			a = AbsentList(student=i, absentdate=dateyesterday)
 			a.save()
-			print(i, i.email)
+		for i in lates:
+			attsub = AttendanceSubmit.objects.get(email=i.email)
+			fixedtime = attsub.submit_time+timedelta(hours=8)
+			submittime = fixedtime.time()
+			print(i, i.email, submittime)
+			b = LateList(student=i, submittime=submittime, latedate=dateyesterday)
+			b.save()
+			print(i, i.email, submittime)
 	else:
-		print('daily pass is 999')
 		pass
 
 	#Generating the Daily Password
@@ -406,11 +434,19 @@ def purgedatabase_view(request):
 	User.objects.filter(is_superuser=False).delete()
 	return HttpResponseRedirect(reverse("delete_studentinfo"))
 
-def exportpdf_view(request):
+def exportpdftotalattendance_view(request):
 	buffer = io.BytesIO()
 	pdf = SimpleDocTemplate(buffer,pagesize=A4)
+	
 	#Table Start
-	queryset = Students.objects.filter(grade=grade, section=section).order_by('classnumber').values_list('classnumber','email','lates','absents','spr')
+	print('this is grade',grade)
+	if not grade == "Grade":
+		defaultheader = False
+		queryset = Students.objects.filter(grade=grade, section=section).order_by('classnumber').values_list('classnumber','email','lates','absents','spr')
+	else:
+		defaultheader = True
+		queryset = Students.objects.filter(grade=13).order_by('section').values_list('classnumber','email','lates','absents','spr')
+	
 	colorlist = [colors.Color(245/255,253/255,250/255),colors.Color(179/255,232/255,205/255)]
 	querylist = []
 	tableheader = ['CN','Email','Lates','Absents','SPRs']
@@ -444,18 +480,90 @@ def exportpdf_view(request):
 		alignment=1
 		)
 
-	header = Paragraph(grade+section+" Attendance", headerstyles)
+	pdfname = grade+section
+	header = Paragraph(pdfname+" Attendance", headerstyles)
 	datetoday = Paragraph("As of "+str(datetime.now().date()), headerstyles)
+
+	if defaultheader:
+		header = Paragraph("You did not submit a grade level or a section!!", headerstyles)
+		datetoday = Paragraph('')
 
 	elems = []
 	elems.append(header)
 	elems.append(Spacer(10,10))
 	elems.append(datetoday)
 	elems.append(Spacer(10,20))
-
 	elems.append(table)
 	
 	pdf.build(elems)
 	buffer.seek(0)
 	
-	return FileResponse(buffer, as_attachment=True, filename='database.pdf')
+	return FileResponse(buffer, as_attachment=True, filename=pdfname+"_totalattendance.pdf")
+
+def exportpdfhistory_view(request):
+	buffer = io.BytesIO()
+	pdf = SimpleDocTemplate(buffer,pagesize=A4)
+	
+	headerstyles = ParagraphStyle('header_styles',
+		fontName='Helvetica-Bold',
+		fontSize=20,
+		alignment=1
+		)
+	
+	subheaderstyles = ParagraphStyle('subheader_styles',
+		fontName='Helvetica-Bold',
+		fontSize=15,
+		alignment=1
+		)
+
+	pdfname = searchedstudent
+	datetoday = Paragraph("As of "+str(datetime.now().date()), headerstyles)
+
+	if 'exportpdfabsents' in request.POST:
+		queryset = AbsentList.objects.filter(student__email__contains=searchedstudent).values_list('student__email','student__grade','student__section','absentdate','student__absents')
+		tableheader = ['Email','Grade','Section','Date','Total Absents']
+		header = Paragraph(pdfname+" Absents", headerstyles)
+		filename = '_absents.pdf'
+	elif 'exportpdflates' in request.POST:
+		queryset = LateList.objects.filter(student__email__contains=searchedstudent).values_list('student__email','student__grade','student__section','latedate','student__lates','submittime')
+		tableheader = ['Email','Grade','Section','Date','Total Lates','Submit Time']
+		header = Paragraph(pdfname+" Lates", headerstyles)
+		filename = '_lates.pdf'
+	
+	
+	colorlist = [colors.Color(245/255,253/255,250/255),colors.Color(179/255,232/255,205/255)]
+	querylist = []
+	querylist.append(tableheader)
+	for i in queryset:
+		print(i)
+		querylist.append(list(i))
+	table=Table(querylist)
+	tablestyles = TableStyle([
+		('ALIGN',(0,0),(-1,-1),'CENTER'),
+		('ROWBACKGROUNDS',(0,0),(-1,-1), colorlist),
+		('TEXTCOLOR',(0,0),(-1,0),colors.white),
+		('GRID',(0,0),(-1,-1),1,colors.white),
+		('BOX',(0,0),(-1,-1),5,colors.Color(1/255,102/255,52/255)),
+		#Header Format Start
+		('BACKGROUND',(0,0),(-1,0),colors.Color(1/255,102/255,52/255)),#
+		('FONT',(0,0),(-1,0),'Helvetica-Bold',10,12),
+		#Header Format End
+		])
+	table.setStyle(tablestyles)
+	#Table End
+
+	elems = []
+	elems.append(header)
+	elems.append(Spacer(10,10))
+	elems.append(datetoday)
+	elems.append(Spacer(10,20))
+	if 'exportpdfabsents' in request.POST:
+		elems.append(Paragraph("*If a student's total absents do not match with number of dates, they most likely have not submitted their attendance today"))
+		elems.append(Spacer(10,10))
+	elems.append(table)
+
+	
+	pdf.build(elems)
+	buffer.seek(0)
+	
+	return FileResponse(buffer, as_attachment=True, filename=pdfname+filename)

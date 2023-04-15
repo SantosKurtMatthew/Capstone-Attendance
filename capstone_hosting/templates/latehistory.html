@@ -87,11 +87,11 @@
 	<div id='headerbox'>
 		<div id='outercontainer'>
 			<div id='container'>
-				<form method="POST" action="{% url 'absent_history' %}">{% csrf_token %}
+				<form method="POST" action="{% url 'late_history' %}">{% csrf_token %}
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" placeholder="Student's surname or email" aria-label="Recipient's username"aria-describedby="basic-addon2" name='searchedstudent' id='searchbar'>
 						<div class="input-group-append">
-							<button type="submit" class="btn btn-secondary" name='search'>Search</button>
+							<button type="submit" class="btn btn-secondary" name="search">Search</button>
 						</div>
 					</div>	
 				</form>
@@ -113,14 +113,12 @@
 
 		<div id='buttonbox' >
 			<form method="post" action='{% url "exportpdfhistory" %}'>{% csrf_token %}
-				<button id='generatepdf' type="submit" name="exportpdfabsents">Export as PDF</button>
+				<button id='generatepdf' type="submit" name="exportpdflates">Export as PDF</button>
 			</form>
 		</div>
-		
 	</div>
 	
 	<div id='tablebox'>
-		<label id='absentreminder'>*If a student's total absents do not match with number of dates, they most likely have not submitted their attendance today</label>
 		<table class="table table-striped" id='studenttable'>
 		  <thead>
 		    <tr>
@@ -129,8 +127,9 @@
 				<th style="width:40%"> Email</th>
 				<th style="width:10%"> Grade </th>
 				<th style="width:10%"> Section </th>
-				<th style="width:10%"> Absent Dates </th>
-				<th style="width:10%" > Total Absent </th>
+				<th style="width:10%"> Late Dates </th>
+				<th style="width:10%"> Submit Time </th>
+				<th style="width:10%" > Total Lates </th>
 				<!--<th style="width:10%"> Total Late </th>
 				
 				<th style="width:5%"> SPR </th>
@@ -144,8 +143,9 @@
 					<td>{{ result.student.email }}</td>
 					<td>{{ result.student.grade }} </td>
 					<td>{{ result.student.section}}</td>
-					<td>{{ result.absentdate }}</td>
-					<td>{{ result.student.absents }}</td>
+					<td>{{ result.latedate }}</td>
+					<td>{{ result.submittime }}</td>
+					<td>{{ result.student.lates }}</td>
 					<!--
 					<td>{{ instance.lates }}</td>
 					<td>{{ instance.absents }}</td>
@@ -160,7 +160,7 @@
 	<div id='tenbox'></div>
 
 	<script type="text/javascript">
-		var submissionpage = document.getElementById('absenthistory');
+		var submissionpage = document.getElementById('latehistory');
 		submissionpage.style.backgroundColor = '#016634'
 		submissionpage.style.color = 'white'
 

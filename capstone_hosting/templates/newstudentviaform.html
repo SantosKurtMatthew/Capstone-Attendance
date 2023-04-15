@@ -39,6 +39,9 @@
 			font-size: 30px;
 			font-weight: bold;
 		}
+		#lrninput{
+			
+		}
 	</style>
 </head>
 <body> 
@@ -51,7 +54,7 @@
 			    {% endfor %}
 			</div>
 			{% endif %}
-			<form method='POST'>{% csrf_token %}
+			<form method='POST' >{% csrf_token %}
 				<label id='formlabel'>Insert New Student</label>
 				{{ form.as_p }}
 				<input type="submit" value='SAVE' id='submitbutton'>

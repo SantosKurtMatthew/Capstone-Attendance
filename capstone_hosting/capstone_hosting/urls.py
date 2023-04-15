@@ -33,9 +33,11 @@ from student_attendance.views import (
     dailyfunction_view, 
     purgedatabase_view, 
     passwordchange_view,
-    exportpdf_view,
+    exportpdftotalattendance_view,
+    exportpdfhistory_view,
     ip_view,
     absenthistory_view,
+    latehistory_view,
     )
 
 urlpatterns = [
@@ -56,8 +58,10 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('dailyfunction/', dailyfunction_view, name='dailyfunction'),
     path('purge/', purgedatabase_view, name='purgedb'),
-    path('pdf/', exportpdf_view, name='exportpdf'),
+    path('pdf/', exportpdftotalattendance_view, name='exportpdftotalattendance'),
+    path('pdfhistory/', exportpdfhistory_view, name='exportpdfhistory'),
     path('ipadd/', ip_view, name='ipadd'),
     path('absenthistory/', absenthistory_view, name='absent_history'),
+    path('latehistory/', latehistory_view, name='late_history'),
     #re_path(r'^iprestrict/', include('iprestrict.urls', namespace='iprestrict')),
 ]
