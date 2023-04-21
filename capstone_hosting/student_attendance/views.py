@@ -48,13 +48,14 @@ import tablib
 from tablib import Dataset
 from .resources import StudentResource
 
+searchedstudent = ''
 def ip_view(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
     else:
         ip = request.META.get('REMOTE_ADDR')
-    print(ip)
+
     return HttpResponse("Welcome Home<br>You are visiting from: {}".format(ip))
 # Create your views here.
 def attendancesubmit_view(request):
@@ -126,7 +127,6 @@ def dailyreset_view(request):
 	if latestobjectexists == False:
 		dailyint = DailyInteger(integer=999)
 		dailyint.save()
-		print("latestobjectexists",latestobjectexists)
 
 	latestobject = DailyInteger.objects.latest('id')
 	dailycode = latestobject.integer
@@ -191,9 +191,16 @@ def startingtimes_view(request):
 	return render(request, 'startingtimes.html', context)
 
 def dailyattendance_view(request):
+	form = PdfFilterForm(request.POST or None)
 	allstudents = Students.objects.order_by('classnumber')
 	datetoday = datetime.today().strftime('%m-%d-%Y')
 	sections = SectionList.objects.order_by('highschool')
+	if request.method == "POST":
+		global grade
+		grade = request.POST.get('gradeselect')
+		global section
+		section = request.POST.get('section')
+		return exportpdfdailyattendance_view(request)
 	context = {
 		'object_list':allstudents,
 		'datetoday':datetoday,
@@ -230,14 +237,13 @@ def newstudentform_view(request):
 		submittedemail = form.cleaned_data['email']
 		studentexists = Students.objects.filter(email=submittedemail)
 
-		print('does the student exist?', studentexists)
 		if studentexists.exists() == True:
 			currentstudent = Students.objects.get(email=submittedemail)
 			currentstudent.grade = form.cleaned_data['grade']
 			currentstudent.section = form.cleaned_data['section']
 			currentstudent.classnumber = form.cleaned_data['classnumber']
 			currentstudent.save() 
-			print(form.cleaned_data['grade'], form.cleaned_data['section'], form.cleaned_data['classnumber'])
+
 		else:
 			form.save()
 		messages.success(request, 'Student Inserted!')
@@ -268,7 +274,6 @@ def newstudentexcel_view(request):
 						data[5],
 					)
 				if str(data[0]).isdigit():
-					print(Students(data[1]))
 					value.save()
 				else:
 					pass
@@ -384,7 +389,6 @@ def latehistory_view(request):
 			'searchedstudent':searchedstudent,
 			'results':results
 			}
-		print(context)
 		return render(request, 'latehistory.html', context)
 	elif 'exportpdflates' in request.POST:
 		return exportpdfhistory_view(request)
@@ -406,10 +410,8 @@ def dailyfunction_view(request):
 			attsub = AttendanceSubmit.objects.get(email=i.email)
 			fixedtime = attsub.submit_time+timedelta(hours=8)
 			submittime = fixedtime.time()
-			print(i, i.email, submittime)
 			b = LateList(student=i, submittime=submittime, latedate=dateyesterday)
 			b.save()
-			print(i, i.email, submittime)
 	else:
 		pass
 
@@ -439,7 +441,6 @@ def exportpdftotalattendance_view(request):
 	pdf = SimpleDocTemplate(buffer,pagesize=A4)
 	
 	#Table Start
-	print('this is grade',grade)
 	if not grade == "Grade":
 		defaultheader = False
 		queryset = Students.objects.filter(grade=grade, section=section).order_by('classnumber').values_list('classnumber','email','lates','absents','spr')
@@ -500,6 +501,71 @@ def exportpdftotalattendance_view(request):
 	
 	return FileResponse(buffer, as_attachment=True, filename=pdfname+"_totalattendance.pdf")
 
+def exportpdfdailyattendance_view(request):
+	buffer = io.BytesIO()
+	pdf = SimpleDocTemplate(buffer,pagesize=A4)
+	
+	#Table Start
+	if not grade == "Grade":
+		defaultheader = False
+		queryset = Students.objects.filter(grade=grade, section=section).order_by('classnumber').values_list('classnumber','email','latetoday','absenttoday','attendancesubmit__submit_time')
+	else:
+		defaultheader = True
+		queryset = Students.objects.filter(grade=13).order_by('section').values_list('classnumber','email','latetoday','absenttoday','attendancesubmit__submit_time')
+	
+	colorlist = [colors.Color(245/255,253/255,250/255),colors.Color(179/255,232/255,205/255)]
+	querylist = []
+	tableheader = ['CN','Email','Late','Absent','Time']
+	querylist.append(tableheader)
+	for i in queryset:
+		querylist.append(list(i))
+	table=Table(querylist)
+	tablestyles = TableStyle([
+		('ALIGN',(0,0),(-1,-1),'CENTER'),
+		('ROWBACKGROUNDS',(0,0),(-1,-1), colorlist),
+		('TEXTCOLOR',(0,0),(-1,0),colors.white),
+		('GRID',(0,0),(-1,-1),1,colors.white),
+		('BOX',(0,0),(-1,-1),5,colors.Color(1/255,102/255,52/255)),
+		#Header Format Start
+		('BACKGROUND',(0,0),(-1,0),colors.Color(1/255,102/255,52/255)),#
+		('FONT',(0,0),(-1,0),'Helvetica-Bold',10,12),
+		#Header Format End
+		])
+	table.setStyle(tablestyles)
+	#Table End
+
+	headerstyles = ParagraphStyle('header_styles',
+		fontName='Helvetica-Bold',
+		fontSize=20,
+		alignment=1
+		)
+	
+	subheaderstyles = ParagraphStyle('subheader_styles',
+		fontName='Helvetica-Bold',
+		fontSize=15,
+		alignment=1
+		)
+
+	pdfname = grade+section
+	header = Paragraph(pdfname+" Attendance", headerstyles)
+	datetoday = Paragraph("On "+str(datetime.now().date()), headerstyles)
+
+	if defaultheader:
+		header = Paragraph("You did not submit a grade level or a section!!", headerstyles)
+		datetoday = Paragraph('')
+
+	elems = []
+	elems.append(header)
+	elems.append(Spacer(10,10))
+	elems.append(datetoday)
+	elems.append(Spacer(10,20))
+	elems.append(table)
+	
+	pdf.build(elems)
+	buffer.seek(0)
+	
+	return FileResponse(buffer, as_attachment=True, filename=pdfname+"_totalattendance.pdf")
+
 def exportpdfhistory_view(request):
 	buffer = io.BytesIO()
 	pdf = SimpleDocTemplate(buffer,pagesize=A4)
@@ -515,7 +581,8 @@ def exportpdfhistory_view(request):
 		fontSize=15,
 		alignment=1
 		)
-
+	
+	print(searchedstudent, "the searched student")
 	pdfname = searchedstudent
 	datetoday = Paragraph("As of "+str(datetime.now().date()), headerstyles)
 
@@ -535,7 +602,6 @@ def exportpdfhistory_view(request):
 	querylist = []
 	querylist.append(tableheader)
 	for i in queryset:
-		print(i)
 		querylist.append(list(i))
 	table=Table(querylist)
 	tablestyles = TableStyle([

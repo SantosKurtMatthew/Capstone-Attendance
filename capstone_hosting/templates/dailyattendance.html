@@ -9,13 +9,18 @@
 	{% load static %}
 	<title>Attendance on {{ datetoday }}</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/tableformatting.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/attendanceheader.css' %}">
 	<style type="text/css">
 		body{
 			background: url('{% static "img/newbgwide.png" %}') ;
 			background-size: 100% 100%;
 		}
-		#headerbox{
-			height: 225px;
+
+		@media all and (max-width: 512px) {
+		    	/* put your css styles in here */
+		    #headerbox{
+		    	height: 290px;
+		    }
 		}
 	</style>
 	<script type="text/javascript">
@@ -50,14 +55,23 @@
 			}
 			jQuery('tr:visible').filter(':odd').css({'background-color': '#b3e8cd'});
 			jQuery('tr:visible').filter(':even').css({'background-color': '#f5fdfa'});	
+
+			document.getElementById('pdfinputgrade').value = gradefilter
+			document.getElementById('pdfinputsection').value = sectionfilter
 		}
 	</script>
 </head>
 <body onload="sortGradeLevel()" style="background-color: #b3e8cd;">
+	<form method="post" id='formtest'>{% csrf_token %}
+		<input type="text" name="gradeselect" id='pdfinputgrade'>
+		<input type="text" name="section" id='pdfinputsection'>
+		<input type="submit" name="daily">
+	</form>
+
 	<div id='headerbox'>
 		<div id='outercontainer'>
 			<div id='container'>
-				<h1>Attendance on <br>{{ datetoday }}</h1>
+				<h1>Attendance on {{ datetoday }}</h1>
 
 				<div id ='dropdowncontainer'>
 					<select id='gradelevel' onchange='sortGradeLevel()' class="h3">
@@ -77,6 +91,12 @@
 					</select>	
 				</div>
 			</div>
+		</div>
+
+		<div id='buttonbox' >
+			<button id='generatepdf' class="d-flex align-items-center justify-content-center">
+				Export as PDF
+			</button>
 		</div>
 	</div>
 	
@@ -130,6 +150,14 @@
 		var currentpage = document.getElementById('navbarDropdownAttendance');
 		currentpage.style.backgroundColor = 'white'
 		currentpage.setAttribute('class',"nav-link dropdown-toggle text-success justify-content-center")
+	</script>
+
+	<script type="text/javascript">
+		generatepdf = document.getElementById('generatepdf')
+		generatepdf.onclick = function submitget(){
+			document.getElementById('formtest').submit()
+			
+		}
 	</script>
 	{% endblock %}
 </body>

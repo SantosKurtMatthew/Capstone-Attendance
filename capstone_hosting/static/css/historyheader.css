@@ -1,0 +1,96 @@
+#headerbox{
+	width: 70%;
+	height: 175px;
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	
+}
+#outercontainer{
+	width: 100%;
+	background-color: #016634;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	grid-column: 3 /span 6;
+    grid-row: 1/ span 4;
+}
+#searchbar{
+	text-transform: lowercase;
+}
+#buttonbox{
+	grid-column: 9 /span 2;
+	grid-row: 3/span 2;
+	margin-left: auto;
+	margin-bottom: 20px;
+}
+#generatepdf{
+	background-color: #016634;
+	width: 200px;
+	height: 50px;
+	color: white;
+	font-weight: bold;
+}
+#container{
+	width: 100%;
+	height: 100%;
+	border: 3px solid white;
+	text-align: center;
+}
+h1, h4{
+	margin:0;
+	color: white;
+}
+
+@media all and (max-width: 1280px) {
+    	/* put your css styles in here */
+    #outercontainer{
+  		grid-column: 2 /span 8;
+    	grid-row: 1/ span 4;
+	}
+    
+}
+@media all and (max-width: 1080px) {
+    	/* put your css styles in here */
+    #headerbox{
+    	width: 100%;
+    	height: 225px;
+    	grid-template-rows: repeat(5, 1fr);
+    }
+    #outercontainer{
+		grid-column: 2/span 8;
+	}
+	#buttonbox{
+		grid-column: 4/span 4;
+    	grid-row: 5;
+    	margin-left: auto;
+    	margin-right: auto;
+	}
+
+}
+@media all and (max-width: 512px) {
+    	/* put your css styles in here */
+    #headerbox{
+    	grid-template-columns: repeat(10, 1fr);
+    	grid-template-rows: repeat(5, 1fr);
+    }
+    #outercontainer{
+    	height: 135px;
+    	grid-column: 1 /span 10;
+    	grid-row: 1/ span 4;
+    }
+    #absentreminder{
+    	padding: 5px;
+    }
+    #buttonbox{
+    	grid-column: 3/span 6;
+    }
+}
+
+
+
+

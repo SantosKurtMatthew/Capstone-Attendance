@@ -63,5 +63,5 @@ urlpatterns = [
     path('ipadd/', ip_view, name='ipadd'),
     path('absenthistory/', absenthistory_view, name='absent_history'),
     path('latehistory/', latehistory_view, name='late_history'),
-    #re_path(r'^iprestrict/', include('iprestrict.urls', namespace='iprestrict')),
+    re_path(r'^iprestrict/', include('iprestrict.urls', namespace='iprestrict')),
 ]

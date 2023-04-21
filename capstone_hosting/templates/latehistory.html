@@ -9,68 +9,13 @@
 	{% block content %}
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/tableformatting.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/historyheader.css' %}">
 	<style type="text/css">
 		body{
 			background: url('{% static "img/newbgwide.png" %}') ;
 			background-size: 100% 100%;
 		}
 
-		#absentreminder{
-			color: white;
-			background-color: #016634;
-			text-align: justify;
-			display: inline-block;
-			margin-top: 10px;
-		}
-		#outercontainer{
-		  	grid-column: 3 /span 6;
-		    grid-row: 1/ span 4;
-		}
-		#searchbar{
-			text-transform: lowercase;
-		}
-		#buttonbox{
-			grid-column: 9 /span 2;
-			grid-row: 3/span 2;
-			margin-left: auto;
-			margin-bottom: 20px;
-		}
-		#generatepdf{
-			background-color: #016634;
-			width: 200px;
-			height: 50px;
-			color: white;
-			font-weight: bold;
-		}
-		#formtest{
-			display: none;
-		}
-		@media all and (max-width: 1280px) {
-		    	/* put your css styles in here */
-		    #outercontainer{
-		  		grid-column: 2 /span 8;
-		    	grid-row: 1/ span 4;
-			}
-		    
-		}
-		@media all and (max-width: 512px) {
-		    	/* put your css styles in here */
-		    #headerbox{
-		    	height: 150px;
-		    	grid-template-columns: repeat(10, 1fr);
-		    	grid-template-rows: repeat(5, 1fr);
-		    }
-		    #outercontainer{
-		    	height: 135px;
-		    	grid-column: 1 /span 10;
-		    	grid-row: 1/ span 4;
-		    }
-		    #absentreminder{
-		    	padding: 5px;
-		    }
-		}
-		
-		
 	</style>
 	<script type="text/javascript">
 		//Obtained from https://www.youtube.com/watch?v=LkVA3AWmkQQ

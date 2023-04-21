@@ -1,0 +1,99 @@
+#headerbox{
+	width: 70%;
+	height: 175px;
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	grid-template-columns: repeat(10, 1fr);
+	grid-template-rows: repeat(4, 1fr);
+	
+}
+#outercontainer{
+	width: 100%;
+	background-color: #016634;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	grid-column: 4/span 4;
+	grid-row: 1/ span 4;
+}
+#container{
+	width: 100%;
+	height: 100%;
+	border: 3px solid white;
+	text-align: center;
+}
+h1, h4{
+	margin:0;
+	color: white;
+}
+#dropdowncontainer{
+	width: 100%;
+	display: flex;
+}
+select{
+	width: 49%;
+	height: 50px;
+	text-align: center;
+	border: none;
+	background-color: white;
+	margin-left: auto;
+	margin-right: auto;
+}
+#gradelevel{
+	border-radius: 25px 0px 0px 25px;
+}
+#section{
+	border-radius: 0px 25px 25px 0px;	
+}
+option{
+	font-size: 20px;
+}
+#buttonbox{
+	height: 50px;
+	width: 200px;
+	
+	grid-column: 9 /span 2;
+	grid-row: 4/span 1;
+	margin-left: auto;
+	margin-bottom: 20px;
+}
+#generatepdf{
+	background-color: #016634;
+	width: 100%;
+	height: 100%;
+	color: white;
+	font-weight: bold;
+}
+#formtest{
+	display: none;
+}
+@media all and (max-width: 1080px) {
+    	/* put your css styles in here */
+    #headerbox{
+    	width: 100%;
+    	height: 250px;
+    	grid-template-columns: repeat(10, 1fr);
+    	grid-template-rows: repeat(5, 1fr);
+    }
+    #outercontainer{
+		grid-column: 2/span 8;
+	}
+	#buttonbox{
+		grid-column: 4/span 4;
+    	grid-row: 5;
+    	margin-left: auto;
+    	margin-right: auto;
+	}
+}
+@media all and (max-width: 512px) {
+    	/* put your css styles in here */
+    #outercontainer{
+    	grid-column: 1 /span 10;
+    }
+    #tablebox{
+    	background: none;
+    }
+}
