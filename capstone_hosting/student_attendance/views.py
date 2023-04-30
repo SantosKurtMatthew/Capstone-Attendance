@@ -158,12 +158,14 @@ def startingtimes_view(request):
 	if 'timesubmit' in request.POST:
 		if timeform.is_valid():
 			submittedgradelevel = timeform.cleaned_data['grade']
-			submittednewtime = timeform.cleaned_data['starttime']
+			submittedtime = timeform.cleaned_data['starttime']
+			submittedlastday = timeform.cleaned_data['lastday']
 			checkrecord = StartingTime.objects.filter(grade=submittedgradelevel).exists()
 
 			if checkrecord == True:
 				existinggradelevel = StartingTime.objects.get(grade=submittedgradelevel)
-				existinggradelevel.starttime = submittednewtime
+				existinggradelevel.starttime = submittedtime
+				existinggradelevel.lastday = submittedlastday
 				existinggradelevel.save()
 			else:
 				timeform.save()	
@@ -234,18 +236,11 @@ def newstudentform_view(request):
 	form.fields['section'].choices = sectionchoices
 	
 	if form.is_valid():
+		form.save()
 		submittedemail = form.cleaned_data['email']
-		studentexists = Students.objects.filter(email=submittedemail)
-
-		if studentexists.exists() == True:
-			currentstudent = Students.objects.get(email=submittedemail)
-			currentstudent.grade = form.cleaned_data['grade']
-			currentstudent.section = form.cleaned_data['section']
-			currentstudent.classnumber = form.cleaned_data['classnumber']
-			currentstudent.save() 
-
-		else:
-			form.save()
+		currentstudent = Students.objects.get(email=submittedemail)
+		currentstudent.spr = currentstudent.lates/3
+		currentstudent.save()
 		messages.success(request, 'Student Inserted!')
 		return HttpResponseRedirect(reverse("new_studentform"))
 
@@ -265,6 +260,10 @@ def newstudentexcel_view(request):
 			excelfile = request.FILES['student_excel']
 			filedata = tablib.Dataset().load(excelfile.read(), format='xlsx')
 			for data in filedata:
+				if str(data[0]).isdigit():
+					sprcount = int(data[6])/3
+				else:
+					sprcount = 0
 				value = Students(
 						data[0],
 						data[1],
@@ -272,14 +271,17 @@ def newstudentexcel_view(request):
 						data[3],
 						data[4],
 						data[5],
+						data[6],
+						data[7],
+						data[8],
+						data[9],
+						sprcount,
 					)
 				if str(data[0]).isdigit():
 					value.save()
 				else:
 					pass
-					
-					
-				
+
 			messages.success(request, 'Students Inserted!')
 		return HttpResponseRedirect(reverse("new_studentexcel"))
 
@@ -402,7 +404,8 @@ def dailyfunction_view(request):
 	if not (dailypassword.integer == 999):
 		absentees = Students.objects.filter(absenttoday=True)
 		lates = Students.objects.filter(latetoday=True)
-		dateyesterday = datetime.now().date()-timedelta(1)
+		yesterday = AttendanceSubmit.objects.latest('id').submit_time
+		dateyesterday = yesterday.date()+timedelta(1)
 		for i in absentees:
 			a = AbsentList(student=i, absentdate=dateyesterday)
 			a.save()
@@ -420,11 +423,19 @@ def dailyfunction_view(request):
 	dailyint = DailyInteger(integer=randomint)
 	dailyint.save()
 
-	#Resetting the Students' Attendance 
-	Students.objects.all().update(absents = F('absents')+1)
-	Students.objects.all().update(absenttoday=True)
-	Students.objects.all().update(latetoday=False)
-	AttendanceSubmit.objects.all().delete()
+	#Resetting the Students' Attendance
+	for i in StartingTime.objects.all().order_by('grade'):
+		gradelevel = i.grade
+		lastday = i.lastday
+		today = datetime.today().date()
+		if today <= lastday:
+			Students.objects.filter(grade=gradelevel).update(absents = F('absents')+1)
+			Students.objects.filter(grade=gradelevel).update(absenttoday=True)
+			Students.objects.filter(grade=gradelevel).update(latetoday=False)
+			AttendanceSubmit.objects.all().delete()
+		else: 
+			pass
+	
 	return HttpResponseRedirect(reverse("attendance_code"))
 
 def purgedatabase_view(request):

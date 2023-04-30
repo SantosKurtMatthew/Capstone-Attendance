@@ -16,6 +16,10 @@
 			background: url('{% static "img/newbgwide.png" %}') ;
 			background-size: 100% 100%;
 		}
+		#bottombox{
+			background-color: #016634 ;
+			height: 10px;
+		}
 	</style>
 	<style type="text/css">
 		.card-body{
@@ -51,13 +55,13 @@
 	    <div class="card-header" id="headingOne">
 	      <h5 class="mb-0">
 	        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-	          (Simplified) How the Website Works 
+	          (Simplified) How to use the website
 	        </button>
 	      </h5>
 	    </div>
-	    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+	    <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordion">
 	      <div class="card-body">
-	        The website requires the teacher to give the 4 digit number listed in the “Daily Password” page to the students. The students will then enter their email and the 4 digit number into the “Attendance Submit” page to log their attendance.
+	        The website requires the teacher to give the 4 digit number listed in the “Daily Reset" page to the students. The students will then enter their email and the 4 digit number into the “Attendance Submit” page to log their attendance.
 	      </div>
 	    </div>
 	  </div>
@@ -66,38 +70,82 @@
 	    <div class="card-header" id="headingTwo">
 	      <h5 class="mb-0">
 	        <button class="btn btn-link collapsed " data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-	          (Teachers) How to Use the Website 
+	          Setting Up at the Start of the Year
 	        </button>
 	      </h5>
 	    </div>
 	    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 	      <div class="card-body">
-	        <h3 class="font-weight-bold"><u>Setting Up at the Start of the Year</u></h3>
 	        <div>
-	        	<h4 class='font-weight-bold'>Accounts</h4>
-	        	Firstly, teachers have to make an “account” in the website in order to access the pages. It requires an account to make an account, but you should be able to use the account details given to you.
+	        	<h3 class='font-weight-bold'>Accounts</h3>
+	        	Make an account through the page "Account Create" under the "Account" dropdown in the navigation bar. It will require you to log in to access the page, but an account will be given beforehand to allow you to log in.
 	        </div>
 	        <br>
 	        <div>
-	        	<h4 class='font-weight-bold'>Class Emails</h4>
-	        	The teacher has to set up the list of email addresses of their class. This can be done in the “Insert New Student” page and accomplishing the form. Entries can also be removed from the database through the “Delete Student” page by typing in the database ID (DB ID) listed in the “Student Database” page. <br><br>
+	        	<h3 class="font-weight-bold">Start Times</h3>
+	        	Go to the "Start Times & Sections" page to set up the time classes start and to insert the sections of the classes. In order to insert a new entry, press the button under the table labelled either "Change Starting Time" or "Add/Delete Sections". <br><br>
 
+	        	The start time is what will be used to check if the student is late. If the listed start time for G12 is 7:00, then a G12 student submits at 7:01, he will be marked as late. Insert the start time with the grace period in mind. <br><br>
+
+	        	The section is the sections of the classes, such as LOVE, HOPE, FAITH for the junior high school. The values listed here will be the values used in the database.
+	        	<br><br>
 	        </div>
 	        <div>
-	        	<h4 class="font-weight-bold">Start Times</h4>
-	        	Afterwards, the teacher also has to set the start time for their respective grade level through the "Start Times" page. The start time indicates after what time a student is considered late. In the case of a start time of 7:00 a.m, any submissions after 7:00 will be considered as late.<br><br>
+	        	<h3 class='font-weight-bold'>Inserting Students</h3>
+	        	Lastly, insert the students' information via the "Insert via Excel" or "Insert via Form" pages both listed under the "Insert/Delete" dropdown in the navigation bar. The basic information required is the students' LRN, Pace Academy email address, grade level, section, class number, sex, and the student's total number of lates and absents.<br><br>
+
+	        	In the "Insert via Excel" page, an excel file may be uploaded in order to insert the students' information into the database. A template is provided for the excel file to be read correctly and an example is provided for clarity. 
+
+	        	In the "Insert via Form" page, a form is present for the teachers to fill up to insert a student into the database. Either method of inserting a student is accepted and will lead to the same results, so choose the more convenient method.<br><br>
+
+	        	Students can be deleted through the "Delete Student" page under the "Insert/Delete Student" dropdown in the navigation bar. The page contains a form that will ask you to give the email of the student you want to remove from the database. It will then ask you for confirmation.<br><br>
+
+	        	<h5 class='font-weight-bold'> Question: Updating Students?</h5>
+	        	Unfortunately, Kurt has yet to figure out how to update the students safely. Currently, there are two methods of updating a student's info: through the excel upload or by deleting the student's entry then inserting a new one through the form.<br><br>
+
+	        	In the excel file upload method, insert the student's info that you want to update into the excel file. Keep their LRN the same since that is how the database will identify them. <b>If the student's LRN has to be changed, use the form method.</b><br><br>
+
+	        	In the form method, you have to delete the student from the database through the aforementioned "Delete Student" page; however, take note of their total number of absences and lates as well as whether they were late or absent on that day. Afterwards, insert the student through the "Insert Student via Form" as if they were a new student.<br><br>
 	        </div>
 	        
-	        <h3 class="font-weight-bold"><u>Daily Use</u></h3>
-	        <div>
-	        	<h4 class='font-weight-bold'>The Daily Password</h4>
-	        	The website generates a 4 digit number daily that the students have to submit alongside their email in order to log their attendance. Ideally, the teacher writes the 4 digit number on the whiteboard or in the classroom, so the students will be required to be in the classroom in order to be able to log their attendance.
-
-	        </div>
+	        
 	      </div>
 	    </div>
 	  </div>
+
 	  <div class="card">
+	    <div class="card-header" id="headingThree">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link collapsed " data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
+	          Daily Use
+	        </button>
+	      </h5>
+	    </div>
+	    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+	      <div class="card-body">
+
+	        <div>
+	        	<h4 class='font-weight-bold'>The Daily Password</h4>
+	        	In the "Daily Reset" page, there is a button labelled "Daily Function" that should be pressed once a day when the website is being used. The button will disappear if it has already been pressed by a teacher on the current day, so don't be afraid to press the button if it says it hasn't been pressed. This button does the following: 
+
+	        	<ol>
+	        		<li>Takes note of who was absent the previous school day</li>
+					<li>Takes note of who was late the previous school day</li>
+					<li>Generates a new daily code</li>
+					<li>Adds 1 absent to all students in the database (students submitting their attendance subtracts 1 absent)</li>
+					<li>Resets the Daily Attendance page (all students are absent and not late and clears the submit times)</li>
+					<li>Clears all the students who have submitted their attendance from the previous day</li>
+				</ol>
+
+				The Daily Code is a 4 digit number listed near the top of the page. It must be submitted by the students alongside their email in the "Attendance Submit" page in order to log their attendance. The teacher must provide the code to the students through a method of their choosing, such as writing it on the whiteboard, on a daily basis.
+
+
+	        </div>
+	      </div>
+	      <div id='bottombox'></div>
+	    </div>
+	  </div>
+	  <!--<div class="card">
 	    <div class="card-header" id="headingThree">
 	      <h5 class="mb-0">
 	        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -162,7 +210,7 @@
 	          </div>
 	        </div>
 	      </div>
-	    </div>
+	    </div>-->
 	  </div>
 	</div>
 

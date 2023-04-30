@@ -114,7 +114,7 @@
 			{% else %}
 				<label id='alreadypressed'><h1>Daily reset done today</h1></label>
 			{% endif %}
-			<div id='functionbox'> <!--{% if pressedtoday == True %} disabled style="display: none" {% endif %}-->
+			<div id='functionbox'><!--{% if pressedtoday == True %} disabled style="display: none" {% endif %}-->
 				<button id='functionbutton' >Daily Reset</button>	
 			</div>
 		</form>
@@ -128,11 +128,12 @@
 		  <div class="card card-body">
 		   <ol>
 				<b>What this button does (in this order):</b>
-				<li>Takes note of who was absent the previous day</li>
+				<li>Takes note of who was absent the previous school day</li>
+				<li>Takes note of who was late the previous school day</li>
 				<li>Generates a new daily code</li>
-				<li>Adds 1 absent to all students in the database</li>
-				<li>Resets the Daily Attendance page (all students are absent and not late)</li>
-				<li>Clears the AttendanceSubmit table</li>
+				<li>Adds 1 absent to all students in the database (students submitting their attendance subtracts 1 absent)</li>
+				<li>Resets the Daily Attendance page (all students are absent and not late and clears the submit times)</li>
+				<li>Clears all the students who have submitted their attendance from the previous day</li>
 				
 			</ol>
 			<ol>

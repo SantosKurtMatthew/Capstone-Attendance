@@ -45,8 +45,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
+    #'iprestrict.middleware.IPRestrictMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'iprestrict.middleware.IPRestrictMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -144,3 +144,4 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 IPRESTRICT_GEOIP_ENABLED = False
+IPRESTRICT_TRUST_ALL_PROXIES = True

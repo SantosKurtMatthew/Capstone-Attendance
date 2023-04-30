@@ -120,11 +120,13 @@
 				<tr>
 					<th>Grade</th>
 					<th>Start Time</th>
+					<th>Last day of classes</th>
 				</tr>
 				{% for instance in startingtimes %}
 					<tr>
 						<td>{{ instance.grade }}</td>
 						<td>{{ instance.starttime }}</td>	
+						<td>{{ instance.lastday }}</td>	
 					</tr>
 				{% endfor%}
 			</table>	
@@ -157,6 +159,7 @@
 			    		<tr id='forminputs'>
 			    			<td id='gradebox'>{{ timeform.grade }}</td>
 			    			<td>{{ timeform.starttime }}</td><br>
+			    			<td>{{ timeform.lastday }}</td><br>
 			    		</tr>
 			    	</table>			    						
 			    	<div id='submitbuttonbox'><input type="submit" value='Save' name='timesubmit' id='submitbutton'></div>

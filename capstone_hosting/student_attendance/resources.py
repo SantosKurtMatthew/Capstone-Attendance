@@ -11,4 +11,8 @@ class StudentResource(resources.ModelResource):
 			'section',
 			'classnumber',
 			'sex',
+			'lates',
+			'absents',
+			'latetoday',
+			'absenttoday'
 		)

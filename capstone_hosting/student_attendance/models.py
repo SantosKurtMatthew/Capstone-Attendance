@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime, timedelta
 # Create your models here.
 class AttendanceSubmit(models.Model):
 	email = models.EmailField(blank=True, null=True)
@@ -16,10 +16,11 @@ class Students(models.Model):
 	sex = models.CharField(max_length=1, default='M')
 	lates = models.IntegerField(default=0)
 	absents = models.FloatField(default=0)
-	spr = models.IntegerField(default=0)
 	latetoday = models.BooleanField(default=False)
 	absenttoday = models.BooleanField(default=True)
+	spr = models.IntegerField(default=0)
 	attendancesubmit = models.ForeignKey(AttendanceSubmit, on_delete=models.SET_NULL, blank=True, null=True)
+	
 
 class DailyInteger(models.Model):
 	integer = models.IntegerField(default=0)
@@ -28,6 +29,7 @@ class DailyInteger(models.Model):
 class StartingTime(models.Model):
 	grade = models.IntegerField(default=0)
 	starttime = models.TimeField(default='7:00')
+	lastday = models.DateField(default=datetime.today()+timedelta(days=240))
 
 class SectionList(models.Model):
 	section = models.CharField(max_length=20)

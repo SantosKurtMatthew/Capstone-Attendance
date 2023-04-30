@@ -3,15 +3,16 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from django.contrib.auth.models import User
 
 from .models import AttendanceSubmit, Students, DailyInteger, StartingTime, SectionList
+from datetime import datetime, timedelta
 
 
-#ISSUE: Form doesnt change even if page does
-#FIND A WAY TO MAKE THE FORM REFRESH AS WELL
+class DateInput(forms.DateInput):
+	input_type = 'date'
 
 class AttendanceForm(forms.ModelForm):
 	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':"Email",'id':'emailinput'}), label='')
 	password = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':" Daily Password"}), label='')
-	halfday = forms.BooleanField(widget=forms.CheckboxInput(attrs={'id':'halfday',}), required=False)
+	halfday = forms.BooleanField(widget=forms.CheckboxInput(attrs={'id':'checkbox',}), required=False)
 	class Meta:
 		model = AttendanceSubmit
 		fields = [
@@ -23,13 +24,11 @@ class AttendanceForm(forms.ModelForm):
 	def clean_email(self, *args, **kwargs):
 		cleanemail = self.cleaned_data.get('email')
 		existsStudents = Students.objects.filter(email=cleanemail).exists()
-		studentgrade = Students.objects.get(email=cleanemail).grade
-		existsStartingTime = StartingTime.objects.filter(grade=studentgrade).exists()
-		#existsAtttendanceSubmit = AttendanceSubmit.objects.filter(email=cleanemail).exists()
-		cleanhalfday = self.cleaned_data.get('halfday')
-
 		if existsStudents == False:
 			raise forms.ValidationError('student does not exist')
+		
+		studentgrade = Students.objects.get(email=cleanemail).grade
+		existsStartingTime = StartingTime.objects.filter(grade=studentgrade).exists()
 		if existsStartingTime == False: #and cleanhalfday == False:
 			raise forms.ValidationError('no time set for this grade level')
 		else:
@@ -38,8 +37,9 @@ class AttendanceForm(forms.ModelForm):
 	def clean_password(self, *args, **kwargs):
 		dailycode = DailyInteger.objects.latest('id').integer
 		cleanpassword = self.cleaned_data.get('password')
-		
-		if cleanpassword == dailycode:
+		if cleanpassword == 999:
+			raise forms.ValidationError('not a valid code')
+		elif cleanpassword == dailycode:
 			return cleanpassword
 		else: 
 			raise forms.ValidationError('wrong code')
@@ -77,6 +77,24 @@ class StudentsInfoForm(forms.ModelForm):
 		'required':True,
 		'class':'sexselect' 
 		}),choices=sexchoices)
+	lates = forms.IntegerField(widget=forms.TextInput(attrs={
+		'placeholder':"Number of Lates",
+		}), label='', required=False)
+	absents = forms.IntegerField(widget=forms.TextInput(attrs={
+		'placeholder':"Number of Absents",
+		}), label='', required=False)
+	boolchoices=(
+		('True', 'Yes'),
+		('False',"No")
+		)
+	latetoday = forms.ChoiceField(widget=forms.Select(attrs={
+		'required':False,
+		'class':'sexselect' 
+		}),choices=boolchoices, label="Late Today", initial=boolchoices[1])
+	absenttoday = forms.ChoiceField(widget=forms.Select(attrs={
+		'required':False,
+		'class':'sexselect' 
+		}),choices=boolchoices, label="Absent Today")
 	class Meta:
 		model = Students
 		fields = [
@@ -86,21 +104,36 @@ class StudentsInfoForm(forms.ModelForm):
 			'section',
 			'classnumber',
 			'sex',
+			'lates',
+			'absents',
+			'latetoday',
+			'absenttoday'
 		]
 
-
+	def clean_lates(self):
+		data = self.cleaned_data['lates']
+		if not data:
+			data = '0'
+		return data
+	def clean_absents(self):
+		data = self.cleaned_data['absents']
+		if not data:
+			data = '0'
+		return data
 	
 
 
 class ChangeStartingTime(forms.ModelForm):
 	grade = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':"Grade Level"}), label='')
 	starttime = forms.TimeField(widget=forms.TextInput(attrs={'placeholder':"Start Time"}), label='')
+	lastday = forms.DateField(widget=DateInput, initial=datetime.today()+timedelta(days=240))
 	class Meta:
 
 		model = StartingTime
 		fields = [
 			'grade',
 			'starttime',
+			'lastday'
 		]
 
 class AddSection(forms.ModelForm):

@@ -64,13 +64,16 @@ input{
 	justify-content: center;
 
 	border: 3px solid white;
-	
 }
 .errorlist>li{
 	color: black;
 	font-weight: bold;
 	text-transform: uppercase;
-	
+}
+#checkbox{
+	height: 20px;
+	width: 20px;
+	border: none;
 }
 @media all and (max-width: 450px) {
     	/* put your css styles in here */
