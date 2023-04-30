@@ -124,7 +124,7 @@ class StudentsInfoForm(forms.ModelForm):
 
 
 class ChangeStartingTime(forms.ModelForm):
-	grade = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':"Grade Level"}), label='')
+	grade = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':"Grade"}), label='')
 	starttime = forms.TimeField(widget=forms.TextInput(attrs={'placeholder':"Start Time"}), label='')
 	lastday = forms.DateField(widget=DateInput, initial=datetime.today()+timedelta(days=240))
 	class Meta:

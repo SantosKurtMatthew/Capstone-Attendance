@@ -45,7 +45,7 @@
 		background-color: #016634;
 	}
 	#gradebox{
-		width: 35%;
+		width: 20%;
 	}
 	#forminputs>td> input{
 		background-color: #016634;
@@ -103,6 +103,8 @@
 	#sectioninput{
 		text-transform: uppercase;
 	}
+
+
 	@media all and (max-width: 512px) {
 	    	/* put your css styles in here */
 	    #tablebox{
@@ -143,23 +145,30 @@
 		    	<label>Example:</label>
 		    	<table id='formtable'>
 		    		<tr id='forminputs'>
-		    			<td id='gradebox'>Grade Level</td>
-		    			<td>Time in 24hr format</td><br>
+		    			<td id='gradebox'>Grade</td>
+		    			<td>Time in 24hr format</td>
+		    			<td>Last Day of Class</td>
 		    		</tr>
 		    		<tr id='forminputs'>
 		    			<td id='gradebox'>12</td>
-		    			<td>7:00</td><br>
+		    			<td>7:00</td>
+		    			<td>MM/DD/YY</td>
 		    		</tr>
 		    	</table>
 				
 					
 		    	<form method='POST'>{% csrf_token %}
-					<label>Answer Here:</label>
+					<label id='formlabel'>Answer Here:</label>
 			    	<table id='formtable'>
 			    		<tr id='forminputs'>
+			    			<td id='gradebox'>Grade</td>
+			    			<td>Time</td><br>
+			    			<td>Last Day of Class</td>
+			    		</tr>
+			    		<tr id='forminputs'>
 			    			<td id='gradebox'>{{ timeform.grade }}</td>
-			    			<td>{{ timeform.starttime }}</td><br>
-			    			<td>{{ timeform.lastday }}</td><br>
+			    			<td>{{ timeform.starttime }}</td>
+			    			<td>{{ timeform.lastday }}</td>
 			    		</tr>
 			    	</table>			    						
 			    	<div id='submitbuttonbox'><input type="submit" value='Save' name='timesubmit' id='submitbutton'></div>
@@ -202,7 +211,7 @@
 			    			<td>STEM</td>
 			    			<td><select id='highschoolselect'>
 			    				<option>SHS</option>
-			    			</select></td><br>
+			    			</select></td>
 			    		</tr>
 			    	</table>
 
