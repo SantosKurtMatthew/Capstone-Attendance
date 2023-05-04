@@ -25,6 +25,12 @@ th{
 tr{
 	line-height: 15px;
 }
+tbody{
+	background-color: #b3e8cd;
+}
+tr:nth-child(even){
+	background-color: #f5fdfa;
+}
 #notneeded{
 	display: none;
 }

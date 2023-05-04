@@ -21,10 +21,10 @@ class AttendanceRecord(forms.Form):
 		}), choices=(), label='')
 	submitted = forms.BooleanField(widget=forms.CheckboxInput(attrs={
 	'class':"form-check form-check-inline"
-	}), label='Submitted', required=False)
+	}), label='Submitted Today', required=False)
 	notsubmitted = forms.BooleanField(widget=forms.CheckboxInput(attrs={
 		'class':"form-check form-check-inline"
-	}), label='Not Submitted', required=False)
+	}), label='Not Submitted Today', required=False)
 
 
 class AttendanceForm(forms.ModelForm):

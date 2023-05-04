@@ -202,9 +202,9 @@ def dailyattendance_view(request):
 	dailyattendanceresults = Students.objects.all()
 	if request.method == 'POST':
 		if 'dailyattendance' in request.POST:
-			global searchedgrade
+			#global searchedgrade
 			searchedgrade = request.POST.get('grade')
-			global searchedsection
+			#global searchedsection
 			searchedsection = request.POST.get('section')
 			submitted = request.POST.get('submitted')
 			notsubmitted = request.POST.get('notsubmitted')
@@ -223,40 +223,63 @@ def dailyattendance_view(request):
 		elif 'exportpdfdaily' in request.POST:
 			return exportpdfdailyattendance_view(request)
 
+	context = {
+		'object_list':dailyattendanceresults,
+		'datetoday':datetoday,
+		'attendancerecord':attendancerecordform,
+	}
+	return render(request, 'dailyattendance.html', context)
+
+def totalattendance_view(request):
 	#form = PdfFilterForm(request.POST or None)
 	#allstudents = Students.objects.order_by('classnumber')
-#	
 	#sections = SectionList.objects.order_by('highschool')
 	#if request.method == "POST":
 		#global grade
 		#grade = request.POST.get('gradeselect')
 		#global section
 		#section = request.POST.get('section')
-		#return exportpdfdailyattendance_view(request)
-	context = {
-		'object_list':dailyattendanceresults,
-		'datetoday':datetoday,
+		#return exportpdftotalattendance_view(request)
+#
+	#context = {
+		#'object_list':allstudents,
 		#'sections':sections,
-		'attendancerecord':attendancerecordform,
-	}
-	return render(request, 'dailyattendance.html', context)
+	#}
 
-def totalattendance_view(request):
-	form = PdfFilterForm(request.POST or None)
-	allstudents = Students.objects.order_by('classnumber')
-	sections = SectionList.objects.order_by('highschool')
-	if request.method == "POST":
-		global grade
-		grade = request.POST.get('gradeselect')
-		global section
-		section = request.POST.get('section')
-		return exportpdftotalattendance_view(request)
+	attendancerecordform = AttendanceRecord(request.POST or None)
+	sectionchoices = SectionList.objects.order_by('highschool').values_list('section', 'section')
+	attendancerecordform.fields['section'].choices = sectionchoices
+	datetoday = datetime.today().strftime('%m-%d-%Y')
+	global totalattendanceresults
+	totalattendanceresults = Students.objects.all()
+	if request.method == 'POST':
+		if 'totalattendance' in request.POST:
+			#global searchedgrade
+			searchedgrade = request.POST.get('grade')
+			#global searchedsection
+			searchedsection = request.POST.get('section')
+			submitted = request.POST.get('submitted')
+			notsubmitted = request.POST.get('notsubmitted')
+		
+			print(searchedgrade,searchedsection)
+			print(submitted, notsubmitted)
+			
+			
+			if notsubmitted == 'on' and submitted == None:
+				totalattendanceresults = Students.objects.filter(grade=searchedgrade, section=searchedsection, attendancesubmit=None)	
+			elif submitted == 'on' and notsubmitted == None:
+				totalattendanceresults = Students.objects.filter(grade=searchedgrade, section=searchedsection).exclude(attendancesubmit=None)
+			else: 
+				totalattendanceresults = Students.objects.filter(grade=searchedgrade, section=searchedsection)
+	
+		elif 'exportpdftotal' in request.POST:
+			return exportpdftotalattendance_view(request)
 
 	context = {
-		'object_list':allstudents,
-		'sections':sections,
-	}
-		
+		'object_list':totalattendanceresults,
+		'datetoday':datetoday,
+		'attendancerecord':attendancerecordform,
+	}	
 	return render(request, 'totalattendance.html', context)
 
 @login_required(login_url='/login/')
@@ -486,17 +509,12 @@ def exportpdftotalattendance_view(request):
 	pdf = SimpleDocTemplate(buffer,pagesize=A4)
 	
 	#Table Start
-	if not grade == "Grade":
-		defaultheader = False
-		queryset = Students.objects.filter(grade=grade, section=section).order_by('classnumber').values_list('classnumber','email','lates','absents','spr')
-	else:
-		defaultheader = True
-		queryset = Students.objects.filter(grade=13).order_by('section').values_list('classnumber','email','lates','absents','spr')
-	
 	colorlist = [colors.Color(245/255,253/255,250/255),colors.Color(179/255,232/255,205/255)]
 	querylist = []
 	tableheader = ['CN','Email','Lates','Absents','SPRs']
 	querylist.append(tableheader)
+	queryset = totalattendanceresults.values_list('classnumber','email','lates','absents','spr')
+
 	for i in queryset:
 		querylist.append(list(i))
 	table=Table(querylist)
@@ -526,13 +544,9 @@ def exportpdftotalattendance_view(request):
 		alignment=1
 		)
 
-	pdfname = grade+section
+	pdfname = str(totalattendanceresults[0].grade)+totalattendanceresults[0].section
 	header = Paragraph(pdfname+" Attendance", headerstyles)
 	datetoday = Paragraph("As of "+str(datetime.now().date()), headerstyles)
-
-	if defaultheader:
-		header = Paragraph("You did not submit a grade level or a section!!", headerstyles)
-		datetoday = Paragraph('')
 
 	elems = []
 	elems.append(header)
@@ -547,18 +561,13 @@ def exportpdftotalattendance_view(request):
 	return FileResponse(buffer, as_attachment=True, filename=pdfname+"_totalattendance.pdf")
 
 def exportpdfdailyattendance_view(request):
-	print("PDF PDF PDF WORKS")
 	buffer = io.BytesIO()
 	pdf = SimpleDocTemplate(buffer,pagesize=A4)
-	
 	#Table Start
-	
-	
 	colorlist = [colors.Color(245/255,253/255,250/255),colors.Color(179/255,232/255,205/255)]
 	querylist = []
 	tableheader = ['CN','Email','Late','Absent','Time']
 	querylist.append(tableheader)
-	print(dailyattendanceresults)
 	queryset = dailyattendanceresults.values_list('classnumber','email','latetoday','absenttoday','attendancesubmit__submit_time')
 	for i in queryset:
 		querylist.append(list(i))
@@ -589,7 +598,7 @@ def exportpdfdailyattendance_view(request):
 		alignment=1
 		)
 
-	pdfname = searchedgrade+searchedsection
+	pdfname = str(dailyattendanceresults[0].grade)+dailyattendanceresults[0].section
 	header = Paragraph(pdfname+" Attendance", headerstyles)
 	datetoday = Paragraph("On "+str(datetime.now().date()), headerstyles)
 

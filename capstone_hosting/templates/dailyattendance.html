@@ -15,61 +15,23 @@
 			background: url('{% static "img/newbgwide.png" %}') ;
 			background-size: 100% 100%;
 		}
-		form{
-			color: white;
-			font-size: 20px;
-		}
-		input[type='checkbox']{
-			height: 20px;
-			width: 20px;
-			vertical-align: middle;
-		}
-		#headerbox{
-			height: 250px;
-		}
-		input[type='radio'] {
-			display: inline;
-		}
-		tbody{
-			background-color: #b3e8cd;
-		}
-		tr:nth-child(even){
-			background-color: #f5fdfa;
-		}
-		#recordbutton{
-			margin-top: 5px;
-			height: 40px;
-			width: 100px;
-			border: none;
-			background-color: white;
-		}
-		@media all and (max-width: 512px) {
-		    	/* put your css styles in here */
-		    #headerbox{
-		    	height: 375px;
-		    }
-		}
+		
 	</style>
 </head>
 <body>
-	<!--<form method="post" id='formtest'>{% csrf_token %}
-		<input type="text" name="gradeselect" id='pdfinputgrade'>
-		<input type="text" name="section" id='pdfinputsection'>
-		<input type="submit" name="daily">
-	</form>-->
 
 	<div id='headerbox'>
 		<div id='outercontainer'>
 			<div id='container'>
-				<h1>Attendance on {{ datetoday }}</h1>
+				<h1>{{ datetoday }}</h1>
 				<form method="POST" id='attendanceform'>{% csrf_token %}
 					{{ attendancerecord.grade }}
 					{{ attendancerecord.section }}
 					{{ attendancerecord.submitted.label }}
-					{{ attendancerecord.submitted }}
+					{{ attendancerecord.submitted }}<br id='hiddenbreak'>
 					{{ attendancerecord.notsubmitted.label }}
 					{{ attendancerecord.notsubmitted }}<br>
-					<input type="submit" name="dailyattendance" id='recordbutton' value='Filter'>
+					<input type="submit" name="dailyattendance" id='filterbutton' value='Filter'>
 				</form>
 			</div>
 		</div>

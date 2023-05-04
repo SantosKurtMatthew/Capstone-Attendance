@@ -15,87 +15,33 @@
 		body{
 			background: url('{% static "img/newbgwide.png" %}') ;
 			background-size: 100% 100%;
-		}	
-		
-	</style>
-	<script type="text/javascript">
-		//Obtained from https://www.youtube.com/watch?v=LkVA3AWmkQQ
-		function sortGradeLevel(){
-			var gradeinput = document.getElementById('gradelevel');
-			var gradefilter = gradeinput.value
-
-			var sectioninput = document.getElementById('section');
-			var sectionfilter = sectioninput.value
-
-			var table = document.getElementById('studenttable');
-			var tr = table.getElementsByTagName('tr');
-			
-
-			for(i=0; i < tr.length; i++){
-				var gradecolumn = tr[i].getElementsByTagName('td')[3];
-				var sectioncolumn = tr[i].getElementsByTagName('td')[4];
-
-				if(gradecolumn && sectioncolumn){
-					var gcvalue = gradecolumn.innerText; //it means gradecolumnvalue
-					var scvalue = sectioncolumn.innerText;
-
-					if(gcvalue.indexOf(gradefilter)>-1 && scvalue.indexOf(sectionfilter)>-1){
-						tr[i].style.display='';
-	
-					}
-					else{
-						tr[i].style.display='none';
-					}
-				}
-			}
-		jQuery('tr:visible').filter(':odd').css({'background-color': '#b3e8cd'});
-		jQuery('tr:visible').filter(':even').css({'background-color': '#f5fdfa'});
-
-		document.getElementById('pdfinputgrade').value = gradefilter
-		document.getElementById('pdfinputsection').value = sectionfilter
 		}
-	</script>
+	</style>
+	
 </head>
 
-<body onload="sortGradeLevel()" >
-	<form method="post" id='formtest'>{% csrf_token %}
-		<input type="text" name="gradeselect" id='pdfinputgrade'>
-		<input type="text" name="section" id='pdfinputsection'>
-		<input type="submit" name="total">
-	</form>
+<body>
 
 	<div id='headerbox'>
 		<div id='outercontainer'>
 			<div id='container'>
 				<h1>Student Database</h1>
-
-				<div id ='dropdowncontainer'>
-					
-						<select id='gradelevel' onchange='sortGradeLevel()' class="h3">
-							<option>Grade</option>
-							<option value='7'>7</option>
-							<option value='8'>8</option>
-							<option value='9'>9</option>
-							<option value='10'>10</option>
-							<option value='11'>11</option>
-							<option value='12'>12</option>
-						</select>
-					
-					
-					<select id='section' onchange='sortGradeLevel()' class="h3">
-						<option>Section</option>
-						{% for instance in sections %}
-							<option>{{ instance.section }}</option>
-						{% endfor %}
-					</select>	
-				</div>
+				<form method="POST" id='attendanceform'>{% csrf_token %}
+					{{ attendancerecord.grade }}
+					{{ attendancerecord.section }}
+					{{ attendancerecord.submitted.label }}
+					{{ attendancerecord.submitted }}<br id='hiddenbreak'>
+					{{ attendancerecord.notsubmitted.label }}
+					{{ attendancerecord.notsubmitted }}<br>
+					<input type="submit" name="totalattendance" id='filterbutton' value='Filter'>
+				</form>
 			</div>
 		</div>
 
 		<div id='buttonbox' >
-			<button id='generatepdf' class="d-flex align-items-center justify-content-center">
-				Export as PDF
-			</button>
+			<form method="post" action='{% url "exportpdftotalattendance" %}'>{% csrf_token %}
+				<button id='generatepdf' type="submit" name="exportpdftotal">Export as PDF</button>
+			</form>
 		</div>
 	</div>
 	
@@ -156,11 +102,4 @@
 	{% endblock %}
 </body>
 </html>
-
-
-<!--<form method='POST'>{% csrf_token %}
-	</form> 
-#notneeded{
-	display: none;
-}-->
 
