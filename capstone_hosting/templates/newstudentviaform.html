@@ -39,13 +39,49 @@
 			font-size: 30px;
 			font-weight: bold;
 		}
-		#lrninput{
-			
+		#marginbox{
+			display: none;
+		}
+		
+		@media all and (max-height: 850px) {
+		    #marginbox{
+		    	display: block;
+		    	height: 60px;
+		    }
+		    footer{
+		    	display: none;
+		    }
+		}
+		@media all and (max-height: 800px) {
+		    #marginbox{
+		    	height: 80px;
+		    }
+		}
+		@media all and (max-height: 750px) {
+		    #marginbox{
+		    	height: 115px;
+		    }
+		}
+		@media all and (max-height: 700px) {
+		    #marginbox{
+		    	height: 150px;
+		    }
+		}
+		@media all and (max-height: 650px) {
+		    #marginbox{
+		    	height: 210px;
+		    }
+		}
+		@media all and (max-height: 550px) {
+		    #marginbox{
+		    	height: 240px;
+		    }
 		}
 	</style>
 </head>
 <body> 
 	<div id='outsidebox' class="align-items-center justify-content-center">
+		
 		<div id='formbox'>
 			{% if messages %}
 			<div id='messages' class="align-items-center">
@@ -54,6 +90,7 @@
 			    {% endfor %}
 			</div>
 			{% endif %}
+			<div id='marginbox'>Text</div>
 			<form method='POST' >{% csrf_token %}
 				<label id='formlabel'>Insert New Student</label>
 				{{ form.as_p }}

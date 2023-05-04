@@ -38,14 +38,17 @@
 			background-color: #ffffb5;
 			color: black;
 			font-size: 30px;
+			
 		}
 		.btn-link:hover{
 			background-color: #016634;
 			color: white;
+
 		}
 		.card-header{
 			background-color: #016634;
 		}
+		
 	</style>
 </head>
 <body>
@@ -54,8 +57,8 @@
 	  <div class="card" >
 	    <div class="card-header" id="headingOne">
 	      <h5 class="mb-0">
-	        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-	          (Simplified) How to use the website
+	        <button class="btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+				(Simplified) How to use the website
 	        </button>
 	      </h5>
 	    </div>
@@ -69,7 +72,7 @@
 	  <div class="card">
 	    <div class="card-header" id="headingTwo">
 	      <h5 class="mb-0">
-	        <button class="btn btn-link collapsed " data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+	        <button class="btn-link " data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 	          Setting Up at the Start of the Year
 	        </button>
 	      </h5>
@@ -116,7 +119,7 @@
 	  <div class="card">
 	    <div class="card-header" id="headingThree">
 	      <h5 class="mb-0">
-	        <button class="btn btn-link collapsed " data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
+	        <button class="btn-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
 	          Daily Use
 	        </button>
 	      </h5>
@@ -145,72 +148,7 @@
 	      <div id='bottombox'></div>
 	    </div>
 	  </div>
-	  <!--<div class="card">
-	    <div class="card-header" id="headingThree">
-	      <h5 class="mb-0">
-	        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-	          (Students) How to Use the Website 
-	        </button>
-	      </h5>
-	    </div>
-	    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-	      <div class="card-body">
-	        <div>
-	        	<h4 class='font-weight-bold'>Submitting Attendance</h4>
-	        	In the “Attendance Submit” page, there is a form that asks for your email and a daily password. The teacher will provide the daily password in the form of a 4 digit number.
-	        </div>
-	      </div>
-	    </div>
-	  </div>
-	    <div class="card">
-	      <div class="card-header" id="headingFour">
-	        <h5 class="mb-0">
-	          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-	            The Pages
-	          </button>
-	        </h5>
-	      </div>
-	      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-	        <div class="card-body">
-	          <div>
-	          	<h4 class='font-weight-bold'>Attendance Submit</h4>
-	          	This is just a form for the students to submit their attendance that will get logged into the database connected to this website.
-	          </div>
-	          <br>
-	          <div>
-	          	<h4 class='font-weight-bold'>Daily Password</h4>
-	          	An account is required for this, so only teachers should be able to see it. This is where the website shows the 4 digit number for the day or the daily password. It is also where the teachers can set the time that their classes start in order to make the website accurate in logging lates.
-	          </div>
-	          <br>
-	          <div>
-	          	<h4 class='font-weight-bold'>Start Times</h4>
-	          	An account is also required for this page. It is where the teachers can set the time that their classes start in order to make the website accurate in logging lates. A class with a start time of 7:00 will consider any submissions after 7:00 as late.
-	          </div>
-	          <br>
-	          <div>
-	          	<h4 class='font-weight-bold'>Daily Attendance</h4>
-	          	This shows a table for who is late and who is absent today. It has a filter for grade and section to make going through the entries easier.
-	          </div>
-	          <br>
-	          <div>
-	          	<h4 class='font-weight-bold'>Student Database</h4>
-	          	Similar to the “Daily Attendance” page, this shows a table of students. It displays their info, such as their total number of lates, absences, and SPRs. It also has a filter for grade level and section.
-	          </div>
-	          <br>
-	          <div>
-	          	<h4 class='font-weight-bold'>Create/Delete Student</h4>
-	          	An account is required for these pages. These pages are to add or delete entries of students in the database by accomplishing the respective forms provided in the page. <br><br>
-	          	The "Delete Student" page also has a button labelled "Clear All Databases" which will completely clear all student emails and records of the 4 digit password in the database. This button should only be used at the end of the year when the records are no longer necessary.
-	          </div>
-	          <br>
-	          <div>
-	          	<h4 class='font-weight-bold'>Account</h4>
-	          	These pages are to do things related to the teachers’ accounts in this website. It allows you to make a new account and to log in and out.
-
-	          </div>
-	        </div>
-	      </div>
-	    </div>-->
+	 
 	  </div>
 	</div>
 
@@ -224,3 +162,4 @@
 	{% endblock %}
 </body>
 </html>
+

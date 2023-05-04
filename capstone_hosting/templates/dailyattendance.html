@@ -15,88 +15,69 @@
 			background: url('{% static "img/newbgwide.png" %}') ;
 			background-size: 100% 100%;
 		}
-
+		form{
+			color: white;
+			font-size: 20px;
+		}
+		input[type='checkbox']{
+			height: 20px;
+			width: 20px;
+			vertical-align: middle;
+		}
+		#headerbox{
+			height: 250px;
+		}
+		input[type='radio'] {
+			display: inline;
+		}
+		tbody{
+			background-color: #b3e8cd;
+		}
+		tr:nth-child(even){
+			background-color: #f5fdfa;
+		}
+		#recordbutton{
+			margin-top: 5px;
+			height: 40px;
+			width: 100px;
+			border: none;
+			background-color: white;
+		}
 		@media all and (max-width: 512px) {
 		    	/* put your css styles in here */
 		    #headerbox{
-		    	height: 290px;
+		    	height: 375px;
 		    }
 		}
 	</style>
-	<script type="text/javascript">
-		//Obtained from https://www.youtube.com/watch?v=LkVA3AWmkQQ
-		function sortGradeLevel(){
-			var gradeinput = document.getElementById('gradelevel');
-			var gradefilter = gradeinput.value
-
-			var sectioninput = document.getElementById('section');
-			var sectionfilter = sectioninput.value
-
-			var table = document.getElementById('studenttable')
-			var tr = table.getElementsByTagName('tr');
-			
-
-			for(i=0; i < tr.length; i++){
-				var gradecolumn = tr[i].getElementsByTagName('td')[5];
-				var sectioncolumn = tr[i].getElementsByTagName('td')[6];
-
-				if(gradecolumn && sectioncolumn){
-					var gcvalue = gradecolumn.innerText; //it means gradecolumnvalue
-					var scvalue = sectioncolumn.innerText;
-
-					if(gcvalue.indexOf(gradefilter)>-1 && scvalue.indexOf(sectionfilter)>-1){
-						tr[i].style.display='';
-	
-					}
-					else{
-						tr[i].style.display='none';
-					}
-				}
-			}
-			jQuery('tr:visible').filter(':odd').css({'background-color': '#b3e8cd'});
-			jQuery('tr:visible').filter(':even').css({'background-color': '#f5fdfa'});	
-
-			document.getElementById('pdfinputgrade').value = gradefilter
-			document.getElementById('pdfinputsection').value = sectionfilter
-		}
-	</script>
 </head>
-<body onload="sortGradeLevel()" style="background-color: #b3e8cd;">
-	<form method="post" id='formtest'>{% csrf_token %}
+<body>
+	<!--<form method="post" id='formtest'>{% csrf_token %}
 		<input type="text" name="gradeselect" id='pdfinputgrade'>
 		<input type="text" name="section" id='pdfinputsection'>
 		<input type="submit" name="daily">
-	</form>
+	</form>-->
 
 	<div id='headerbox'>
 		<div id='outercontainer'>
 			<div id='container'>
 				<h1>Attendance on {{ datetoday }}</h1>
-
-				<div id ='dropdowncontainer'>
-					<select id='gradelevel' onchange='sortGradeLevel()' class="h3">
-						<option>Grade</option>
-						<option value='7'>7</option>
-						<option value='8'>8</option>
-						<option value='9'>9</option>
-						<option value='10'>10</option>
-						<option value='11'>11</option>
-						<option value='12'>12</option>
-					</select>
-					<select id='section' onchange='sortGradeLevel()' class="h3">
-						<option>Section</option>
-						{% for instance in sections %}
-							<option>{{ instance.section }}</option>
-						{% endfor %}
-					</select>	
-				</div>
+				<form method="POST" id='attendanceform'>{% csrf_token %}
+					{{ attendancerecord.grade }}
+					{{ attendancerecord.section }}
+					{{ attendancerecord.submitted.label }}
+					{{ attendancerecord.submitted }}
+					{{ attendancerecord.notsubmitted.label }}
+					{{ attendancerecord.notsubmitted }}<br>
+					<input type="submit" name="dailyattendance" id='recordbutton' value='Filter'>
+				</form>
 			</div>
 		</div>
 
 		<div id='buttonbox' >
-			<button id='generatepdf' class="d-flex align-items-center justify-content-center">
-				Export as PDF
-			</button>
+			<form method="post" action='{% url "exportpdfdailyattendance" %}'>{% csrf_token %}
+				<button id='generatepdf' type="submit" name="exportpdfdaily">Export as PDF</button>
+			</form>
 		</div>
 	</div>
 	

@@ -63,14 +63,6 @@
 			font-size: 30px;
 			font-weight: bold;
 		}
-		.repeat{
-			background-color: #e63d3d;
-			width: 100%;
-			height: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
 		#emailinput{
 			text-transform: lowercase;
 		}
@@ -90,12 +82,20 @@
 		    	text-align: center;
 		    }
 		}
+		@media all and (max-height: 700px) {
+			#formbox form{
+				height: 100%
+			}
+			#outercontainer{
+				display: none;
+			}
+		}
 		
 	</style>
 </head>
 <body onload="showDate()">
 
-	<div id="outsidebox" class="align-items-center justify-content-center">
+	<div id="outsidebox" class="d-flex align-items-center justify-content-center">
 
 		{% if messages %}
 				<div id='messages' class=" align-items-center">
@@ -106,7 +106,7 @@
 				</div>
 		{% endif %}
 
-		<div id="formbox">
+		<div id="formbox" class="d-flex align-items-center justify-content-center">
 			<form method='POST' >{% csrf_token %}
 				<!--Put in form above onpaste="return false"-->
 				<label id='formlabel'>Submit Attendance</label>

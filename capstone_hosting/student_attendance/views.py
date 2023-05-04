@@ -18,6 +18,7 @@ from reportlab.platypus import Table, TableStyle, SimpleDocTemplate, Paragraph, 
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib import colors
 from .forms import (
+	AttendanceRecord,
 	AttendanceForm, 
 	StudentsInfoForm, 
 	ChangeStartingTime, 
@@ -193,20 +194,50 @@ def startingtimes_view(request):
 	return render(request, 'startingtimes.html', context)
 
 def dailyattendance_view(request):
-	form = PdfFilterForm(request.POST or None)
-	allstudents = Students.objects.order_by('classnumber')
+	attendancerecordform = AttendanceRecord(request.POST or None)
+	sectionchoices = SectionList.objects.order_by('highschool').values_list('section', 'section')
+	attendancerecordform.fields['section'].choices = sectionchoices
 	datetoday = datetime.today().strftime('%m-%d-%Y')
-	sections = SectionList.objects.order_by('highschool')
-	if request.method == "POST":
-		global grade
-		grade = request.POST.get('gradeselect')
-		global section
-		section = request.POST.get('section')
-		return exportpdfdailyattendance_view(request)
+	global dailyattendanceresults
+	dailyattendanceresults = Students.objects.all()
+	if request.method == 'POST':
+		if 'dailyattendance' in request.POST:
+			global searchedgrade
+			searchedgrade = request.POST.get('grade')
+			global searchedsection
+			searchedsection = request.POST.get('section')
+			submitted = request.POST.get('submitted')
+			notsubmitted = request.POST.get('notsubmitted')
+		
+			print(searchedgrade,searchedsection)
+			print(submitted, notsubmitted)
+			
+			
+			if notsubmitted == 'on' and submitted == None:
+				dailyattendanceresults = Students.objects.filter(grade=searchedgrade, section=searchedsection, attendancesubmit=None)	
+			elif submitted == 'on' and notsubmitted == None:
+				dailyattendanceresults = Students.objects.filter(grade=searchedgrade, section=searchedsection).exclude(attendancesubmit=None)
+			else: 
+				dailyattendanceresults = Students.objects.filter(grade=searchedgrade, section=searchedsection)
+	
+		elif 'exportpdfdaily' in request.POST:
+			return exportpdfdailyattendance_view(request)
+
+	#form = PdfFilterForm(request.POST or None)
+	#allstudents = Students.objects.order_by('classnumber')
+#	
+	#sections = SectionList.objects.order_by('highschool')
+	#if request.method == "POST":
+		#global grade
+		#grade = request.POST.get('gradeselect')
+		#global section
+		#section = request.POST.get('section')
+		#return exportpdfdailyattendance_view(request)
 	context = {
-		'object_list':allstudents,
+		'object_list':dailyattendanceresults,
 		'datetoday':datetoday,
-		'sections':sections,
+		#'sections':sections,
+		'attendancerecord':attendancerecordform,
 	}
 	return render(request, 'dailyattendance.html', context)
 
@@ -396,25 +427,28 @@ def latehistory_view(request):
 		return exportpdfhistory_view(request)
 	return render(request, 'latehistory.html', {})
 
-	
-
 def dailyfunction_view(request):
 	dailypassword = DailyInteger.objects.latest('id')
 
 	if not (dailypassword.integer == 999):
 		absentees = Students.objects.filter(absenttoday=True)
 		lates = Students.objects.filter(latetoday=True)
-		yesterday = AttendanceSubmit.objects.latest('id').submit_time
-		dateyesterday = yesterday.date()+timedelta(1)
-		for i in absentees:
-			a = AbsentList(student=i, absentdate=dateyesterday)
-			a.save()
-		for i in lates:
-			attsub = AttendanceSubmit.objects.get(email=i.email)
-			fixedtime = attsub.submit_time+timedelta(hours=8)
-			submittime = fixedtime.time()
-			b = LateList(student=i, submittime=submittime, latedate=dateyesterday)
-			b.save()
+		attendancesubmitexists = AttendanceSubmit.objects.filter().exists()
+		if attendancesubmitexists == True:
+			yesterday = AttendanceSubmit.objects.latest('id').submit_time
+			dateyesterday = yesterday.date()+timedelta(1)
+			for i in absentees:
+				a = AbsentList(student=i, absentdate=dateyesterday)
+				a.save()
+			for i in lates:
+				print(i.email)
+				attsub = AttendanceSubmit.objects.get(email=i.email)
+				fixedtime = attsub.submit_time+timedelta(hours=8)
+				submittime = fixedtime.time()
+				b = LateList(student=i, submittime=submittime, latedate=dateyesterday)
+				b.save()
+		else:
+			pass
 	else:
 		pass
 
@@ -513,21 +547,19 @@ def exportpdftotalattendance_view(request):
 	return FileResponse(buffer, as_attachment=True, filename=pdfname+"_totalattendance.pdf")
 
 def exportpdfdailyattendance_view(request):
+	print("PDF PDF PDF WORKS")
 	buffer = io.BytesIO()
 	pdf = SimpleDocTemplate(buffer,pagesize=A4)
 	
 	#Table Start
-	if not grade == "Grade":
-		defaultheader = False
-		queryset = Students.objects.filter(grade=grade, section=section).order_by('classnumber').values_list('classnumber','email','latetoday','absenttoday','attendancesubmit__submit_time')
-	else:
-		defaultheader = True
-		queryset = Students.objects.filter(grade=13).order_by('section').values_list('classnumber','email','latetoday','absenttoday','attendancesubmit__submit_time')
+	
 	
 	colorlist = [colors.Color(245/255,253/255,250/255),colors.Color(179/255,232/255,205/255)]
 	querylist = []
 	tableheader = ['CN','Email','Late','Absent','Time']
 	querylist.append(tableheader)
+	print(dailyattendanceresults)
+	queryset = dailyattendanceresults.values_list('classnumber','email','latetoday','absenttoday','attendancesubmit__submit_time')
 	for i in queryset:
 		querylist.append(list(i))
 	table=Table(querylist)
@@ -557,14 +589,11 @@ def exportpdfdailyattendance_view(request):
 		alignment=1
 		)
 
-	pdfname = grade+section
+	pdfname = searchedgrade+searchedsection
 	header = Paragraph(pdfname+" Attendance", headerstyles)
 	datetoday = Paragraph("On "+str(datetime.now().date()), headerstyles)
 
-	if defaultheader:
-		header = Paragraph("You did not submit a grade level or a section!!", headerstyles)
-		datetoday = Paragraph('')
-
+	
 	elems = []
 	elems.append(header)
 	elems.append(Spacer(10,10))
@@ -644,3 +673,4 @@ def exportpdfhistory_view(request):
 	buffer.seek(0)
 	
 	return FileResponse(buffer, as_attachment=True, filename=pdfname+filename)
+

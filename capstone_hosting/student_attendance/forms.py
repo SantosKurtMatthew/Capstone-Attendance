@@ -9,6 +9,24 @@ from datetime import datetime, timedelta
 class DateInput(forms.DateInput):
 	input_type = 'date'
 
+class AttendanceRecord(forms.Form):
+	grade = forms.ChoiceField(widget=forms.Select(attrs={
+		'required':True,
+		'id':'gradelevel'
+
+		}), choices=((7,7),(8,8),(9,9),(10,10),(11,11),(12,12)), label='')
+	section = forms.ChoiceField(widget=forms.Select(attrs={
+		'required':True,
+		'id':'section'
+		}), choices=(), label='')
+	submitted = forms.BooleanField(widget=forms.CheckboxInput(attrs={
+	'class':"form-check form-check-inline"
+	}), label='Submitted', required=False)
+	notsubmitted = forms.BooleanField(widget=forms.CheckboxInput(attrs={
+		'class':"form-check form-check-inline"
+	}), label='Not Submitted', required=False)
+
+
 class AttendanceForm(forms.ModelForm):
 	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':"Email",'id':'emailinput'}), label='')
 	password = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':" Daily Password"}), label='')
@@ -124,7 +142,7 @@ class StudentsInfoForm(forms.ModelForm):
 
 
 class ChangeStartingTime(forms.ModelForm):
-	grade = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':"Grade Level"}), label='')
+	grade = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':"Grade"}), label='')
 	starttime = forms.TimeField(widget=forms.TextInput(attrs={'placeholder':"Start Time"}), label='')
 	lastday = forms.DateField(widget=DateInput, initial=datetime.today()+timedelta(days=240))
 	class Meta:
@@ -180,7 +198,6 @@ class PdfFilterForm(forms.Form):
 		}), label='')
 
 class CustomUserCreationForm(UserCreationForm):
-
 	class Meta:
 		model = User
 		fields = [
